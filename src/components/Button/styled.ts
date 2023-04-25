@@ -7,4 +7,8 @@ export const Button = styled.button`
   border: none;
   border-radius: 8px;
   cursor: pointer;
+
+  &:disabled {
+    background-color: grey;
+  }
 `;
