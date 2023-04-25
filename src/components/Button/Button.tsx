@@ -1,9 +1,6 @@
-import styled from 'styled-components';
+import { FC } from 'react';
+import * as Styled from './styled';
 
-export const Button = styled.button`
-  padding: 4px 8px;
-  background: green;
-  color: white;
-  border: none;
-  border-radius: 8px;
-`;
+type ButtonProps = {} & React.HTMLProps<HTMLButtonElement>;
+
+export const Button: FC<ButtonProps> = ({ children }) => <Styled.Button>{children}</Styled.Button>;
