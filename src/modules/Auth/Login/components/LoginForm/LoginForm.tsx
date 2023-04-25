@@ -1,9 +1,9 @@
-import { Input } from 'components';
+import { Button, Input } from 'components';
 import { useLoginForm } from '../../hooks';
 
 export const LoginForm = () => {
   const {
-    submitForm, formFields, setFieldValue, errors,
+    submitForm, formFields, setFieldValue, errors, isLoading,
   } = useLoginForm();
 
   return (
@@ -30,7 +30,7 @@ export const LoginForm = () => {
           error={errors.password}
         />
       </div>
-      <button type="submit">Login</button>
+      <Button type="submit" disabled={isLoading}>Login</Button>
     </form>
   );
 };

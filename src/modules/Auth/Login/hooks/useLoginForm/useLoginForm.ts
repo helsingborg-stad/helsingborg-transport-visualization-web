@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ZodError } from 'zod';
+import { useAuthApi } from 'hooks/useAuthApi';
 import { LoginFormType, LoginValidation } from './login.validation';
 
 type ErrorMessage = {
@@ -8,6 +9,8 @@ type ErrorMessage = {
 };
 
 export const useLoginForm = () => {
+  const { login } = useAuthApi();
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [formFields, setFormFields] = useState<LoginFormType>({
     email: '',
@@ -25,6 +28,7 @@ export const useLoginForm = () => {
 
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     setErrors({});
     try {
       LoginValidation.parse(formFields);
@@ -39,10 +43,17 @@ export const useLoginForm = () => {
           }
         });
         setErrors(zodErrors);
+        setIsLoading(false);
+        return;
       }
     }
 
-    // TODO: connect to api for login
+    // TODO: update error message
+    login(formFields)
+      .then((data) => console.log(data))
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .catch((err) => setErrors({ email: 'fel uppgifter' }))
+      .finally(() => setIsLoading(false));
   };
 
   return {
@@ -50,5 +61,6 @@ export const useLoginForm = () => {
     setFieldValue,
     formFields,
     errors,
+    isLoading,
   };
 };

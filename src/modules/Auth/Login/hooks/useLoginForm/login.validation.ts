@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+// TODO: update password constraints
 export const LoginValidation = z.object({
   email: z
     .string()
