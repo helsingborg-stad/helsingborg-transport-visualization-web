@@ -1,36 +1,40 @@
-import { Button, Input } from 'components';
+import { Button, Input, Link } from 'components';
 import { useLoginForm } from '../../hooks';
+import * as Styled from './styled';
 
 export const LoginForm = () => {
   const {
     submitForm, formFields, setFieldValue, errors, isLoading,
   } = useLoginForm();
 
+  // TODO: add correct href to link
   return (
-    <form onSubmit={submitForm}>
-      <div>
-        <Input
-          type="email"
-          placeholder="Enter email"
-          name="email"
-          id="email"
-          value={formFields.email}
-          onChange={setFieldValue('email')}
-          error={errors.email}
-        />
-      </div>
-      <div>
-        <Input
-          type="password"
-          placeholder="Enter Password"
-          name="password"
-          id="password"
-          value={formFields.password}
-          onChange={setFieldValue('password')}
-          error={errors.password}
-        />
-      </div>
-      <Button type="submit" disabled={isLoading}>Login</Button>
-    </form>
+    <Styled.FormContainer onSubmit={submitForm}>
+
+      <Input
+        type="email"
+        placeholder="Organisationsnummer / mejladress"
+        name="email"
+        id="email"
+        value={formFields.email}
+        onChange={setFieldValue('email')}
+        error={errors.email}
+      />
+      <Input
+        type="password"
+        placeholder="Lösenord"
+        name="password"
+        id="password"
+        value={formFields.password}
+        onChange={setFieldValue('password')}
+        error={errors.password}
+      />
+      <Styled.LinkContainer>
+        <Link label="Glömt lösenord?" href="/" />
+      </Styled.LinkContainer>
+      <Styled.ButtonContainer>
+        <Button type="submit" disabled={isLoading}>Logga in</Button>
+      </Styled.ButtonContainer>
+    </Styled.FormContainer>
   );
 };
