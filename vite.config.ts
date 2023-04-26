@@ -11,6 +11,7 @@ export default defineConfig({
       api: `${path.resolve(__dirname, "./src/api/")}`,
       components: `${path.resolve(__dirname, "./src/components/")}`,
       hooks: `${path.resolve(__dirname, "./src/hooks/")}`,
+      layouts: `${path.resolve(__dirname, "./src/layouts/")}`,
       modules: path.resolve(__dirname, "./src/modules"),
       types: `${path.resolve(__dirname, "./src/@types")}`,
     },
