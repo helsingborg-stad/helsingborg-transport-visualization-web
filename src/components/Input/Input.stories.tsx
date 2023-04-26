@@ -11,14 +11,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: 'Your email address',
     placeholder: 'Enter email',
   },
 };
 
 export const Error: Story = {
   args: {
-    label: 'Your email address',
     placeholder: 'Enter email',
     error: 'Ooops, wrong input',
   },
