@@ -1,8 +1,14 @@
 import { FC } from 'react';
 import * as Styled from './styled';
 
-type ButtonProps = {} & React.HTMLProps<HTMLButtonElement>;
-
-export const Button: FC<ButtonProps> = ({ children, disabled }) => (
-  <Styled.Button disabled={disabled}>{children}</Styled.Button>
+export const Button: FC<Styled.ButtonProps> = ({
+  children, disabled, primary, secondary,
+}) => (
+  <Styled.Button
+    disabled={disabled}
+    primary={primary}
+    secondary={secondary}
+  >
+    {children}
+  </Styled.Button>
 );
