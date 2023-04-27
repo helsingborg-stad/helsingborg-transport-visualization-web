@@ -5,12 +5,10 @@ type InputProps = {
 };
 
 export const Input = styled.input<InputProps>`
-  --input-background-color: #F7F7F8;
-
   padding: 15px 16px;
-  font-size: 18px;
-  border-radius: 12px;
+  font-size: var(--font-size-body-lg);
+  border-radius: var(--border-radius-sm);
   border: none;
-  background-color: var(--input-background-color);
+  background-color: var(--color-gray-1);
   width: 100%;
 `;

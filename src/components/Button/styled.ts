@@ -6,15 +6,15 @@ export type ButtonProps = {
 } & React.HTMLProps<HTMLButtonElement>;
 
 export const Button = styled.button<ButtonProps>`
-  --button-background-color: #000000;
-  --button-color: #FFFFFF;
+  --button-background-color: var(--color-black);
+  --button-color: var(--color-white);
 
   font-size: 18px;
   background: var(--button-background-color);
   color: var(--button-color);
   padding: 15px 30px;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
   width: 100%;
 
@@ -24,7 +24,7 @@ export const Button = styled.button<ButtonProps>`
 
   ${({ secondary }) => secondary
     && css`
-      --button-background: #EDEDED;
-      --button-color: #000000;
+      --button-background: var(--color-gray-3);
+      --button-color: var(--color-black);
     `}
 `;
