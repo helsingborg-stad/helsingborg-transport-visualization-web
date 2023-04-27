@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ZodError } from 'zod';
 import { useAuthApi } from 'hooks/useAuthApi';
+import { useAuth } from 'hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { LoginFormType, LoginValidation } from './login.validation';
 
 type ErrorMessage = {
@@ -9,7 +11,9 @@ type ErrorMessage = {
 };
 
 export const useLoginForm = () => {
+  const navigate = useNavigate();
   const { login } = useAuthApi();
+  const { setUser, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [formFields, setFormFields] = useState<LoginFormType>({
@@ -50,7 +54,12 @@ export const useLoginForm = () => {
 
     // TODO: update error message
     login(formFields)
-      .then((data) => console.log(data))
+      .then(({ data }) => {
+        const { token } = data;
+        setToken(token);
+        setUser(data);
+      })
+      .then(() => navigate('/'))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .catch((err) => setErrors({ email: 'fel uppgifter' }))
       .finally(() => setIsLoading(false));

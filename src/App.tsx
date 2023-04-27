@@ -1,6 +1,9 @@
 import { Router } from './modules';
+import { AuthContextProvider } from './contexts';
 import './App.css';
 
 export const App = () => (
-  <Router />
+  <AuthContextProvider>
+    <Router />
+  </AuthContextProvider>
 );
