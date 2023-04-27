@@ -1,4 +1,8 @@
-export enum UserType {
-  ADMIN = 'admin',
-  DRIVER = 'driver',
-}
+export type User = {
+  id: number;
+  token: string;
+  organisationNumber: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};

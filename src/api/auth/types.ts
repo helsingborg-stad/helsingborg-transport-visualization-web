@@ -1,5 +1,3 @@
-import { UserType } from 'types';
-
 export type LoginRequest = {
   email: string;
   password: string;
@@ -8,8 +6,7 @@ export type LoginRequest = {
 export type LoginResponse = {
   id: number;
   token: string;
-  userType: UserType;
-  freightCompanyId?: number;
+  organisationNumber: string;
   email: string;
   createdAt: string;
   updatedAt: string;
