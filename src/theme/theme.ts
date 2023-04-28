@@ -11,6 +11,8 @@ export default css`
   --color-gray-2: #ABABAB;
   --color-gray-3: #EDEDED;
   --color-gray-4: #B3B3B3;
+  --color-gray-5: #9F9F9F;
+  --color-gray-6: #F1F1F1;
 
   --color-red-1: #CC0000;
 
@@ -38,7 +40,7 @@ export default css`
   --font-size-heading-xl: 32px;
   --font-size-heading-lg: 29px;
   --font-size-heading-md: 26px;
-  --font-size-heading-sm: 23px;
+  --font-size-heading-sm: 24px;
   --font-size-heading-xs: 21px;
   --font-size-heading-xxs: 16px;
 
@@ -47,8 +49,10 @@ export default css`
   --font-size-body-md: 16px;
   --font-size-body-sm: 14px;
   --font-size-body-xs: 12px;
+  --font-size-body-xxs: 9px;
 
   --font-weight-800: 800;
+  --font-weight-700: 700;
   --font-weight-600: 600;
   --font-weight-500: 500;
   --font-weight-400: 400;

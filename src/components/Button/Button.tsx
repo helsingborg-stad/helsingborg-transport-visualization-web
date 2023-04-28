@@ -1,7 +1,12 @@
 import { FC } from 'react';
 import * as Styled from './styled';
 
-export const Button: FC<Styled.ButtonProps> = ({
+type ButtonProps = {
+  primary?: boolean;
+  secondary?: boolean;
+} & React.HTMLProps<HTMLButtonElement>;
+
+export const Button: FC<ButtonProps> = ({
   children, disabled, primary, secondary,
 }) => (
   <Styled.Button
@@ -12,3 +17,8 @@ export const Button: FC<Styled.ButtonProps> = ({
     {children}
   </Styled.Button>
 );
+
+Button.defaultProps = {
+  primary: true,
+  secondary: false,
+};
