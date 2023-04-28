@@ -1,24 +1,33 @@
 import { useState } from 'react';
 import { ZodError } from 'zod';
 import { useAuthApi } from 'hooks/useAuthApi';
-import { useAuth } from 'hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { LoginFormType, LoginValidation } from './login.validation';
+import { useAuth } from 'hooks/useAuth';
+import { CreateAccountType, CreateAccountValidation } from './createAccount.validation';
 
 type ErrorMessage = {
-  identifier?: string;
+  email?: string;
   password?: string;
+  orgNumber?: string;
+  name?: string;
+  pinCode?: string;
+  consent?: string;
 };
 
-export const useLoginForm = () => {
+export const useCreateAccountForm = () => {
   const navigate = useNavigate();
-  const { login } = useAuthApi();
+  const { createAccount } = useAuthApi();
+
   const { setOrganisation, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
-  const [formFields, setFormFields] = useState<LoginFormType>({
-    identifier: '',
+  const [formFields, setFormFields] = useState<CreateAccountType>({
+    orgNumber: '',
+    name: '',
+    email: '',
     password: '',
+    pinCode: '',
+    consent: false,
   });
 
   const setFieldValue = (name: string) => ({
@@ -30,13 +39,21 @@ export const useLoginForm = () => {
     });
   };
 
+  const setConsentValue = (checked: boolean) => {
+    setFormFields({
+      ...formFields,
+      consent: checked,
+    });
+  };
+
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrors({});
+
     try {
-      LoginValidation.parse(formFields);
-    } catch (err) {
+      CreateAccountValidation.parse(formFields);
+    } catch (err: any) {
       if (err instanceof ZodError) {
         const zodErrors: Partial<Record<string, string>> = {};
         err.issues.forEach((issue) => {
@@ -48,12 +65,19 @@ export const useLoginForm = () => {
         });
         setErrors(zodErrors);
         setIsLoading(false);
-        return;
       }
+      if (err.message === 'Consent must be given') {
+        setErrors({
+          ...errors,
+          consent: err.message,
+        });
+        setIsLoading(false);
+      }
+      return;
     }
 
-    // TODO: update error message
-    login(formFields)
+    // TODO: update error message from backend
+    createAccount(formFields)
       .then(({ data }) => {
         const { token } = data;
         setToken(token);
@@ -61,7 +85,7 @@ export const useLoginForm = () => {
       })
       .then(() => navigate('/'))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .catch((err) => setErrors({ identifier: 'fel uppgifter' }))
+      .catch((err) => setErrors({ orgNumber: 'Bolag finns redan registrerat' }))
       .finally(() => setIsLoading(false));
   };
 
@@ -71,5 +95,6 @@ export const useLoginForm = () => {
     formFields,
     errors,
     isLoading,
+    setConsentValue,
   };
 };

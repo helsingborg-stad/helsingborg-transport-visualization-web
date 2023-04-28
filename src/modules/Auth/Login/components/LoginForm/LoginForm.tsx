@@ -12,13 +12,13 @@ export const LoginForm = () => {
     <Styled.FormContainer onSubmit={submitForm}>
 
       <Input
-        type="email"
+        type="text"
         placeholder="Organisationsnummer / mejladress"
-        name="email"
-        id="email"
-        value={formFields.email}
-        onChange={setFieldValue('email')}
-        error={errors.email}
+        name="identifier"
+        id="identifier"
+        value={formFields.identifier}
+        onChange={setFieldValue('identifier')}
+        error={errors.identifier}
       />
       <Input
         type="password"

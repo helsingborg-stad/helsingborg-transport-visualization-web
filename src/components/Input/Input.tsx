@@ -13,13 +13,14 @@ type InputProps = {
   id?: string;
   name?: string;
   type: string;
+  info?: string;
 };
 
 export const Input: FC<InputProps> = ({
-  error, value, onChange, placeholder, id, name, disabled, label, type,
+  error, value, onChange, placeholder, id, name, disabled, label, type, info,
 }) => (
   <div>
-    <p>{label}</p>
+    <Styled.Label>{label}</Styled.Label>
     <Styled.Input
       error={!!error}
       placeholder={placeholder}
@@ -30,7 +31,8 @@ export const Input: FC<InputProps> = ({
       name={`input-${name}`}
       type={type}
     />
-    <p>{error}</p>
+    <Styled.ErrorText>{error}</Styled.ErrorText>
+    <Styled.Info>{info}</Styled.Info>
   </div>
 );
 
@@ -40,4 +42,5 @@ Input.defaultProps = {
   disabled: false,
   id: undefined,
   name: undefined,
+  info: '',
 };

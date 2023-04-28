@@ -3,15 +3,15 @@ import { AuthContext } from 'contexts/AuthContext';
 
 export const useAuth = () => {
   const {
-    user, setUser, loadingUser, hasToken, setToken, logOut,
+    organisation, setOrganisation, loadingOrganisation, hasToken, setToken, logOut,
   } = useContext(AuthContext);
 
   return {
     logOut,
-    user,
-    loadingUser,
+    organisation,
+    loadingOrganisation,
     hasToken,
     setToken,
-    setUser,
+    setOrganisation,
   };
 };

@@ -10,7 +10,7 @@ const Landing = lazy(() => import('./Landing'));
 export const Router = () => (
   <BrowserRouter>
     <MainLayout>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <Routes>
           <Route index element={<Landing />} />
           <Route path="/auth/*" element={<Auth />} />

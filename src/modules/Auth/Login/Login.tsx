@@ -2,7 +2,6 @@ import { Link } from 'components/Link';
 import { LoginForm } from './components';
 import * as Styled from './styled';
 
-// TODO: add correct href to link
 export const Login = () => (
   <Styled.Container>
     <Styled.Heading>Välkommen till Samlastningschansen</Styled.Heading>
@@ -15,7 +14,7 @@ export const Login = () => (
     <Styled.CreateAccountText>
       Har du inget konto än?
       {' '}
-      <Link label="Skapa nytt konto" href="/" />
+      <Link label="Skapa nytt konto" href="signup" />
     </Styled.CreateAccountText>
   </Styled.Container>
 );

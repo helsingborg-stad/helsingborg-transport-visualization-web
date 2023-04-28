@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 // import { useAuthApi } from 'hooks/useAuthApi';
-import { User } from 'types';
+import { Organisation } from 'types';
 
 export const useAuthContext = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loadingUser, setLoadingUser] = useState<boolean>(false);
+  const [organisation, setOrganisation] = useState<Organisation | null>(null);
+  const [loadingOrganisation, setLoadingOrganisation] = useState<boolean>(false);
 
   const getToken = () => window.sessionStorage.getItem('token') || null;
   const setToken = (token: string) => window.sessionStorage.setItem('token', token);
@@ -23,20 +23,20 @@ export const useAuthContext = () => {
     //     .catch(() => localStorage.removeItem('token'))
     //     .finally(() => setLoadingUser(false));
     // } else {
-    setLoadingUser(false);
+    setLoadingOrganisation(false);
     // }
   }, []);
 
   const logOut = () => {
-    setUser(null);
+    setOrganisation(null);
     clearToken();
   };
 
   return {
-    user,
-    loadingUser,
+    organisation,
+    loadingOrganisation,
     hasToken: () => !!getToken(),
-    setUser,
+    setOrganisation,
     setToken,
     clearToken,
     logOut,
