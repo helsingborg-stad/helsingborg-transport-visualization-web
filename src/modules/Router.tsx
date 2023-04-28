@@ -5,14 +5,14 @@ import {
 import { MainLayout } from 'layouts';
 
 const Auth = lazy(() => import('./Auth'));
-const Landing = lazy(() => import('./Landing'));
+const Delivery = lazy(() => import('./Delivery'));
 
 export const Router = () => (
   <BrowserRouter>
     <MainLayout>
       <Suspense>
         <Routes>
-          <Route index element={<Landing />} />
+          <Route index element={<Delivery />} />
           <Route path="/auth/*" element={<Auth />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

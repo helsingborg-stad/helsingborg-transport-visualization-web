@@ -1,7 +1,9 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
+import * as Styled from './styled';
+import { DeliveryList } from './components';
 
-export const Landing = () => {
+export const Delivery = () => {
   const { hasToken } = useAuth();
   const isAuthenticated = hasToken();
 
@@ -16,6 +18,10 @@ export const Landing = () => {
     return null;
   }
 
-  return (<h1>VNTRS + Vite = ❤️</h1>
+  return (
+    <Styled.Container>
+      <Styled.Heading>Leveranser</Styled.Heading>
+      <DeliveryList />
+    </Styled.Container>
   );
 };
