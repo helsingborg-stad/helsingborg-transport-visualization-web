@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginFormType, LoginValidation } from './login.validation';
 
 type ErrorMessage = {
-  email?: string;
+  identifier?: string;
   password?: string;
 };
 
@@ -17,7 +17,7 @@ export const useLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [formFields, setFormFields] = useState<LoginFormType>({
-    email: '',
+    identifier: '',
     password: '',
   });
 

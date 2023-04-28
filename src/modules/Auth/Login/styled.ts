@@ -6,8 +6,6 @@ export const Container = styled.div`
   gap: 12px;
   background-color: var(--color-white);
   align-items: center;
-  max-width: 480px;
-  margin: 90px auto;
   padding: var(--spacing-md);
 `;
 

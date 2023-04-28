@@ -1,12 +1,13 @@
 import { z } from 'zod';
 
-// TODO: update password constraints
+const identifierRegex = /^(?:(?=[^@]+@[^@]+\.[^@]+)\S+@\S+|(?:\d\D*){10})$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{10,}$/;
+
 export const LoginValidation = z.object({
-  email: z
+  identifier: z
     .string()
-    .min(1, { message: 'email is required' })
-    .email({ message: 'needs to be an email' }),
-  password: z.string().min(6, { message: 'password must be at least 6 characters' }),
+    .regex(identifierRegex, { message: 'must be orgnr or email' }),
+  password: z.string().regex(passwordRegex, { message: 'must match password requiremtns' }),
 });
 
 export type LoginFormType = z.infer<typeof LoginValidation>;
