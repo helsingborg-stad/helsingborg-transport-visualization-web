@@ -10,17 +10,17 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{10,}$/;
 export const CreateAccountValidation = z.object({
   orgNumber: z
     .string()
-    .regex(/\d{10}/, { message: 'Organisation number is required' }),
-  name: z.string().min(1, { message: 'Company name is required' }),
+    .regex(/\d{10}/, { message: 'Fel format på organisationsnummer - dubbelkolla att du angett det rätt och försök igen.' }),
+  name: z.string().min(1, { message: 'Ange företagsnamn som hör till organisationsnumret' }),
   email: z
     .string()
-    .min(1, { message: 'Email is required' })
-    .email({ message: 'Needs to be an email' }),
-  password: z.string().regex(passwordRegex, { message: 'Must match password requirements' }),
-  pinCode: z.string().regex(pinCodeRegex, { message: 'Pincode must match requirements' }),
+    .min(1, { message: 'Fel format för mejladress - dubbelkolla stavningen och försök igen.' })
+    .email({ message: 'Fel format för mejladress - dubbelkolla stavningen och försök igen.' }),
+  password: z.string().regex(passwordRegex, { message: 'Fel format för lösenord - välj ett lösenord som följer reglerna.' }),
+  pinCode: z.string().regex(pinCodeRegex, { message: 'Fel format för pinkod - välj en pinkod som följer reglerna.' }),
   consent: z.boolean().optional().transform((value) => {
     if (value !== true) {
-      throw new Error('Consent must be given');
+      throw new Error('Du måste godkänna villkoren för att skapa ett konto');
     }
     return true;
   }),
