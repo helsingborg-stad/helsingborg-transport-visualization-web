@@ -1,5 +1,5 @@
 export type LoginRequest = {
-  email: string;
+  identifier: string;
   password: string;
 };
 
@@ -10,4 +10,22 @@ export type LoginResponse = {
   email: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type SignUpRequest = {
+  orgNumber: string;
+  name: string;
+  email: string;
+  password: string;
+  pinCode: string;
+};
+
+export type SignUpResponse = {
+  createdAt: string;
+  email: string;
+  id: string;
+  name: string;
+  orgNumber: string;
+  token: string;
+  updatedAt?: string;
 };
