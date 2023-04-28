@@ -2,25 +2,25 @@ import React, {
   createContext, Dispatch, SetStateAction,
 } from 'react';
 import { useAuthContext } from 'contexts/hooks/useAuthContext';
-import { User } from 'types';
+import { Organisation } from 'types';
 
 interface Props {
   children: React.ReactNode;
 }
 
 type AuthContextInterface = {
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
-  loadingUser: boolean;
+  organisation: Organisation | null;
+  setOrganisation: Dispatch<SetStateAction<Organisation | null>>;
+  loadingOrganisation: boolean;
   hasToken: () => boolean;
   setToken: (token: string) => void;
   logOut: () => void;
 };
 
 export const AuthContext = createContext<AuthContextInterface>({
-  user: null,
-  setUser: () => {},
-  loadingUser: true,
+  organisation: null,
+  setOrganisation: () => {},
+  loadingOrganisation: true,
   setToken: () => {},
   hasToken: () => false,
   logOut: () => {},

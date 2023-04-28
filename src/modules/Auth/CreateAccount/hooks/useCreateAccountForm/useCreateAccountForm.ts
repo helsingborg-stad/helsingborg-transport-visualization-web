@@ -18,7 +18,7 @@ export const useCreateAccountForm = () => {
   const navigate = useNavigate();
   const { createAccount } = useAuthApi();
 
-  const { setUser, setToken } = useAuth();
+  const { setOrganisation, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [formFields, setFormFields] = useState<CreateAccountType>({
@@ -81,7 +81,7 @@ export const useCreateAccountForm = () => {
       .then(({ data }) => {
         const { token } = data;
         setToken(token);
-        setUser(data);
+        setOrganisation(data);
       })
       .then(() => navigate('/'))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

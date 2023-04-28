@@ -13,7 +13,7 @@ type ErrorMessage = {
 export const useLoginForm = () => {
   const navigate = useNavigate();
   const { login } = useAuthApi();
-  const { setUser, setToken } = useAuth();
+  const { setOrganisation, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [formFields, setFormFields] = useState<LoginFormType>({
@@ -57,11 +57,11 @@ export const useLoginForm = () => {
       .then(({ data }) => {
         const { token } = data;
         setToken(token);
-        setUser(data);
+        setOrganisation(data);
       })
       .then(() => navigate('/'))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .catch((err) => setErrors({ email: 'fel uppgifter' }))
+      .catch((err) => setErrors({ identifier: 'fel uppgifter' }))
       .finally(() => setIsLoading(false));
   };
 

@@ -4,9 +4,9 @@ export type LoginRequest = {
 };
 
 export type LoginResponse = {
-  id: number;
+  id: string;
   token: string;
-  organisationNumber: string;
+  orgNumber: string;
   email: string;
   createdAt: string;
   updatedAt: string;
