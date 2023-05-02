@@ -1,5 +1,6 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
+import { DeliveryLayout } from 'layouts/DeliveryLayout';
 import * as Styled from './styled';
 import { DeliveryList } from './components';
 
@@ -19,9 +20,11 @@ export const Delivery = () => {
   }
 
   return (
-    <Styled.Container>
-      <Styled.Heading>Leveranser</Styled.Heading>
-      <DeliveryList />
-    </Styled.Container>
+    <DeliveryLayout>
+      <Styled.Container>
+        <Styled.Heading>Leveranser</Styled.Heading>
+        <DeliveryList />
+      </Styled.Container>
+    </DeliveryLayout>
   );
 };

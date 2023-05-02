@@ -13,6 +13,8 @@ export default css`
   --color-gray-4: #B3B3B3;
   --color-gray-5: #9F9F9F;
   --color-gray-6: #F1F1F1;
+  --color-gray-7: #EAEAEA;
+  --color-gray-8: #EBEBEB;
 
   --color-red-1: #CC0000;
 
@@ -26,6 +28,7 @@ export default css`
   --line-height-xxs: 18px;
   --line-height-xxxs: 16px;
 
+  --border-radius-md: 24px;
   --border-radius-sm: 12px;
 
   --spacing-xl: 48px;
