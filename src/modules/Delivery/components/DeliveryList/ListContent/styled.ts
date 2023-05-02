@@ -17,7 +17,7 @@ const Column = styled.div`
   font-size: var(--font-size-body-xs);
   font-weight: var(--font-weight-600);
   line-height: var(--line-height-xxxs);
-  padding: var(--spacing-xs) 0;
+  margin: auto 0;
 `;
 
 export const DayColumn = styled(Column)``;
@@ -30,3 +30,8 @@ export const TimeOutColumn = styled(Column)``;
 export const CarrierColumn = styled(Column)``;
 export const AreaColumn = styled(Column)``;
 export const DateColumn = styled(Column)``;
+
+export const SVGContainer = styled.img`
+  width: 16px;
+  height: 16px;
+`;
