@@ -66,7 +66,7 @@ export const useCreateAccountForm = () => {
         setErrors(zodErrors);
         setIsLoading(false);
       }
-      if (err.message === 'Consent must be given') {
+      if (err.message === 'Du måste godkänna villkoren för att skapa ett konto') {
         setErrors({
           ...errors,
           consent: err.message,
