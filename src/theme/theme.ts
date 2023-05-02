@@ -54,5 +54,5 @@ export default css`
   --font-weight-400: 400;
   --font-weight-300: 300;
 
-  --font-family:  'Lato', sans-serif;
+  --font-family:  'Roboto', sans-serif;
 `;
