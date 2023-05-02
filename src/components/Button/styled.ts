@@ -5,7 +5,7 @@ export type ButtonProps = {
   primary?: boolean;
   secondary?: boolean;
   outline?: boolean;
-  buttonSize: ButtonSize;
+  buttonSize?: ButtonSize;
 } & React.HTMLProps<HTMLButtonElement>;
 
 export const Button = styled.button<ButtonProps>`

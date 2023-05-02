@@ -6,7 +6,7 @@ type ButtonProps = {
   primary?: boolean;
   secondary?: boolean;
   outline?: boolean;
-  buttonSize: ButtonSize;
+  buttonSize?: ButtonSize;
 } & React.HTMLProps<HTMLButtonElement>;
 
 export const Button: FC<ButtonProps> = ({
@@ -27,4 +27,5 @@ Button.defaultProps = {
   primary: true,
   secondary: false,
   outline: false,
+  buttonSize: ButtonSize.LARGE,
 };
