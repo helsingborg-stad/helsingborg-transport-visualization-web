@@ -85,7 +85,7 @@ export const useCreateAccountForm = () => {
       })
       .then(() => navigate('/'))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .catch((err) => setErrors({ orgNumber: 'Bolag finns redan registrerat' }))
+      .catch((_err) => setErrors({ orgNumber: 'Bolag finns redan registrerat' }))
       .finally(() => setIsLoading(false));
   };
 
