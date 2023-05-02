@@ -52,7 +52,6 @@ export const useLoginForm = () => {
       }
     }
 
-    // TODO: update error message
     login(formFields)
       .then(({ data }) => {
         const { token } = data;
@@ -61,7 +60,7 @@ export const useLoginForm = () => {
       })
       .then(() => navigate('/'))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .catch((_err) => setErrors({ identifier: 'Organisationsnummer eller lösenord stämmer inte - försök igen. Om du behöver ett nytt lösenord klicka på länken.' }))
+      .catch((_err) => setErrors({ password: 'Organisationsnummer eller lösenord stämmer inte - försök igen. Om du behöver ett nytt lösenord klicka på länken.' }))
       .finally(() => setIsLoading(false));
   };
 

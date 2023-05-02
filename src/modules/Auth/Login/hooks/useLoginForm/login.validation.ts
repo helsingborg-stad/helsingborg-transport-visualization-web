@@ -1,13 +1,12 @@
 import { z } from 'zod';
 
 const identifierRegex = /^(?:(?=[^@]+@[^@]+\.[^@]+)\S+@\S+|(?:\d\D*){10})$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{10,}$/;
 
 export const LoginValidation = z.object({
   identifier: z
     .string()
-    .regex(identifierRegex, { message: 'must be orgnr or email' }),
-  password: z.string().regex(passwordRegex, { message: 'must match password requiremtns' }),
+    .regex(identifierRegex, { message: 'Fel format på organisationsnummer eller mejladdress - ett organisationsnummer består av 10 siffror.' }),
+  password: z.string().min(1, { message: 'Vänligen fyll i ett lösenord' }),
 });
 
 export type LoginFormType = z.infer<typeof LoginValidation>;
