@@ -13,13 +13,6 @@ export const Input = styled.input`
   cursor: pointer;
 `;
 
-export const Label = styled.span`
-  font-size: var(--font-size-body-md);
-  color: var(--color-black-2);
-  line-height: var(--line-height-xs);
-  font-weight: var(--font-weight-400);
-`;
-
 export const ErrorText = styled.p`
   font-size: var(--font-size-body-xs);
   color: var(--color-red-1);

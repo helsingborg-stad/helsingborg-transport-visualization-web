@@ -23,3 +23,18 @@ export const ChecboxContainer = styled.div`
 export const ButtonContainer = styled.div`
   margin-top: var(--spacing-xs);
 `;
+
+export const Label = styled.span`
+  font-size: var(--font-size-body-md);
+  color: var(--color-black-2);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-400);
+`;
+
+export const Link = styled.a`
+  font-size: var(--font-size-body-md);
+  color: var(--color-black-2);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-400);
+  text-decoration: underline;
+`;

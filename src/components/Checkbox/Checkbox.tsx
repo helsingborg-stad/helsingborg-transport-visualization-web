@@ -2,7 +2,7 @@ import { FC } from 'react';
 import * as Styled from './styled';
 
 type CheckboxProps = {
-  label: string;
+  children: React.ReactElement;
   checked: boolean;
   // eslint-disable-next-line no-unused-vars
   onChange: (checked: boolean) => void;
@@ -10,7 +10,7 @@ type CheckboxProps = {
 };
 
 export const Checkbox: FC<CheckboxProps> = ({
-  label, checked, onChange, error,
+  children, checked, onChange, error,
 }) => (
   <>
     <Styled.Container>
@@ -19,7 +19,7 @@ export const Checkbox: FC<CheckboxProps> = ({
         checked={checked}
         onChange={() => onChange(!checked)}
       />
-      <Styled.Label>{label}</Styled.Label>
+      {children}
     </Styled.Container>
     <Styled.ErrorText>{error}</Styled.ErrorText>
   </>
