@@ -22,8 +22,14 @@ export const Header = styled.div`
   justify-content: space-between;
 `;
 
+export const Today = styled.h3`
+  font-size: 10px;
+  line-height: 13px;
+  font-weight: var(--font-weight);
+`;
+
 export const Heading = styled.h2`
-  font-size: var(--font-size-heading-xxs);
+  font-size: var(--font-size-body-xs);
   font-weight: var(--font-weight-700);
   line-height: var(--line-height-xs);
 `;
@@ -34,15 +40,11 @@ export const FilterContainer = styled.div`
   overflow: scroll;
 `;
 
-export const ActionBar = styled.div`
-  border-top: 1px solid var(--color-gray-9);
-  padding: 10px 15px;
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--spacing-xxs);
-  width: 100%;
-`;
-
 export const IconWrapper = styled.img`
   cursor: pointer;
+`;
+
+export const OptionList = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

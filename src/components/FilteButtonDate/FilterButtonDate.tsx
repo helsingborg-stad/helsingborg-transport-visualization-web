@@ -4,33 +4,22 @@ import { ButtonSize } from 'components/Button/types';
 import { useHandleClickOutside } from 'hooks';
 import { Button } from '../Button';
 import { FilterBox } from './FilterBox';
-
 import * as Styled from './styled';
 
-type FilterButtonProps = {
+type FilterButtonDateProps = {
   label: string;
-  children: React.ReactElement;
-  clearFilter: () => void;
 };
 
-export const FilterButton: FC<FilterButtonProps> = ({
-  label, children, clearFilter,
-}) => {
-  const containerRef = useRef(null);
+export const FilterButtonDate: FC<FilterButtonDateProps> = ({ label }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const containerRef = useRef(null);
 
   useHandleClickOutside({
     ref: containerRef,
     setVisiblity: () => {
       setIsOpen(false);
-      clearFilter();
     },
   });
-
-  const close = () => {
-    setIsOpen(false);
-    clearFilter();
-  };
 
   // TODO: add active state for filter button (styling)!!
   return (
@@ -42,13 +31,7 @@ export const FilterButton: FC<FilterButtonProps> = ({
         </Styled.Content>
       </Button>
       {isOpen && (
-        <FilterBox
-          clearFilter={clearFilter}
-          close={close}
-          label={label}
-        >
-          {children}
-        </FilterBox>
+        <FilterBox />
       )}
     </Styled.Container>
   );
