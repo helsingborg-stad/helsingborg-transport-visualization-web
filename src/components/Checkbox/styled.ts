@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: wrap;
   gap: 11px;
-  align-items: center;
 `;
 
 export const Input = styled.input`

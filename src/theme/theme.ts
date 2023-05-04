@@ -6,6 +6,7 @@ export default css`
   --color-black: #000000;
   --color-black-2: #030229;
   --color-black-3: #222222;
+  --color-black-4: #393939;
 
   --color-gray-1: #F7F7F8;
   --color-gray-2: #ABABAB;
@@ -15,6 +16,7 @@ export default css`
   --color-gray-6: #F1F1F1;
   --color-gray-7: #EAEAEA;
   --color-gray-8: #EBEBEB;
+  --color-gray-9: #F0F0F0;
 
   --color-red-1: #CC0000;
 
@@ -30,6 +32,8 @@ export default css`
 
   --border-radius-md: 24px;
   --border-radius-sm: 12px;
+  --border-radius-xs: 6px;
+
 
   --spacing-xl: 48px;
   --spacing-lg: 40px;

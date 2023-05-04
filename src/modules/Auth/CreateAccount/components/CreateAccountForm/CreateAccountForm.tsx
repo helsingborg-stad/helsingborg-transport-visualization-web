@@ -77,7 +77,7 @@ export const CreateAccountForm = () => {
           </Checkbox>
         </Styled.ChecboxContainer>
         <Styled.ButtonContainer>
-          <Button type="submit" disabled={isLoading}>Skapa konto</Button>
+          <Button type="submit" disabled={isLoading} onClick={() => submitForm}>Skapa konto</Button>
         </Styled.ButtonContainer>
       </Styled.Form>
     </Styled.Container>

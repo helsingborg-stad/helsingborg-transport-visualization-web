@@ -5,6 +5,7 @@ export type ButtonProps = {
   primary?: boolean;
   secondary?: boolean;
   outline?: boolean;
+  tertiary?: boolean;
   buttonSize?: ButtonSize;
 } & React.HTMLProps<HTMLButtonElement>;
 
@@ -12,6 +13,7 @@ export const Button = styled.button<ButtonProps>`
   --button-background-color: var(--color-black);
   --button-color: var(--color-white);
   --button-border-radius: var(--border-radius-sm);
+  font-family: var(--font-family);
 
   font-size: 18px;
   background: var(--button-background-color);
@@ -28,19 +30,25 @@ export const Button = styled.button<ButtonProps>`
 
   ${({ buttonSize }) => buttonSize === ButtonSize.SMALL
     && css`
-      --button-background: var(--color-gray-3);
-      --button-color: var(--color-black);
       --button-border-radius: var(--border-radius-md);
       
-      font-size: var(--font-size-body-xs);
+      font-weight: var(--font-weight-700);
+      font-size: 12px;
       width: fit-content;
       line-height: var(--line-height-xxxs);
       padding: 7px 14px;
   `}
 
+  ${({ tertiary }) => tertiary
+    && css`
+      --button-background-color: none;
+      --button-color: var(--color-black-4);
+      text-decoration: underline;
+  `}
+
   ${({ secondary }) => secondary
     && css`
-      --button-background: var(--color-gray-3);
+      --button-background-color: var(--color-gray-3);
       --button-color: var(--color-black);
   `}
 

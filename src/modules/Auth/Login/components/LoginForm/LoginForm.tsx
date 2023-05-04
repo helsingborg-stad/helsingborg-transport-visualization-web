@@ -33,7 +33,7 @@ export const LoginForm = () => {
         <Link label="Glömt lösenord?" href="/" />
       </Styled.LinkContainer>
       <Styled.ButtonContainer>
-        <Button type="submit" disabled={isLoading}>Logga in</Button>
+        <Button type="submit" disabled={isLoading} onClick={() => submitForm}>Logga in</Button>
       </Styled.ButtonContainer>
     </Styled.FormContainer>
   );
