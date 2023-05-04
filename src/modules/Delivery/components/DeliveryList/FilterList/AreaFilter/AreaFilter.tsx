@@ -8,22 +8,27 @@ type AreaFilterProps = {
   setAreaFilter: React.Dispatch<React.SetStateAction<AreaFilterType>>;
 };
 
-export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter, setAreaFilter }) => (
-  <Styled.Container>
-    {Object.entries(areaFilter).map(([key, value]) => (
-      <div key={key}>
-        <Checkbox
-          checked={value}
-          onChange={() => setAreaFilter((prev) => ({
-            ...prev,
-            [key as keyof typeof areaFilter]: !prev[
-              key as keyof typeof areaFilter
-            ],
-          }))}
-        >
-          <Styled.Label>{key}</Styled.Label>
-        </Checkbox>
-      </div>
-    ))}
-  </Styled.Container>
-);
+export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter, setAreaFilter }) => {
+  if (!areaFilter) {
+    return null;
+  }
+  return (
+    <Styled.Container>
+      {Object.entries(areaFilter).map(([key, value]) => (
+        <div key={key}>
+          <Checkbox
+            checked={value}
+            onChange={() => setAreaFilter((prev) => ({
+              ...prev,
+              [key as keyof typeof areaFilter]: !prev[
+                key as keyof typeof areaFilter
+              ],
+            }))}
+          >
+            <Styled.Label>{key}</Styled.Label>
+          </Checkbox>
+        </div>
+      ))}
+    </Styled.Container>
+  );
+};
