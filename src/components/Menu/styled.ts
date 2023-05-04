@@ -23,6 +23,8 @@ export const Container = styled.button`
 `;
 
 export const MenuList = styled.div`
+  margin-top: 8px;
+  margin-right: 8px;
   background: var(--color-white);
   box-shadow: 0px 1px 11px rgba(0, 0, 0, 0.17);
   border-radius: 6px;

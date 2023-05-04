@@ -22,7 +22,7 @@ export const Menu = () => {
     navigate('/');
   };
 
-  // TODO: update links below
+  // TODO: update links below with correct navigation
   return (
     <Styled.Menu ref={containerRef}>
       <Styled.Container onClick={() => setIsOpen(!isOpen)}>
