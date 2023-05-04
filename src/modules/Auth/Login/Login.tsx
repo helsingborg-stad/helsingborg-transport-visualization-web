@@ -8,7 +8,7 @@ export const Login = () => (
     <Styled.InfoText>
       Samlar färddata vid leveranser och ger överblick på vilka samlastningsmöjligheter som finns.
       {' '}
-      <Styled.Link href="/">Läs mer om hur det funkar</Styled.Link>
+      <Styled.Link target="_blank" href="https://helsingborg.se/">Läs mer om hur det funkar</Styled.Link>
     </Styled.InfoText>
     <LoginForm />
     <Styled.CreateAccountText>

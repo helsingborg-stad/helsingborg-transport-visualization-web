@@ -65,11 +65,16 @@ export const CreateAccountForm = () => {
         <Styled.ChecboxContainer>
 
           <Checkbox
-            label="Genom att skapa konto säger du ja till xxx"
             checked={formFields.consent}
             onChange={setConsentValue}
             error={errors.consent}
-          />
+          >
+            <Styled.Label>
+              Genom att skapa konto säger du ja till
+              {' '}
+              <Styled.Link target="_blank" href="https://helsingborg.se/">xxx</Styled.Link>
+            </Styled.Label>
+          </Checkbox>
         </Styled.ChecboxContainer>
         <Styled.ButtonContainer>
           <Button type="submit" disabled={isLoading}>Skapa konto</Button>
