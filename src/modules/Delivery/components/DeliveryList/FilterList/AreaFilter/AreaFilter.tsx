@@ -1,11 +1,11 @@
 import { Checkbox } from 'components/Checkbox';
-import { AreaFilterType } from 'modules/Delivery/hooks';
+import { CheckboxFilter, FilterOptions } from 'types';
 import { FC } from 'react';
 import * as Styled from './styled';
 
 type AreaFilterProps = {
-  areaFilter: AreaFilterType;
-  checkFilter: (filterName: 'organisations' | 'names' | 'areas', key: string) => void
+  areaFilter: CheckboxFilter;
+  checkFilter: (filterName: FilterOptions.AREAS, key: string) => void
 };
 
 export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter = {}, checkFilter }) => {
@@ -18,7 +18,7 @@ export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter = {}, checkFilter }
         <div key={key}>
           <Checkbox
             checked={value}
-            onChange={() => checkFilter('areas', key)}
+            onChange={() => checkFilter(FilterOptions.AREAS, key)}
           >
             <Styled.Label>{key}</Styled.Label>
           </Checkbox>

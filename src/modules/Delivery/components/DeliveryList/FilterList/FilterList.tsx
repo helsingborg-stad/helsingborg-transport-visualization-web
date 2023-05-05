@@ -1,5 +1,6 @@
 import { FilterButton, FilterButtonDate } from 'components';
 import { useGetEventFilters } from 'modules/Delivery/hooks';
+import { FilterOptions } from 'types';
 import * as Styled from './styled';
 import { AreaFilter } from './AreaFilter';
 
@@ -13,7 +14,7 @@ export const FilterList = () => {
   }
   return (
     <Styled.Container>
-      <FilterButton label="Område" clearFilter={() => resetFilters('areas')} triggerReload={triggerReload}>
+      <FilterButton label="Område" clearFilter={() => resetFilters(FilterOptions.AREAS)} triggerReload={triggerReload}>
         <AreaFilter areaFilter={filters.areas} checkFilter={checkFilter} />
       </FilterButton>
       <FilterButtonDate label="Datum" />

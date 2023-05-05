@@ -1,23 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useFilterApi } from 'hooks/useFilterApi';
 import { OrgWithName } from 'api/filter/types';
-
-export type OrganisationFilterType = {
-  [key: string]: boolean;
-};
-
-export type NameFilterType = {
-  [key: string]: boolean;
-};
-
-export type AreaFilterType = {
-  [key: string]: boolean;
-};
+import { FilterOptions, CheckboxFilter } from 'types/delivery';
 
 export type FilterType = {
-  organisations: OrganisationFilterType;
-  names: NameFilterType;
-  areas: AreaFilterType;
+  organisations: CheckboxFilter;
+  names: CheckboxFilter;
+  areas: CheckboxFilter;
 };
 
 type FilterOptionType = {
@@ -33,7 +22,7 @@ export const useGetEventFilters = () => {
   const [reload, setReload] = useState(true);
   const triggerReload = () => setReload(true);
 
-  const resetFilters = (filter?: 'organisations' | 'names' | 'areas') => {
+  const resetFilters = (filter?: FilterOptions) => {
     if (filter && filters) {
       setFilters({
         ...filters,
@@ -72,7 +61,7 @@ export const useGetEventFilters = () => {
     }
   };
 
-  const checkFilter = (filterName: 'organisations' | 'names' | 'areas', key: string) => {
+  const checkFilter = (filterName: FilterOptions, key: string) => {
     if (filters) {
       setFilters({
         ...filters,
@@ -88,9 +77,9 @@ export const useGetEventFilters = () => {
     getFiltersForEvent().then(({ data }) => {
       setFilterOptions(data);
       const params = new URLSearchParams(window.location.search);
-      const areas = params.get('areas')?.split(',') || [];
-      const names = params.get('names')?.split(',') || [];
-      const organisations = params.get('organisations')?.split(',') || [];
+      const areas = params.get(FilterOptions.AREAS)?.split(',') || [];
+      const names = params.get(FilterOptions.NAMES)?.split(',') || [];
+      const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
 
       setFilters({
         areas: data.areas.reduce(
@@ -119,23 +108,23 @@ export const useGetEventFilters = () => {
   }, []);
 
   useEffect(() => {
-    const getFilterList = (key: 'organisations' | 'names' | 'areas') => Object.entries(filters?.[key] || {})
+    const getFilterList = (key: FilterOptions) => Object.entries(filters?.[key] || {})
       .filter(([, value]) => value).map(([mapKey]) => mapKey);
 
     if (filterOptions && reload) {
-      const areas = getFilterList('areas');
-      const names = getFilterList('names');
-      const organisations = getFilterList('organisations');
-
       const params = new URLSearchParams();
+      const areas = getFilterList(FilterOptions.AREAS);
+      const names = getFilterList(FilterOptions.NAMES);
+      const organisations = getFilterList(FilterOptions.ORGANISATIONS);
+
       if (areas.length > 0) {
-        params.append('areas', areas.join(','));
+        params.append(FilterOptions.AREAS, areas.join(','));
       }
       if (names.length > 0) {
-        params.append('names', names.join(','));
+        params.append(FilterOptions.NAMES, names.join(','));
       }
       if (organisations.length > 0) {
-        params.append('organisations', organisations.join(','));
+        params.append(FilterOptions.ORGANISATIONS, organisations.join(','));
       }
       window.history.replaceState(
         {},
