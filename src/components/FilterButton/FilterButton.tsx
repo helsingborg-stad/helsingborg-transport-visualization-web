@@ -32,7 +32,6 @@ export const FilterButton: FC<FilterButtonProps> = ({
     setIsOpen(false);
     clearFilter();
   };
-
   // TODO: add active state for filter button (styling)!!
   return (
     <Styled.Container ref={containerRef}>
