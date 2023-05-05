@@ -24,13 +24,11 @@ export const FilterButton: FC<FilterButtonProps> = ({
     ref: containerRef,
     setVisiblity: () => {
       setIsOpen(false);
-      clearFilter();
     },
   });
 
   const close = () => {
     setIsOpen(false);
-    clearFilter();
   };
   // TODO: add active state for filter button (styling)!!
   return (
