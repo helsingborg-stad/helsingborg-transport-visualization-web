@@ -9,11 +9,12 @@ type FilterBoxProps = {
   close: () => void;
   label: string;
   children: React.ReactElement;
+  triggerReload: () => void;
 };
 
 // TODO: add on click for Visa button in action bar
 export const FilterBox: FC<FilterBoxProps> = ({
-  close, label, children, clearFilter,
+  close, label, children, clearFilter, triggerReload,
 }) => (
   <Styled.Container>
     <Styled.Header>
@@ -25,7 +26,7 @@ export const FilterBox: FC<FilterBoxProps> = ({
     </Styled.FilterContainer>
     <Styled.ActionBar>
       <Button tertiary buttonSize={ButtonSize.SMALL} onClick={clearFilter}>Rensa</Button>
-      <Button primary buttonSize={ButtonSize.SMALL} onClick={() => null}>Visa</Button>
+      <Button primary buttonSize={ButtonSize.SMALL} onClick={triggerReload}>Visa</Button>
     </Styled.ActionBar>
   </Styled.Container>
 );

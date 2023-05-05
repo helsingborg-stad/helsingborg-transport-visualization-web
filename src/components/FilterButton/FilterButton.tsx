@@ -11,10 +11,11 @@ type FilterButtonProps = {
   label: string;
   children: React.ReactElement;
   clearFilter: () => void;
+  triggerReload: () => void;
 };
 
 export const FilterButton: FC<FilterButtonProps> = ({
-  label, children, clearFilter,
+  label, children, clearFilter, triggerReload,
 }) => {
   const containerRef = useRef(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -46,6 +47,7 @@ export const FilterButton: FC<FilterButtonProps> = ({
           clearFilter={clearFilter}
           close={close}
           label={label}
+          triggerReload={triggerReload}
         >
           {children}
         </FilterBox>

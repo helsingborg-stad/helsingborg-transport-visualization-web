@@ -4,7 +4,7 @@ export type OrgWithName = {
 };
 
 export type EventFilterResponse = {
-  oranisations: OrgWithName[];
+  organisations: OrgWithName[];
   names: string[];
   areas: string[];
 };

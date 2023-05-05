@@ -1,14 +1,14 @@
 import { Checkbox } from 'components/Checkbox';
-import { AreaFilter as AreaFilterType } from 'modules/Delivery/hooks';
+import { AreaFilterType } from 'modules/Delivery/hooks';
 import { FC } from 'react';
 import * as Styled from './styled';
 
 type AreaFilterProps = {
   areaFilter: AreaFilterType;
-  setAreaFilter: React.Dispatch<React.SetStateAction<AreaFilterType>>;
+  checkFilter: (filterName: 'organisations' | 'names' | 'areas', key: string) => void
 };
 
-export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter, setAreaFilter }) => {
+export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter = {}, checkFilter }) => {
   if (!areaFilter) {
     return null;
   }
@@ -18,12 +18,7 @@ export const AreaFilter: FC<AreaFilterProps> = ({ areaFilter, setAreaFilter }) =
         <div key={key}>
           <Checkbox
             checked={value}
-            onChange={() => setAreaFilter((prev) => ({
-              ...prev,
-              [key as keyof typeof areaFilter]: !prev[
-                key as keyof typeof areaFilter
-              ],
-            }))}
+            onChange={() => checkFilter('areas', key)}
           >
             <Styled.Label>{key}</Styled.Label>
           </Checkbox>
