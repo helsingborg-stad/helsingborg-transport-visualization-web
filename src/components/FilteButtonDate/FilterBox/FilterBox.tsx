@@ -1,19 +1,16 @@
+import { useDateConverter } from 'utils/useDateConverter';
 import * as Styled from './styled';
 
 export const FilterBox = () => {
-  const date = new Date();
-  const label = date.toLocaleString('sv-SE', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  });
+  const { getToday } = useDateConverter();
+  const today = getToday();
 
   return (
     <Styled.Container>
       <Styled.Header>
         <div>
           <Styled.Today>IDAG</Styled.Today>
-          <Styled.Heading>{label}</Styled.Heading>
+          <Styled.Heading>{today}</Styled.Heading>
         </div>
       </Styled.Header>
       <Styled.FilterContainer>
