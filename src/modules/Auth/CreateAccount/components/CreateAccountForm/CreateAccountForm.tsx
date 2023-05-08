@@ -41,6 +41,26 @@ export const CreateAccountForm = () => {
           error={errors.name}
         />
         <Input
+          label="Kontaktperson"
+          type="text"
+          placeholder="Förnamn Efternamn"
+          name="contactPerson"
+          id="contactPerson"
+          value={formFields.contactPerson}
+          onChange={setFieldValue('contactPerson')}
+          error={errors.contactPerson}
+        />
+        <Input
+          label="Mobilnummer för kontaktperson"
+          type="text"
+          placeholder="xxx xxx xx xx"
+          name="mobileNumber"
+          id="mobileNumber"
+          value={formFields.mobileNumber}
+          onChange={setFieldValue('mobileNumber')}
+          error={errors.mobileNumber}
+        />
+        <Input
           label="Lösenord"
           type="password"
           placeholder="********"

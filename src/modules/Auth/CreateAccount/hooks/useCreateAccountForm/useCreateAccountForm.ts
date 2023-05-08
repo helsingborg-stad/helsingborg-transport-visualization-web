@@ -12,6 +12,8 @@ type ErrorMessage = {
   name?: string;
   pinCode?: string;
   consent?: string;
+  contactPerson?: string;
+  mobileNumber?: string;
 };
 
 export const useCreateAccountForm = () => {
@@ -27,6 +29,8 @@ export const useCreateAccountForm = () => {
     email: '',
     password: '',
     pinCode: '',
+    contactPerson: '',
+    mobileNumber: '',
     consent: false,
   });
 
