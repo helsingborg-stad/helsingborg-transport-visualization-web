@@ -65,6 +65,7 @@ export const CreateAccountForm = () => {
         <Styled.ChecboxContainer>
 
           <Checkbox
+            id="Consent"
             checked={formFields.consent}
             onChange={setConsentValue}
             error={errors.consent}
