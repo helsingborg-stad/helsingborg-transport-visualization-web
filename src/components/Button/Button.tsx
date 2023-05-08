@@ -7,12 +7,13 @@ type ButtonProps = {
   secondary?: boolean;
   tertiary?: boolean;
   outline?: boolean;
+  isActive?: boolean;
   buttonSize?: ButtonSize;
   onClick: () => void;
 } & React.HTMLProps<HTMLButtonElement>;
 
 export const Button: FC<ButtonProps> = ({
-  children, disabled, primary, secondary, tertiary, outline, buttonSize, onClick,
+  children, disabled, primary, secondary, tertiary, outline, isActive, buttonSize, onClick,
 }) => (
   <Styled.Button
     disabled={disabled}
@@ -20,6 +21,7 @@ export const Button: FC<ButtonProps> = ({
     secondary={secondary}
     outline={outline}
     tertiary={tertiary}
+    isActive={isActive}
     buttonSize={buttonSize}
     onClick={onClick}
   >
@@ -32,5 +34,6 @@ Button.defaultProps = {
   secondary: false,
   outline: false,
   tertiary: false,
+  isActive: false,
   buttonSize: ButtonSize.LARGE,
 };

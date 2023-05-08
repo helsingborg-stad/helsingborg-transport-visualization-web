@@ -7,7 +7,7 @@ import { NameFilter } from './NameFilter';
 
 export const FilterList = () => {
   const {
-    filters, checkFilter, resetFilters, triggerReload,
+    filters, checkFilter, resetFilters, triggerReload, activeFilters,
   } = useGetEventFilters();
 
   if (!filters) {
@@ -15,10 +15,10 @@ export const FilterList = () => {
   }
   return (
     <Styled.Container>
-      <FilterButton label="Plats" clearFilter={() => resetFilters(FilterOptions.NAMES)} triggerReload={triggerReload}>
+      <FilterButton label="Plats" clearFilter={() => resetFilters(FilterOptions.NAMES)} triggerReload={triggerReload} isActive={activeFilters.names}>
         <NameFilter nameFilter={filters.names} checkFilter={checkFilter} />
       </FilterButton>
-      <FilterButton label="Område" clearFilter={() => resetFilters(FilterOptions.AREAS)} triggerReload={triggerReload}>
+      <FilterButton label="Område" clearFilter={() => resetFilters(FilterOptions.AREAS)} triggerReload={triggerReload} isActive={activeFilters.areas}>
         <AreaFilter areaFilter={filters.areas} checkFilter={checkFilter} />
       </FilterButton>
     </Styled.Container>
