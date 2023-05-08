@@ -9,7 +9,7 @@ export type FilterType = {
   areas: CheckboxFilter;
 };
 
-type FilterOptionType = {
+export type FilterOptionType = {
   organisations: OrgWithName[];
   names: string[];
   areas: string[];
@@ -139,6 +139,7 @@ export const useGetEventFilters = () => {
   }, [filters, reload]);
 
   return {
+    filterOptions,
     filters,
     checkFilter,
     resetFilters,
