@@ -19,7 +19,7 @@ export const Menu = () => {
 
   const logOutAndRedirect = () => {
     logOut();
-    navigate('/');
+    navigate('/auth');
   };
 
   // TODO: update links below with correct navigation
