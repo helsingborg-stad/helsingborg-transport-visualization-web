@@ -6,6 +6,7 @@ export type ButtonProps = {
   secondary?: boolean;
   outline?: boolean;
   tertiary?: boolean;
+  isActive?: boolean;
   buttonSize?: ButtonSize;
 } & React.HTMLProps<HTMLButtonElement>;
 
@@ -55,6 +56,13 @@ export const Button = styled.button<ButtonProps>`
   ${({ outline }) => outline
   && css`
     border: 1px solid var(--color-gray-7);
+    --button-background-color: var(--color-white);
+    --button-color: var(--color-black);
+  `}
+
+  ${({ isActive }) => isActive
+  && css`
+    border: 1px solid var(--color-black);
     --button-background-color: var(--color-white);
     --button-color: var(--color-black);
   `}

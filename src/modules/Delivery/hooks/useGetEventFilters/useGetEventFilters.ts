@@ -15,11 +15,22 @@ type FilterOptionType = {
   areas: string[];
 };
 
+type ActiveFilterType = {
+  organisations: boolean;
+  names: boolean;
+  areas: boolean;
+};
+
 export const useGetEventFilters = () => {
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
   const [filters, setFilters] = useState<FilterType>();
   const [reload, setReload] = useState(true);
+  const [activeFilters, setActiveFilters] = useState<ActiveFilterType>({
+    organisations: false,
+    names: false,
+    areas: false,
+  });
   const triggerReload = () => setReload(true);
 
   const resetFilters = (filter?: FilterOptions) => {
@@ -126,6 +137,13 @@ export const useGetEventFilters = () => {
       if (organisations.length > 0) {
         params.append(FilterOptions.ORGANISATIONS, organisations.join(','));
       }
+
+      setActiveFilters({
+        areas: areas.length > 0,
+        organisations: organisations.length > 0,
+        names: names.length > 0,
+      });
+
       window.history.replaceState(
         {},
         '',
@@ -139,6 +157,7 @@ export const useGetEventFilters = () => {
   }, [filters, reload]);
 
   return {
+    activeFilters,
     filters,
     checkFilter,
     resetFilters,
