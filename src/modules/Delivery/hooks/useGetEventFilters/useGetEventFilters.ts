@@ -140,8 +140,6 @@ export const useGetEventFilters = () => {
         params.append(FilterOptions.ORGANISATIONS, organisations.join(','));
       }
 
-      console.log(areas);
-
       setActiveFilters({
         areas: areas.length,
         organisations: organisations.length,
