@@ -2,15 +2,20 @@ import { Button, FilterButton } from 'components';
 import { useGetEventFilters } from 'modules/Delivery/hooks';
 import { FilterOptions } from 'types';
 import { ButtonSize } from 'components/Button/types';
+import { FC } from 'react';
 import * as Styled from './styled';
 import { AreaFilter } from './AreaFilter';
 import { NameFilter } from './NameFilter';
 import { OrganisationFilter } from './OrganisationFilter';
 
-export const FilterList = () => {
+type FilterListProps = {
+  fetchEvents: (filter?: string) => void;
+};
+
+export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
   const {
     filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters,
-  } = useGetEventFilters();
+  } = useGetEventFilters({ fetchEvents });
 
   if (!filters || !filterOptions) {
     return null;

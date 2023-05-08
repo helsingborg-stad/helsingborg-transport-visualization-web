@@ -1,8 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import ExpandArrow from 'assets/expand_arrow_icon.svg';
-import { ButtonSize } from 'components/Button/types';
 import { useHandleClickOutside } from 'hooks';
-import { Button } from '../Button';
 import { FilterBox } from './FilterBox';
 
 import * as Styled from './styled';
@@ -36,13 +34,13 @@ export const FilterButton: FC<FilterButtonProps> = ({
 
   return (
     <Styled.Container ref={containerRef}>
-      <Button type="button" outline={!isActive} isActive={isActive} buttonSize={ButtonSize.SMALL} onClick={() => setIsOpen(!isOpen)}>
+      <Styled.Button type="button" outline={!isActive} isActive={isActive} onClick={() => setIsOpen(!isOpen)}>
         <Styled.Content>
           {label}
           {activeFilters > 0 ? ` (${activeFilters})` : ''}
           <img src={ExpandArrow} alt="arrow icon" />
         </Styled.Content>
-      </Button>
+      </Styled.Button>
       {isOpen && (
         <FilterBox
           clearFilter={clearFilter}
