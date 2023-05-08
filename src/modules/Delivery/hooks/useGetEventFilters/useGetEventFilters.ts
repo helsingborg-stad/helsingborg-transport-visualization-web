@@ -9,16 +9,16 @@ export type FilterType = {
   areas: CheckboxFilter;
 };
 
-type FilterOptionType = {
+export type FilterOptionType = {
   organisations: OrgWithName[];
   names: string[];
   areas: string[];
 };
 
 type ActiveFilterType = {
-  organisations: boolean;
-  names: boolean;
-  areas: boolean;
+  organisations: number;
+  names: number;
+  areas: number;
 };
 
 export const useGetEventFilters = () => {
@@ -27,9 +27,9 @@ export const useGetEventFilters = () => {
   const [filters, setFilters] = useState<FilterType>();
   const [reload, setReload] = useState(true);
   const [activeFilters, setActiveFilters] = useState<ActiveFilterType>({
-    organisations: false,
-    names: false,
-    areas: false,
+    organisations: 0,
+    names: 0,
+    areas: 0,
   });
   const triggerReload = () => setReload(true);
 
@@ -43,6 +43,7 @@ export const useGetEventFilters = () => {
             [curr]: false,
           }), {}),
       });
+      triggerReload();
       return;
     }
     if (filterOptions) {
@@ -69,6 +70,7 @@ export const useGetEventFilters = () => {
           {},
         ),
       });
+      triggerReload();
     }
   };
 
@@ -139,9 +141,9 @@ export const useGetEventFilters = () => {
       }
 
       setActiveFilters({
-        areas: areas.length > 0,
-        organisations: organisations.length > 0,
-        names: names.length > 0,
+        areas: areas.length,
+        organisations: organisations.length,
+        names: names.length,
       });
 
       window.history.replaceState(
@@ -157,6 +159,7 @@ export const useGetEventFilters = () => {
   }, [filters, reload]);
 
   return {
+    filterOptions,
     activeFilters,
     filters,
     checkFilter,

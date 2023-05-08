@@ -12,11 +12,11 @@ type FilterButtonProps = {
   children: React.ReactElement;
   clearFilter: () => void;
   triggerReload: () => void;
-  isActive: boolean;
+  activeFilters: number;
 };
 
 export const FilterButton: FC<FilterButtonProps> = ({
-  label, children, clearFilter, triggerReload, isActive,
+  label, children, clearFilter, triggerReload, activeFilters,
 }) => {
   const containerRef = useRef(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,11 +32,14 @@ export const FilterButton: FC<FilterButtonProps> = ({
     setIsOpen(false);
   };
 
+  const isActive = activeFilters > 0;
+
   return (
     <Styled.Container ref={containerRef}>
       <Button type="button" outline={!isActive} isActive={isActive} buttonSize={ButtonSize.SMALL} onClick={() => setIsOpen(!isOpen)}>
         <Styled.Content>
           {label}
+          {activeFilters > 0 ? ` (${activeFilters})` : ''}
           <img src={ExpandArrow} alt="arrow icon" />
         </Styled.Content>
       </Button>
