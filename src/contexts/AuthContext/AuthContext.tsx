@@ -2,15 +2,15 @@ import React, {
   createContext, Dispatch, SetStateAction,
 } from 'react';
 import { useAuthContext } from 'contexts/hooks/useAuthContext';
-import { OrganisationDTO } from 'types';
+import { Organisation } from 'types';
 
 interface Props {
   children: React.ReactNode;
 }
 
 type AuthContextInterface = {
-  organisation: OrganisationDTO | null;
-  setOrganisation: Dispatch<SetStateAction<OrganisationDTO | null>>;
+  organisation: Organisation | null;
+  setOrganisation: Dispatch<SetStateAction<Organisation | null>>;
   loadingOrganisation: boolean;
   hasToken: () => boolean;
   setToken: (token: string) => void;

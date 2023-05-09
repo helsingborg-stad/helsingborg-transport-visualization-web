@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { OrganisationDTO } from 'types';
+import { Organisation } from 'types';
 
 export const useAuthContext = () => {
-  const [organisation, setOrganisation] = useState<OrganisationDTO | null>(null);
+  const [organisation, setOrganisation] = useState<Organisation | null>(null);
   const [loadingOrganisation, setLoadingOrganisation] = useState<boolean>(false);
 
   const getToken = () => window.sessionStorage.getItem('token') || null;
