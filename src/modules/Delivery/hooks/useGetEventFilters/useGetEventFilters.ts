@@ -25,7 +25,7 @@ type HookProps = {
   fetchEvents: (filter?: string) => void;
 };
 
-export const useGetEventFilters = ({ fetchEvents } : HookProps) => {
+export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
   const [filters, setFilters] = useState<FilterType>();
@@ -41,11 +41,15 @@ export const useGetEventFilters = ({ fetchEvents } : HookProps) => {
     if (filter && filters) {
       setFilters({
         ...filters,
-        [filter]: Object.entries(filters?.[filter] || {}).map((arr) => arr[0])
-          .reduce((acc, curr) => ({
-            ...acc,
-            [curr]: false,
-          }), {}),
+        [filter]: Object.entries(filters?.[filter] || {})
+          .map((arr) => arr[0])
+          .reduce(
+            (acc, curr) => ({
+              ...acc,
+              [curr]: false,
+            }),
+            {},
+          ),
       });
       triggerReload();
       return;
@@ -91,43 +95,43 @@ export const useGetEventFilters = ({ fetchEvents } : HookProps) => {
   };
 
   useEffect(() => {
-    getFiltersForEvent()
-      .then(({ data }) => {
-        setFilterOptions(data);
-        const params = new URLSearchParams(window.location.search);
-        const areas = params.get(FilterOptions.AREAS)?.split(',') || [];
-        const names = params.get(FilterOptions.NAMES)?.split(',') || [];
-        const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
+    getFiltersForEvent().then(({ data }) => {
+      setFilterOptions(data);
+      const params = new URLSearchParams(window.location.search);
+      const areas = params.get(FilterOptions.AREAS)?.split(',') || [];
+      const names = params.get(FilterOptions.NAMES)?.split(',') || [];
+      const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
 
-        setFilters({
-          areas: data.areas.reduce(
-            (acc, curr) => ({
-              ...acc,
-              [curr]: areas.includes(curr),
-            }),
-            {},
-          ),
-          names: data.names.reduce(
-            (acc, curr) => ({
-              ...acc,
-              [curr]: names.includes(curr),
-            }),
-            {},
-          ),
-          organisations: data.organisations.reduce(
-            (acc, curr) => ({
-              ...acc,
-              [curr.orgNumber]: organisations.includes(curr.orgNumber),
-            }),
-            {},
-          ),
-        });
+      setFilters({
+        areas: data.areas.reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr]: areas.includes(curr),
+          }),
+          {},
+        ),
+        names: data.names.reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr]: names.includes(curr),
+          }),
+          {},
+        ),
+        organisations: data.organisations.reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr.orgNumber]: organisations.includes(curr.orgNumber),
+          }),
+          {},
+        ),
       });
+    });
   }, []);
 
   useEffect(() => {
     const getFilterList = (key: FilterOptions) => Object.entries(filters?.[key] || {})
-      .filter(([, value]) => value).map(([mapKey]) => mapKey);
+      .filter(([, value]) => value)
+      .map(([mapKey]) => mapKey);
 
     if (filterOptions && reload) {
       const params = new URLSearchParams();
@@ -153,11 +157,7 @@ export const useGetEventFilters = ({ fetchEvents } : HookProps) => {
 
       const filter = params.toString();
 
-      window.history.replaceState(
-        {},
-        '',
-        `${window.location.pathname}?${filter}`,
-      );
+      window.history.replaceState({}, '', `${window.location.pathname}${filter !== '' ? `?${filter}` : ''}`);
 
       fetchEvents(filter);
       setReload(false);
