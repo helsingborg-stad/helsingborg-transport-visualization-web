@@ -29,3 +29,12 @@ export type SignUpResponse = {
   token: string;
   updatedAt?: string;
 };
+
+export type ForgotPasswordRequest = {
+  identifier: string;
+};
+
+export type ResetPasswordRequest = {
+  token: string;
+  password: string;
+};
