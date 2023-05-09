@@ -30,7 +30,7 @@ export const LoginForm = () => {
         error={errors.password}
       />
       <Styled.LinkContainer>
-        <Link label="Glömt lösenord?" href="/" />
+        <Link label="Glömt lösenord?" href="/auth/forgot-password" />
       </Styled.LinkContainer>
       <Styled.ButtonContainer>
         <Button type="submit" disabled={isLoading} onClick={() => submitForm}>Logga in</Button>

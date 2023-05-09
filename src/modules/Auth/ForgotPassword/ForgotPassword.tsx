@@ -2,7 +2,6 @@ import { Button, Input } from 'components';
 import { useAuth } from 'hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import * as Styled from './styled';
-
 import { useForgotPasswordForm } from './hooks';
 
 export const ForgotPassword = () => {
@@ -15,9 +14,9 @@ export const ForgotPassword = () => {
     navigate('/auth');
   };
 
-  const hasPasswordIdentifier = !!getForgotPasswordIdentifier();
+  const hasPasswordIdentifier = () => !!getForgotPasswordIdentifier();
 
-  if (hasPasswordIdentifier) {
+  if (hasPasswordIdentifier()) {
     return (
       <>
         <Styled.Title>Kolla din mail</Styled.Title>
@@ -25,8 +24,8 @@ export const ForgotPassword = () => {
           Återställning av lösenord är skickat till din mejl.
         </Styled.Text>
         <Styled.ButtonContainer>
-          <Button onClick={returnToLogin} secondary disabled={isLoading}>Avbryt</Button>
-          <Button onClick={sendAgain} disabled={isLoading}>Skicka igen</Button>
+          <Button type="button" onClick={returnToLogin} secondary disabled={isLoading}>Avbryt</Button>
+          <Button type="submit" onClick={sendAgain} disabled={isLoading}>Skicka igen</Button>
         </Styled.ButtonContainer>
       </>
     );
@@ -49,8 +48,8 @@ export const ForgotPassword = () => {
           error={error}
         />
         <Styled.ButtonContainer>
-          <Button onClick={returnToLogin} secondary disabled={isLoading}>Avbryt</Button>
-          <Button onClick={() => submit} disabled={isLoading}>Skicka</Button>
+          <Button type="button" onClick={returnToLogin} secondary disabled={isLoading}>Avbryt</Button>
+          <Button type="submit" onClick={() => submit} disabled={isLoading}>Skicka</Button>
         </Styled.ButtonContainer>
       </form>
     </>

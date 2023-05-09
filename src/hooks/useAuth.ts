@@ -5,7 +5,6 @@ export const useAuth = () => {
   const {
     organisation,
     setOrganisation,
-    loadingOrganisation,
     hasToken,
     setToken,
     logOut,
@@ -17,7 +16,6 @@ export const useAuth = () => {
   return {
     logOut,
     organisation,
-    loadingOrganisation,
     hasToken,
     setToken,
     setOrganisation,

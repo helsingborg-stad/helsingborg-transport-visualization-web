@@ -35,8 +35,8 @@ export const FilterBox: FC<FilterBoxProps> = ({
         {children}
       </Styled.FilterContainer>
       <Styled.ActionBar>
-        <Button tertiary buttonSize={ButtonSize.SMALL} onClick={clearAndClose}>Rensa</Button>
-        <Button primary buttonSize={ButtonSize.SMALL} onClick={showFilter}>Visa</Button>
+        <Button type="button" tertiary buttonSize={ButtonSize.SMALL} onClick={clearAndClose}>Rensa</Button>
+        <Button type="button" primary buttonSize={ButtonSize.SMALL} onClick={showFilter}>Visa</Button>
       </Styled.ActionBar>
     </Styled.Container>
   );
