@@ -7,6 +7,13 @@ export const Title = styled.h1`
   font-weight: var(--font-weight-800);
 `;
 
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+`;
+
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;

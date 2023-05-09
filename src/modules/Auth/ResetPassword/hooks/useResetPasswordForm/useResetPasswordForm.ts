@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAuthApi } from 'hooks/useAuthApi';
 import { ZodError } from 'zod';
+import { useAuth } from 'hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { ResetPasswordType, ResetPasswordValidation } from './resetPassword.validation';
 
 type ErrorMessage = {
@@ -8,7 +10,13 @@ type ErrorMessage = {
   confirm?: string;
 };
 
-export const useResetPasswordForm = () => {
+type HookParams = {
+  resetToken?: string;
+};
+
+export const useResetPasswordForm = ({ resetToken }: HookParams) => {
+  const navigate = useNavigate();
+  const { clearForgotPasswordIdentifier, setToken, setOrganisation } = useAuth();
   const { resetPassword } = useAuthApi();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
@@ -31,12 +39,24 @@ export const useResetPasswordForm = () => {
     setErrors({});
     setIsLoading(true);
 
+    if (!resetToken) {
+      return;
+    }
+
     try {
       ResetPasswordValidation.parse(passwords);
       resetPassword({
-        token: '',
+        token: resetToken,
         password: passwords.password,
-      });
+      })
+        .then(({ data }) => {
+          clearForgotPasswordIdentifier();
+          const { token } = data;
+          setToken(token);
+          setOrganisation(data);
+        })
+        .then(() => navigate('/'))
+        .catch(() => setErrors({ confirm: 'Ogiltig token, försök igen genom att starta om återställningen' }));
     } catch (err: any) {
       if (err instanceof ZodError) {
         const zodErrors: Partial<Record<string, string>> = {};
@@ -48,7 +68,6 @@ export const useResetPasswordForm = () => {
           }
         });
         setErrors(zodErrors);
-        setIsLoading(false);
       }
     } finally {
       setIsLoading(false);
