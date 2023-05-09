@@ -9,3 +9,13 @@ export type Organisation = {
   createdAt: string;
   updatedAt?: string;
 };
+
+export type OrganisationDTO = {
+  id: string;
+  orgNumber: string;
+  name: string;
+  email: string;
+  token?: string;
+  createdAt: Date;
+  updatedAt?: Date;
+};
