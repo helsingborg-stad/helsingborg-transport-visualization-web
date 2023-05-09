@@ -1,6 +1,5 @@
 import { css } from 'styled-components';
 
-// TODO: add correct font
 export default css`
   --color-white: #FFFFFF;
   --color-black: #000000;
