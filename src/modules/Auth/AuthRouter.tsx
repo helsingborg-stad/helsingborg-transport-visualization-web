@@ -5,6 +5,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 const Login = lazy(() => import('./Login'));
 const CreateAccount = lazy(() => import('./CreateAccount'));
 
+// TODO: add forgot password and reset password to routes
 export const AuthRouter = () => (
   <AuthLayout>
     <Routes>

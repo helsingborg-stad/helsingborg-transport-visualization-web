@@ -6,7 +6,6 @@ const pinCodeRegex = /^(?!.*(\d)\D*\1\D*\1)(?!.*(\d)\D?\2\D?\2)(?!.*(\d)\d?\D*(?
 // REGEX to match 10 tecken långt och innehålla minst en versal, en siffra och ett specialtecken.
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{10,}$/;
 
-// TODO: update all error messages
 export const CreateAccountValidation = z.object({
   orgNumber: z
     .string()

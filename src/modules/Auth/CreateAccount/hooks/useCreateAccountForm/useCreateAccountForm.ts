@@ -80,7 +80,6 @@ export const useCreateAccountForm = () => {
       return;
     }
 
-    // TODO: update error message from backend
     createAccount(formFields)
       .then(({ data }) => {
         const { token } = data;
