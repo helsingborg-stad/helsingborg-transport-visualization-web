@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { useAuthApi } from 'hooks/useAuthApi';
 import { Organisation } from 'types';
 
 export const useAuthContext = () => {
@@ -10,6 +9,9 @@ export const useAuthContext = () => {
   const setToken = (token: string) => window.sessionStorage.setItem('token', token);
   const clearToken = () => window.sessionStorage.removeItem('token');
 
+  const getForgotPasswordIdentifier = () => window.sessionStorage.getItem('forgotPasswordIdentifier') || null;
+  const setForgotPasswordIdentifier = (identifier: string) => window.sessionStorage.setItem('forgotPasswordIdentifier', identifier);
+  const clearForgotPasswordIdentifier = () => window.sessionStorage.removeItem('forgotPasswordIdentifier');
   // const { getMe } = useAuthApi();
 
   useEffect(() => {
@@ -40,5 +42,8 @@ export const useAuthContext = () => {
     setToken,
     clearToken,
     logOut,
+    getForgotPasswordIdentifier,
+    setForgotPasswordIdentifier,
+    clearForgotPasswordIdentifier,
   };
 };
