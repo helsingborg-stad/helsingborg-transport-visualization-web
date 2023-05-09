@@ -7,7 +7,6 @@ export const tableGrid = css`
     minmax(120px, 1fr) 
     minmax(150px, 1fr) 
     minmax(60px, 1fr) 
-    minmax(80px, 1fr)
     minmax(80px, 1fr) 
     minmax(120px, 1fr)
     minmax(120px, 1fr)

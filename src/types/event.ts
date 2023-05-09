@@ -1,9 +1,10 @@
 import { ZoneType } from './delivery';
+import { Organisation } from './organisation';
 
 export type Event = {
   trackingId: string;
   id: string;
-  orgNumber: string;
+  organisation: Organisation;
   zoneType: ZoneType;
   zoneId: string;
   address: string;

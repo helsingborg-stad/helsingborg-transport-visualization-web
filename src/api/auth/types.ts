@@ -5,11 +5,12 @@ export type LoginRequest = {
 
 export type LoginResponse = {
   id: string;
-  token: string;
   orgNumber: string;
+  name: string;
   email: string;
-  createdAt: string;
-  updatedAt: string;
+  token: string;
+  createdAt: Date;
+  updatedAt?: Date;
 };
 
 export type SignUpRequest = {
@@ -21,13 +22,13 @@ export type SignUpRequest = {
 };
 
 export type SignUpResponse = {
-  createdAt: string;
-  email: string;
   id: string;
-  name: string;
   orgNumber: string;
+  name: string;
+  email: string;
   token: string;
-  updatedAt?: string;
+  createdAt: Date;
+  updatedAt?: Date;
 };
 
 export type ForgotPasswordRequest = {

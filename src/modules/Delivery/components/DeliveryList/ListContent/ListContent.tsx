@@ -33,9 +33,8 @@ export const ListContent: FC<ListContentProps> = ({ events }) => {
               ? <Styled.SVGContainer src={DistributionSvg} alt="Distribution icon" />
               : <Styled.SVGContainer src={CollecionSvg} alt="Collection icon" />}
           </Styled.TypeColumn>
-          <Styled.TimeInColumn>{getHourAndMin(event.enteredAt)}</Styled.TimeInColumn>
           <Styled.TimeOutColumn>{getHourAndMin(event.exitedAt)}</Styled.TimeOutColumn>
-          <Styled.CarrierColumn>{event.orgNumber}</Styled.CarrierColumn>
+          <Styled.CarrierColumn>{event.organisation.name}</Styled.CarrierColumn>
           <Styled.AreaColumn>{event.area}</Styled.AreaColumn>
           <Styled.DateColumn>{getYYYYMMDD(event.enteredAt)}</Styled.DateColumn>
         </Styled.Container>
