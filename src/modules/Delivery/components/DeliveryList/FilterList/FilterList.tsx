@@ -7,6 +7,7 @@ import * as Styled from './styled';
 import { AreaFilter } from './AreaFilter';
 import { NameFilter } from './NameFilter';
 import { OrganisationFilter } from './OrganisationFilter';
+import { WeekdayFilter } from './WeekdayFilter';
 
 type FilterListProps = {
   fetchEvents: (filter?: string) => void;
@@ -20,8 +21,16 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
   if (!filters || !filterOptions) {
     return null;
   }
+
   return (
     <Styled.Container>
+      <FilterButton label="Dag" clearFilter={() => resetFilters(FilterOptions.WEEKDAYS)} triggerReload={triggerReload} activeFilters={activeFilters.weekdays}>
+        <WeekdayFilter
+          weekdayFilter={filters.weekdays}
+          checkFilter={checkFilter}
+          filterOptions={filterOptions.weekdays}
+        />
+      </FilterButton>
       <FilterButton label="Plats" clearFilter={() => resetFilters(FilterOptions.NAMES)} triggerReload={triggerReload} activeFilters={activeFilters.names}>
         <NameFilter nameFilter={filters.names} checkFilter={checkFilter} />
       </FilterButton>
