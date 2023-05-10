@@ -6,6 +6,7 @@ export const ListHeader = () => (
     <Styled.Label>Plats</Styled.Label>
     <Styled.Label>Typ</Styled.Label>
     <Styled.Label>Tid</Styled.Label>
+    <Styled.Label>Leverantör</Styled.Label>
     <Styled.Label>Transportör</Styled.Label>
     <Styled.Label>Område</Styled.Label>
     <Styled.Label>Datum</Styled.Label>
