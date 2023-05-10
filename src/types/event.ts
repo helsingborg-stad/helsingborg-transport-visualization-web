@@ -5,6 +5,7 @@ export type Event = {
   trackingId: string;
   id: string;
   organisation: Organisation;
+  distributionOrganisation: Organisation | null;
   zoneType: ZoneType;
   zoneId: string;
   address: string;
