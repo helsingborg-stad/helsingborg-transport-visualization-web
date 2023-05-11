@@ -16,8 +16,9 @@ jobs:
       - name: Install dependencies
         run: 'npm ci'
       - name: Build
+      #add secrets.GOOGLE_MAPS_API_KEY to .env
         run: |-
-          cp ${{ env.ENVFILE }} .env
+          cp ${{ env.ENVFILE }} .env && echo "VITE_GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
           NODE_OPTIONS=--openssl-legacy-provider npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
