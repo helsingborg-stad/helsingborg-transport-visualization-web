@@ -10,6 +10,7 @@ export const tableGrid = css`
     minmax(80px, 1fr) 
     minmax(120px, 1fr)
     minmax(120px, 1fr)
+    minmax(120px, 1fr)
     minmax(120px, 1fr);
   grid-gap: var(--spacing-5);
 `;
