@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ContentContainer = styled.div`
   position: relative;
   height: 100vh;
+  overflow-y: hidden;
 `;
 
 export const Container = styled.div`
@@ -23,7 +24,7 @@ export const ButtonContent = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 18px;
   right: 22px;
   z-index: 9;

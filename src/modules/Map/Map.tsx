@@ -26,7 +26,7 @@ export const Map = () => {
   }
 
   return (
-    <DeliveryLayout>
+    <DeliveryLayout showMenu={false}>
       <Styled.ContentContainer>
         <Styled.Container>
           <Styled.Heading>Platser</Styled.Heading>

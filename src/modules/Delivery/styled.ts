@@ -10,3 +10,16 @@ export const Heading = styled.h1`
     line-height: var(--spacing-md);
     font-weight: var(--font-weight-700);
 `;
+
+export const ButtonContent = styled.div`
+  display: flex;
+  gap: 7px;
+  align-items: center;
+`;
+
+export const ButtonContainer = styled.div`
+  position: fixed;
+  bottom: 18px;
+  right: 22px;
+  z-index: 9;
+`;

@@ -44,6 +44,13 @@ export const useGetMap = () => {
         const map = new google.maps.Map(mapRef.current as HTMLElement, {
           center: { lat: 56.046467, lng: 12.694512 },
           zoom: 10,
+          mapTypeControl: false,
+          fullscreenControl: false,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT,
+          },
+          streetViewControl: false,
+
         });
 
         if (!zones) {
