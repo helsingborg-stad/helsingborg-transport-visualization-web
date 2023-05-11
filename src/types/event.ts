@@ -1,4 +1,4 @@
-import { ZoneType } from './delivery';
+import { ZoneType } from './zone';
 import { Organisation } from './organisation';
 
 export type Event = {
