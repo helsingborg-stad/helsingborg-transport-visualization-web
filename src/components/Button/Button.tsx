@@ -10,12 +10,14 @@ type ButtonProps = {
   isActive?: boolean;
   buttonSize?: ButtonSize;
   onClick: () => void;
+  type: 'button' | 'submit' | 'reset' | undefined;
 } & React.HTMLProps<HTMLButtonElement>;
 
 export const Button: FC<ButtonProps> = ({
-  children, disabled, primary, secondary, tertiary, outline, isActive, buttonSize, onClick,
+  children, disabled, primary, secondary, tertiary, outline, isActive, buttonSize, type, onClick,
 }) => (
   <Styled.Button
+    type={type}
     disabled={disabled}
     primary={primary}
     secondary={secondary}

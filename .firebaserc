@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "helsingborg-poc-stg"
-  }
+    "production": "helsingborg-poc-prod",
+    "staging": "helsingborg-poc-stg"
+  },
+  "targets": {},
+  "etags": {}
 }

@@ -1,21 +1,26 @@
 import { Button, Input } from 'components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as Styled from './styled';
 import { useResetPasswordForm } from './hooks';
 
 export const ResetPassword = () => {
   const navigate = useNavigate();
+  const { token } = useParams();
   const {
     passwords, setFieldValue, submit, errors, isLoading,
-  } = useResetPasswordForm();
+  } = useResetPasswordForm({ resetToken: token });
   const returnToLogin = () => {
     navigate('/auth');
   };
 
+  if (!token) {
+    return <p>You need a token to continue</p>;
+  }
+
   return (
     <>
       <Styled.Title>Nytt lösenord</Styled.Title>
-      <form onSubmit={submit}>
+      <Styled.Form onSubmit={submit} id="resetForm">
         <Input
           type="password"
           id="password"
@@ -25,6 +30,7 @@ export const ResetPassword = () => {
           value={passwords.password}
           onChange={setFieldValue('password')}
           error={errors.password}
+          info="Lösenordet ska vara minst 10 tecken långt och innehålla minst en versal, en siffra och ett specialtecken."
         />
         <Input
           type="password"
@@ -37,10 +43,10 @@ export const ResetPassword = () => {
           error={errors.confirm}
         />
         <Styled.ButtonContainer>
-          <Button onClick={returnToLogin} secondary disabled={isLoading}>Avbryt</Button>
-          <Button onClick={() => submit} disabled={isLoading}>Ändra lösenord</Button>
+          <Button type="button" onClick={returnToLogin} secondary disabled={isLoading}>Avbryt</Button>
+          <Button type="submit" disabled={isLoading} onClick={() => submit}>Ändra lösenord</Button>
         </Styled.ButtonContainer>
-      </form>
+      </Styled.Form>
     </>
   );
 };

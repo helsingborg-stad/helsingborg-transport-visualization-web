@@ -16,10 +16,12 @@ export const useForgotPasswordForm = () => {
     setError('');
 
     try {
-      ForgotPasswordValidation.parse(identifier);
-      forgotPassword({ identifier }).then(() => setForgotPasswordIdentifier(identifier));
+      ForgotPasswordValidation.parse({ identifier });
+      forgotPassword({ identifier })
+        .then(() => setForgotPasswordIdentifier(identifier))
+        .then(() => window.location.reload());
     } catch (err: any) {
-      console.log(err);
+      setError(err);
     } finally {
       setIsLoading(false);
     }

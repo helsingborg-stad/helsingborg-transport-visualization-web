@@ -11,7 +11,6 @@ interface Props {
 type AuthContextInterface = {
   organisation: OrganisationDTO | null;
   setOrganisation: Dispatch<SetStateAction<OrganisationDTO | null>>;
-  loadingOrganisation: boolean;
   hasToken: () => boolean;
   setToken: (token: string) => void;
   getForgotPasswordIdentifier: () => string | null;
@@ -26,7 +25,6 @@ export const AuthContext = createContext<AuthContextInterface>({
   getForgotPasswordIdentifier: () => '',
   setForgotPasswordIdentifier: () => {},
   clearForgotPasswordIdentifier: () => {},
-  loadingOrganisation: true,
   setToken: () => {},
   hasToken: () => false,
   logOut: () => {},
