@@ -1,6 +1,5 @@
 export type Organisation = {
   id: string;
-  token: string;
   orgNumber: string;
   contactPerson: string;
   mobileNumber: string;

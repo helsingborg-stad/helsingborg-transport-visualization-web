@@ -3,12 +3,18 @@ import { Menu } from 'components/Menu';
 
 type DeliveryLayoutProps = {
   children: React.ReactNode;
+  showMenu?: boolean;
+
 };
 
-export const DeliveryLayout: FC<DeliveryLayoutProps> = ({ children }) => (
+export const DeliveryLayout: FC<DeliveryLayoutProps> = ({ children, showMenu = true }) => (
   <>
-    <Menu />
+    {showMenu && <Menu />}
     {children}
   </>
 
 );
+
+DeliveryLayout.defaultProps = {
+  showMenu: true,
+};

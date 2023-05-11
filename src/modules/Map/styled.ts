@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
+export const ContentContainer = styled.div`
+  position: relative;
+  height: 100vh;
+  overflow-y: hidden;
+`;
+
 export const Container = styled.div`
-  margin: 36px 32px;
+  margin: 20px 32px;
 `;
 
 export const Heading = styled.h1`
