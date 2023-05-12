@@ -7,6 +7,7 @@ import * as Styled from './styled';
 import { AreaFilter } from './AreaFilter';
 import { NameFilter } from './NameFilter';
 import { OrganisationFilter } from './OrganisationFilter';
+import { DistributorFilter } from './DistributorFilter';
 import { WeekdayFilter } from './WeekdayFilter';
 
 type FilterListProps = {
@@ -36,6 +37,13 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
       </FilterButton>
       <FilterButton label="Område" clearFilter={() => resetFilters(FilterOptions.AREAS)} triggerReload={triggerReload} activeFilters={activeFilters.areas}>
         <AreaFilter areaFilter={filters.areas} checkFilter={checkFilter} />
+      </FilterButton>
+      <FilterButton label="Leverantör" clearFilter={() => resetFilters(FilterOptions.DISTRIBUTORS)} triggerReload={triggerReload} activeFilters={activeFilters.distributors}>
+        <DistributorFilter
+          filterOptions={filterOptions.distributors}
+          distributorFilter={filters.distributors}
+          checkFilter={checkFilter}
+        />
       </FilterButton>
       <FilterButton label="Transportör" clearFilter={() => resetFilters(FilterOptions.ORGANISATIONS)} triggerReload={triggerReload} activeFilters={activeFilters.organisations}>
         <OrganisationFilter
