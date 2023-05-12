@@ -5,6 +5,7 @@ import { FilterOptions, CheckboxFilter } from 'types/delivery';
 
 export type FilterType = {
   organisations: CheckboxFilter;
+  distributors: CheckboxFilter;
   names: CheckboxFilter;
   areas: CheckboxFilter;
   weekdays: CheckboxFilter;
@@ -12,6 +13,7 @@ export type FilterType = {
 
 export type FilterOptionType = {
   organisations: OrgWithName[];
+  distributors: OrgWithName[];
   names: string[];
   areas: string[];
   weekdays: WeekdayWithName[];
@@ -19,6 +21,7 @@ export type FilterOptionType = {
 
 type ActiveFilterType = {
   organisations: number;
+  distributors: number;
   names: number;
   areas: number;
   weekdays: number;
@@ -35,6 +38,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
   const [reload, setReload] = useState(true);
   const [activeFilters, setActiveFilters] = useState<ActiveFilterType>({
     organisations: 0,
+    distributors: 0,
     names: 0,
     areas: 0,
     weekdays: 0,
@@ -55,6 +59,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         areas: createEmptyFilterObject(filterOptions.areas),
         names: createEmptyFilterObject(filterOptions.names),
         organisations: createEmptyFilterObject(filterOptions.organisations.map((o) => o.orgNumber)),
+        distributors: createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)),
         weekdays: createEmptyFilterObject(filterOptions.weekdays.map((w) => w.number)),
       });
     }
@@ -119,6 +124,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         const names = params.get(FilterOptions.NAMES)?.split(',') || [];
         const weekdays = params.get(FilterOptions.WEEKDAYS)?.split(',') || [];
         const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
+        const distributors = params.get(FilterOptions.DISTRIBUTORS)?.split(',') || [];
 
         // Sets filters based on params from URL (if there are any)
         setFilters({
@@ -140,6 +146,13 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
             (acc, curr) => ({
               ...acc,
               [curr.orgNumber]: organisations.includes(curr.orgNumber),
+            }),
+            {},
+          ),
+          distributors: data.distributors.reduce(
+            (acc, curr) => ({
+              ...acc,
+              [curr.orgNumber]: distributors.includes(curr.orgNumber),
             }),
             {},
           ),
@@ -166,6 +179,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       const names = getFilterList(FilterOptions.NAMES);
       const weekdays = getFilterList(FilterOptions.WEEKDAYS);
       const organisations = getFilterList(FilterOptions.ORGANISATIONS);
+      const distributors = getFilterList(FilterOptions.DISTRIBUTORS);
 
       if (areas.length > 0) {
         params.append(FilterOptions.AREAS, areas.join(','));
@@ -175,6 +189,9 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       }
       if (organisations.length > 0) {
         params.append(FilterOptions.ORGANISATIONS, organisations.join(','));
+      }
+      if (distributors.length > 0) {
+        params.append(FilterOptions.DISTRIBUTORS, distributors.join(','));
       }
       if (weekdays.length > 0) {
         params.append(FilterOptions.WEEKDAYS, weekdays.join(','));
@@ -186,6 +203,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         organisations: organisations.length,
         names: names.length,
         weekdays: weekdays.length,
+        distributors: distributors.length,
       });
 
       const filter = params.toString();
