@@ -1,4 +1,5 @@
 import { useDateConverter } from 'utils/useDateConverter';
+import { RadioButton } from '../RadioButton';
 import * as Styled from './styled';
 
 export const FilterBox = () => {
@@ -14,7 +15,23 @@ export const FilterBox = () => {
         </div>
       </Styled.Header>
       <Styled.FilterContainer>
-        <p>DATES</p>
+        <Styled.OptionList>
+          <RadioButton
+            label="Igår"
+            checked={false}
+            onClick={() => null}
+          />
+          <RadioButton
+            label="Idag"
+            checked
+            onClick={() => null}
+          />
+          <RadioButton
+            label="Senaste 7 dagarna"
+            checked={false}
+            onClick={() => null}
+          />
+        </Styled.OptionList>
       </Styled.FilterContainer>
     </Styled.Container>
   );
