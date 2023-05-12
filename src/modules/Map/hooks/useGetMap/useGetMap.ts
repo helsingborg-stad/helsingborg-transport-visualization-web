@@ -50,7 +50,12 @@ export const useGetMap = () => {
             position: google.maps.ControlPosition.TOP_RIGHT,
           },
           streetViewControl: false,
-
+          styles: [
+            {
+              featureType: 'poi',
+              stylers: [{ visibility: 'off' }],
+            },
+          ],
         });
 
         if (!zones) {
