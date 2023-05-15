@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
+// @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
 import centerOfMass from '@turf/center-of-mass';
 import { useZoneApi } from 'hooks/useZoneApi';
@@ -75,22 +76,26 @@ export const useGetMap = () => {
         const markers = zones.features.map((zone) => {
           const center = centerOfMass(zone.geometry).geometry.coordinates;
           const marker = new google.maps.Marker({
-            // eslint-disable-next-line max-len
             position: { lng: center[0], lat: center[1] },
             map,
             icon: zone.properties.type === 'distribution' ? DistributionZoneIcon : DeliveryZoneIcon,
           });
 
           marker.addListener('click', (event: google.maps.Data.MouseEvent) => {
-            const { name, organisation } = zone.properties;
+            if (event.latLng) {
+              const { name, organisation } = zone.properties;
 
-            infoWindow.setContent(InfoBox(organisation, name));
-            infoWindow.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+              infoWindow.setContent(InfoBox(organisation, name));
+              infoWindow.setPosition(
+                new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
+              );
 
-            infoWindow.open(map);
+              infoWindow.open(map);
+            }
           });
           return marker;
         });
+        // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const markCluster = new MarkerClusterer({ map, markers });
       })
