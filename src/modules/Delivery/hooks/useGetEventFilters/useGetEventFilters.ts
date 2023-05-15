@@ -59,7 +59,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         areas: createEmptyFilterObject(filterOptions.areas),
         names: createEmptyFilterObject(filterOptions.names),
         organisations: createEmptyFilterObject(filterOptions.organisations.map((o) => o.orgNumber)),
-        distributors: createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)),
+        distributors: filterOptions.distributors
+          ? createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)) : {},
         weekdays: createEmptyFilterObject(filterOptions.weekdays.map((w) => w.number)),
       });
     }

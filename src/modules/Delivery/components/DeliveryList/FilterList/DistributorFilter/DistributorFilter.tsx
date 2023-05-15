@@ -14,7 +14,7 @@ export const DistributorFilter: FC<DistributorFilterProps> = ({
   filterOptions, distributorFilter, checkFilter,
 }) => {
   if (!distributorFilter || !filterOptions) {
-    return null;
+    return <Styled.NoValue>Finns inga värden att filtrera på för kategorin.</Styled.NoValue>;
   }
 
   return (

@@ -15,7 +15,7 @@ export const SmallLabel = styled.p`
 const Column = styled.div`
   display: flex;
   font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-600);
+  font-weight: var(--font-weight-400);
   line-height: var(--line-height-xxxs);
   margin: auto 0;
 `;
