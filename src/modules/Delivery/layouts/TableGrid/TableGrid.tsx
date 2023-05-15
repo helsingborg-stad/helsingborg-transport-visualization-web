@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components';
 export const tableGrid = css`
   display: grid;
   grid-template-columns:
-    minmax(120px, 1fr) 
-    minmax(150px, 1fr) 
+    minmax(80px, 1fr) 
+    minmax(180px, 1fr) 
     minmax(60px, 1fr) 
     minmax(80px, 1fr) 
     minmax(120px, 1fr)
