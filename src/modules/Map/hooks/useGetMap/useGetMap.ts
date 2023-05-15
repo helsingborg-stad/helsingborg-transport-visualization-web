@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { MarkerClusterer } from '@googlemaps/markerclusterer';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import centerOfMass from '@turf/center-of-mass';
 import { useZoneApi } from 'hooks/useZoneApi';
 import { FeatureCollection } from 'types/zone';
 import { Organisation } from 'types/organisation';
+import DistributionZoneIcon from 'assets/distribution_zone.svg';
+import DeliveryZoneIcon from 'assets/delivery_zone.svg';
 
 const { VITE_GOOGLE_MAPS_API_KEY } = import.meta.env;
 
@@ -62,19 +68,31 @@ export const useGetMap = () => {
           setIsLoading(false);
           return;
         }
-
-        const infoWindow = new google.maps.InfoWindow();
-
-        map.data.addListener('click', (event: google.maps.Data.MouseEvent) => {
-          const name = event.feature.getProperty('name');
-          const organisation = event.feature.getProperty('organisation');
-
-          infoWindow.setContent(InfoBox(organisation, name));
-          infoWindow.setPosition(event.latLng);
-
-          infoWindow.open(map);
+        const infoWindow = new google.maps.InfoWindow({
+          pixelOffset: new google.maps.Size(0, -30),
         });
-        map.data.addGeoJson(zones);
+
+        const markers = zones.features.map((zone) => {
+          const center = centerOfMass(zone.geometry).geometry.coordinates;
+          const marker = new google.maps.Marker({
+            // eslint-disable-next-line max-len
+            position: { lng: center[0], lat: center[1] },
+            map,
+            icon: zone.properties.type === 'distribution' ? DistributionZoneIcon : DeliveryZoneIcon,
+          });
+
+          marker.addListener('click', (event: google.maps.Data.MouseEvent) => {
+            const { name, organisation } = zone.properties;
+
+            infoWindow.setContent(InfoBox(organisation, name));
+            infoWindow.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+
+            infoWindow.open(map);
+          });
+          return marker;
+        });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const markCluster = new MarkerClusterer({ map, markers });
       })
       .catch((err) => console.log('Err occurred while loading Google Maps', err))
       .finally(() => setIsLoading(false));
