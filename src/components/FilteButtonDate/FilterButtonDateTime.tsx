@@ -1,19 +1,20 @@
 import { FC, useRef, useState } from 'react';
 import ExpandArrow from 'assets/expand_arrow_icon.svg';
 import { useHandleClickOutside } from 'hooks';
-import { DateFilterOption, DateFilterSelected } from 'modules/Delivery/hooks';
+import { DateTimeFilterOption, DateTimeFilterSelected } from 'modules/Delivery/hooks';
 import { FilterBox } from './FilterBox';
 import * as Styled from './styled';
 
 type FilterButtonDateProps = {
   label: string;
-  filterOptions: DateFilterOption[];
-  selected?: DateFilterSelected;
-  onClick: (date: DateFilterSelected) => void;
+  filterOptions: DateTimeFilterOption[];
+  selected?: DateTimeFilterSelected;
+  onClick: (data: DateTimeFilterSelected) => void;
+  activeFilters: number;
 };
 
 export const FilterButtonDate: FC<FilterButtonDateProps> = ({
-  label, filterOptions, selected, onClick,
+  label, filterOptions, selected, onClick, activeFilters,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const containerRef = useRef(null);
@@ -25,16 +26,20 @@ export const FilterButtonDate: FC<FilterButtonDateProps> = ({
     },
   });
 
+  const isActive = activeFilters > 0;
+
   return (
     <Styled.Container ref={containerRef}>
-      <Styled.Button type="button" outline onClick={() => setIsOpen(!isOpen)}>
+      <Styled.Button type="button" outline={!isActive} isActive={isActive} onClick={() => setIsOpen(!isOpen)}>
         <Styled.Content>
           {label}
+          {activeFilters > 0 ? ` (${activeFilters})` : ''}
           <img src={ExpandArrow} alt="arrow icon" />
         </Styled.Content>
       </Styled.Button>
       {isOpen && (
         <FilterBox
+          label={label}
           filterOptions={filterOptions}
           selected={selected}
           onClick={onClick}

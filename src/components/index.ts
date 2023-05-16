@@ -1,7 +1,6 @@
 export * from './Button';
 export * from './Checkbox';
 export * from './FilteButtonDate';
-export * from './FilterButtonTime';
 export * from './FilterButton';
 export * from './Input';
 export * from './InputTime';
