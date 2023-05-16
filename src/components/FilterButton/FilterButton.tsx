@@ -11,10 +11,11 @@ type FilterButtonProps = {
   clearFilter: () => void;
   triggerReload: () => void;
   activeFilters: number;
+  noFilterValues?: boolean;
 };
 
 export const FilterButton: FC<FilterButtonProps> = ({
-  label, children, clearFilter, triggerReload, activeFilters,
+  label, children, clearFilter, triggerReload, activeFilters, noFilterValues,
 }) => {
   const containerRef = useRef(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -47,10 +48,15 @@ export const FilterButton: FC<FilterButtonProps> = ({
           close={close}
           label={label}
           triggerReload={triggerReload}
+          noFilterValues={noFilterValues}
         >
           {children}
         </FilterBox>
       )}
     </Styled.Container>
   );
+};
+
+FilterButton.defaultProps = {
+  noFilterValues: false,
 };

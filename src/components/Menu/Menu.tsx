@@ -22,7 +22,6 @@ export const Menu = () => {
     navigate('/auth');
   };
 
-  // TODO: update links below with correct navigation
   return (
     <Styled.Menu ref={containerRef}>
       <Styled.Container onClick={() => setIsOpen(!isOpen)}>
@@ -32,14 +31,20 @@ export const Menu = () => {
       {isOpen && (
       <Styled.MenuList>
         <Styled.SectionOne>
-          <Styled.BoldText>Lista</Styled.BoldText>
-          <Styled.BoldText>Karta</Styled.BoldText>
+          <Styled.BoldText onClick={() => {
+            navigate('/');
+            setIsOpen(false);
+          }}
+          >
+            Lista
+          </Styled.BoldText>
+          <Styled.BoldText onClick={() => navigate('/map')}>Karta</Styled.BoldText>
         </Styled.SectionOne>
-        <Styled.SectionTwo>
+        {/* <Styled.SectionTwo>
           <Styled.Text>Konto</Styled.Text>
           <Styled.Text>Lägg till plats</Styled.Text>
           <Styled.Text>Om</Styled.Text>
-        </Styled.SectionTwo>
+        </Styled.SectionTwo> */}
         <Styled.SectionThree>
           <Styled.Text onClick={() => logOutAndRedirect()}>Logga ut</Styled.Text>
         </Styled.SectionThree>

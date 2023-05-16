@@ -1,6 +1,6 @@
-import DistributionSvg from 'assets/hangar_icon.svg';
+import DistributionSvg from 'assets/distributor_icon.svg';
 import { ZoneType } from 'types';
-import CollecionSvg from 'assets/school_icon.svg';
+import CollecionSvg from 'assets/delivery_icon.svg';
 import { FC } from 'react';
 import { Event } from 'types/event';
 import { useDateConverter } from 'utils';

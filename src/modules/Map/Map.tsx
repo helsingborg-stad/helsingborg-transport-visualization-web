@@ -20,13 +20,12 @@ export const Map = () => {
     }
   }, [isAuthenticated]);
 
-  // TODO: add loading state
   if (!isAuthenticated) {
     return null;
   }
 
   return (
-    <DeliveryLayout showMenu={false}>
+    <DeliveryLayout>
       <Styled.ContentContainer>
         <Styled.Container>
           <Styled.Heading>Platser</Styled.Heading>

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Menu = styled.div`
   position: absolute;
+  top: 24px;
   right: 30px;
   display: flex;
   flex-direction: column;
@@ -29,6 +30,7 @@ export const MenuList = styled.div`
   box-shadow: 0px 1px 11px rgba(0, 0, 0, 0.17);
   border-radius: 6px;
   width: 113px;
+  z-index: 9;
 `;
 
 const Section = styled.div`

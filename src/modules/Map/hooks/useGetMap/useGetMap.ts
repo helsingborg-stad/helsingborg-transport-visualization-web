@@ -8,7 +8,7 @@ const { VITE_GOOGLE_MAPS_API_KEY } = import.meta.env;
 
 export const useGetMap = () => {
   const { getAllZones } = useZoneApi();
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>();
   const [zones, setZones] = useState<FeatureCollection>();
   const mapRef = useRef<HTMLDivElement>(null);
@@ -29,9 +29,11 @@ export const useGetMap = () => {
     getAllZones()
       .then(({ data }) => setZones(data))
       .catch((e) => setError(e.message));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    setError(false);
     setIsLoading(true);
     const loader = new Loader({
       apiKey: VITE_GOOGLE_MAPS_API_KEY,
@@ -50,7 +52,12 @@ export const useGetMap = () => {
             position: google.maps.ControlPosition.TOP_RIGHT,
           },
           streetViewControl: false,
-
+          styles: [
+            {
+              featureType: 'poi',
+              stylers: [{ visibility: 'off' }],
+            },
+          ],
         });
 
         if (!zones) {
@@ -71,12 +78,12 @@ export const useGetMap = () => {
         });
         map.data.addGeoJson(zones);
       })
-      .catch((err) => console.log('Err occurred while loading Google Maps', err))
+      .catch(() => setError(true))
       .finally(() => setIsLoading(false));
 
     return () => {
       if (mapRef.current) {
-        // eslint-disable-next-line no-param-reassign
+        // eslint-disable-next-line no-param-reassign, react-hooks/exhaustive-deps
         mapRef.current.innerHTML = '';
       }
     };

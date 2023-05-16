@@ -3,6 +3,7 @@ export enum FilterOptions {
   NAMES = 'names',
   ORGANISATIONS = 'organisations',
   WEEKDAYS = 'weekdays',
+  DISTRIBUTORS = 'distributors',
 }
 
 export type CheckboxFilter = {

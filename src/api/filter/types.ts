@@ -10,6 +10,7 @@ export type WeekdayWithName = {
 
 export type EventFilterResponse = {
   organisations: OrgWithName[];
+  distributors: OrgWithName[];
   names: string[];
   areas: string[];
 };
