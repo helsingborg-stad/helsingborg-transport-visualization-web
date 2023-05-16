@@ -19,6 +19,7 @@ type FilterListProps = {
 export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
   const {
     filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters,
+    setDateFilter,
   } = useGetEventFilters({ fetchEvents });
 
   if (!filters || !filterOptions) {
@@ -27,7 +28,7 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
 
   return (
     <Styled.Container>
-      <FilterButtonDate label="Datum" />
+      <FilterButtonDate label="Datum" filterOptions={filterOptions.dates} selected={filters.dates} onClick={setDateFilter} />
       <FilterButton label="Dag" clearFilter={() => resetFilters(FilterOptions.WEEKDAYS)} triggerReload={triggerReload} activeFilters={activeFilters.weekdays}>
         <WeekdayFilter
           weekdayFilter={filters.weekdays}

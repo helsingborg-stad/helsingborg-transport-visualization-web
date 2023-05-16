@@ -47,5 +47,5 @@ export const IconWrapper = styled.img`
 export const OptionList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 `;

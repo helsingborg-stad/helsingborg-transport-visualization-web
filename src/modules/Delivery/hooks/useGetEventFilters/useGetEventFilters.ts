@@ -2,6 +2,18 @@ import { useState, useEffect } from 'react';
 import { useFilterApi } from 'hooks/useFilterApi';
 import { OrgWithName, WeekdayWithName } from 'api/filter/types';
 import { FilterOptions, CheckboxFilter } from 'types/delivery';
+import { useDateConverter } from 'utils';
+
+export type DateFilterOption = {
+  label: string;
+  to?: string;
+  from?: string;
+};
+
+export type DateFilterSelected = {
+  to?: string;
+  from?: string;
+};
 
 export type FilterType = {
   organisations: CheckboxFilter;
@@ -9,6 +21,7 @@ export type FilterType = {
   names: CheckboxFilter;
   areas: CheckboxFilter;
   weekdays: CheckboxFilter;
+  dates?: DateFilterSelected;
 };
 
 export type FilterOptionType = {
@@ -17,6 +30,7 @@ export type FilterOptionType = {
   names: string[];
   areas: string[];
   weekdays: WeekdayWithName[];
+  dates: DateFilterOption[];
 };
 
 type ActiveFilterType = {
@@ -32,6 +46,8 @@ type HookProps = {
 };
 
 export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
+  const { getDatesForFilter } = useDateConverter();
+  const { dates } = getDatesForFilter();
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
   const [filters, setFilters] = useState<FilterType>();
@@ -62,6 +78,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         distributors: filterOptions.distributors
           ? createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)) : {},
         weekdays: createEmptyFilterObject(filterOptions.weekdays.map((w) => w.number)),
+        dates: undefined,
       });
     }
     triggerReload();
@@ -76,6 +93,16 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
           [key]: !filters[filterName][key],
         },
       });
+    }
+  };
+
+  const setDateFilter = (date: DateFilterSelected) => {
+    if (filters) {
+      setFilters({
+        ...filters,
+        dates: date,
+      });
+      triggerReload();
     }
   };
 
@@ -117,6 +144,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         setFilterOptions({
           ...data,
           weekdays: allWeekdays,
+          dates,
         });
 
         // Get params from URL
@@ -126,7 +154,10 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         const weekdays = params.get(FilterOptions.WEEKDAYS)?.split(',') || [];
         const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
         const distributors = params.get(FilterOptions.DISTRIBUTORS)?.split(',') || [];
+        const to = params.get('to') || '';
+        const from = params.get('from') || '';
 
+        const hasDate = to !== '' && from !== '';
         const hasDistributors = data.distributors && data.distributors.length > 0;
         // Sets filters based on params from URL (if there are any)
         setFilters({
@@ -165,6 +196,10 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
             }),
             {},
           ),
+          dates: hasDate ? {
+            to,
+            from,
+          } : undefined,
         });
       });
   }, []);
@@ -182,6 +217,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       const weekdays = getFilterList(FilterOptions.WEEKDAYS);
       const organisations = getFilterList(FilterOptions.ORGANISATIONS);
       const distributors = getFilterList(FilterOptions.DISTRIBUTORS);
+      const selectedDate = filters?.dates;
 
       if (areas.length > 0) {
         params.append(FilterOptions.AREAS, areas.join(','));
@@ -197,6 +233,11 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       }
       if (weekdays.length > 0) {
         params.append(FilterOptions.WEEKDAYS, weekdays.join(','));
+      }
+
+      if (typeof selectedDate !== 'undefined' && selectedDate.to && selectedDate.from) {
+        params.append('from', selectedDate.from);
+        params.append('to', selectedDate.to);
       }
 
       // Sets filter to show active filters on filter button(s)
@@ -224,5 +265,6 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     checkFilter,
     resetFilters,
     triggerReload,
+    setDateFilter,
   };
 };
