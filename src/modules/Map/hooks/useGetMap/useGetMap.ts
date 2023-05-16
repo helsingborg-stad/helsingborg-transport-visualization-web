@@ -76,25 +76,25 @@ export const useGetMap = () => {
           markCluster.removeMarker(marker);
         }
 
-        function addMarkerToCluster(marker: google.maps.Marker) {
+        const addMarkerToCluster = (marker: google.maps.Marker) => {
           markCluster.addMarker(marker);
-        }
+        };
 
-        function invertIcon(m: google.maps.Marker): void {
+        const invertIcon = (m: google.maps.Marker): void => {
           if (m.getIcon() === DeliveryZoneIcon) {
             m.setIcon(DeliveryZoneIconInverted);
           } else if (m.getIcon() === DistributionZoneIcon) {
             m.setIcon(DistributionZoneIconInverted);
           }
-        }
+        };
 
-        function revertIcon(m: google.maps.Marker): void {
+        const revertIcon = (m: google.maps.Marker): void => {
           if (m.getIcon() === DeliveryZoneIconInverted) {
             m.setIcon(DeliveryZoneIcon);
           } else if (m.getIcon() === DistributionZoneIconInverted) {
             m.setIcon(DistributionZoneIcon);
           }
-        }
+        };
 
         const infoWindow = new google.maps.InfoWindow({
           pixelOffset: new google.maps.Size(0, -30),
