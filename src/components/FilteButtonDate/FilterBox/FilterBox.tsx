@@ -23,14 +23,12 @@ export const FilterBox: FC<FilterBoxProps> = ({
   return (
     <Styled.Container>
       <Styled.Header>
-        <div>
-          <Styled.Heading>
-            {
+        <Styled.Heading>
+          {
              selectedOption?.to ? `${selectedOption?.from} - ${selectedOption?.to}` : today
             }
 
-          </Styled.Heading>
-        </div>
+        </Styled.Heading>
       </Styled.Header>
       <Styled.FilterContainer>
         <Styled.OptionList>
