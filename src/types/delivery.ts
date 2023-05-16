@@ -1,13 +1,9 @@
-export enum ZoneType {
-  DISTRIBUTION = 'distribution',
-  DELIVERY = 'delivery',
-}
-
 export enum FilterOptions {
   AREAS = 'areas',
   NAMES = 'names',
   ORGANISATIONS = 'organisations',
   WEEKDAYS = 'weekdays',
+  DISTRIBUTORS = 'distributors',
 }
 
 export type CheckboxFilter = {
