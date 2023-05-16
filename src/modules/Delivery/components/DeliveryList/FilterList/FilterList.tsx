@@ -1,4 +1,6 @@
-import { Button, FilterButton } from 'components';
+import {
+  Button, FilterButton, FilterButtonDate, FilterButtonTime,
+} from 'components';
 import { useGetEventFilters } from 'modules/Delivery/hooks';
 import { FilterOptions } from 'types';
 import { ButtonSize } from 'components/Button/types';
@@ -17,6 +19,7 @@ type FilterListProps = {
 export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
   const {
     filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters,
+    setDateFilter,
   } = useGetEventFilters({ fetchEvents });
 
   if (!filters || !filterOptions) {
@@ -25,6 +28,7 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
 
   return (
     <Styled.Container>
+      <FilterButtonDate label="Datum" filterOptions={filterOptions.dates} selected={filters.dates} onClick={setDateFilter} />
       <FilterButton label="Dag" clearFilter={() => resetFilters(FilterOptions.WEEKDAYS)} triggerReload={triggerReload} activeFilters={activeFilters.weekdays}>
         <WeekdayFilter
           weekdayFilter={filters.weekdays}
@@ -32,6 +36,7 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
           filterOptions={filterOptions.weekdays}
         />
       </FilterButton>
+      <FilterButtonTime label="Tid" />
       <FilterButton label="Plats" clearFilter={() => resetFilters(FilterOptions.NAMES)} triggerReload={triggerReload} activeFilters={activeFilters.names}>
         <NameFilter nameFilter={filters.names} checkFilter={checkFilter} />
       </FilterButton>
