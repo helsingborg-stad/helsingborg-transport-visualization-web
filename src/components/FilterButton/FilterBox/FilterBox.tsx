@@ -10,10 +10,11 @@ type FilterBoxProps = {
   label: string;
   children: React.ReactElement;
   triggerReload: () => void;
+  noFilterValues?: boolean;
 };
 
 export const FilterBox: FC<FilterBoxProps> = ({
-  close, label, children, clearFilter, triggerReload,
+  close, label, children, clearFilter, triggerReload, noFilterValues,
 }) => {
   const showFilter = () => {
     triggerReload();
@@ -34,10 +35,25 @@ export const FilterBox: FC<FilterBoxProps> = ({
       <Styled.FilterContainer>
         {children}
       </Styled.FilterContainer>
-      <Styled.ActionBar>
-        <Button type="button" tertiary buttonSize={ButtonSize.SMALL} onClick={clearAndClose}>Rensa</Button>
-        <Button type="button" primary buttonSize={ButtonSize.SMALL} onClick={showFilter}>Visa</Button>
-      </Styled.ActionBar>
+      {
+        noFilterValues
+          ? (
+            <Styled.ActionBar>
+              <Button type="button" primary buttonSize={ButtonSize.SMALL} onClick={close}>Ok</Button>
+            </Styled.ActionBar>
+          )
+          : (
+            <Styled.ActionBar>
+              <Button type="button" tertiary buttonSize={ButtonSize.SMALL} onClick={clearAndClose}>Rensa</Button>
+              <Button type="button" primary buttonSize={ButtonSize.SMALL} onClick={showFilter}>Visa</Button>
+            </Styled.ActionBar>
+          )
+      }
+
     </Styled.Container>
   );
+};
+
+FilterBox.defaultProps = {
+  noFilterValues: false,
 };

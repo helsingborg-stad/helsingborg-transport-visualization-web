@@ -10,3 +10,10 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 6px;
 `;
+
+export const NoValue = styled.p`
+  font-style: italic;
+  font-weight: var(--font-weight-500);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-sm);
+`;

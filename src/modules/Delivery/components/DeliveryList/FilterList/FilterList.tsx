@@ -38,7 +38,14 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
       <FilterButton label="Område" clearFilter={() => resetFilters(FilterOptions.AREAS)} triggerReload={triggerReload} activeFilters={activeFilters.areas}>
         <AreaFilter areaFilter={filters.areas} checkFilter={checkFilter} />
       </FilterButton>
-      <FilterButton label="Leverantör" clearFilter={() => resetFilters(FilterOptions.DISTRIBUTORS)} triggerReload={triggerReload} activeFilters={activeFilters.distributors}>
+
+      <FilterButton
+        noFilterValues={!filterOptions.distributors || !filters.distributors}
+        label="Leverantör"
+        clearFilter={() => resetFilters(FilterOptions.DISTRIBUTORS)}
+        triggerReload={triggerReload}
+        activeFilters={activeFilters.distributors}
+      >
         <DistributorFilter
           filterOptions={filterOptions.distributors}
           distributorFilter={filters.distributors}

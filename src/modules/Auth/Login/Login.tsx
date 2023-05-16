@@ -4,7 +4,7 @@ import * as Styled from './styled';
 
 export const Login = () => (
   <Styled.Container>
-    <Styled.Heading>Välkommen till Samlastningschansen</Styled.Heading>
+    <Styled.Heading>Välkommen till Sam!</Styled.Heading>
     <Styled.InfoText>
       Samlar färddata vid leveranser och ger överblick på vilka samlastningsmöjligheter som finns.
       {' '}

@@ -59,7 +59,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         areas: createEmptyFilterObject(filterOptions.areas),
         names: createEmptyFilterObject(filterOptions.names),
         organisations: createEmptyFilterObject(filterOptions.organisations.map((o) => o.orgNumber)),
-        distributors: createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)),
+        distributors: filterOptions.distributors
+          ? createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)) : {},
         weekdays: createEmptyFilterObject(filterOptions.weekdays.map((w) => w.number)),
       });
     }
@@ -126,6 +127,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
         const distributors = params.get(FilterOptions.DISTRIBUTORS)?.split(',') || [];
 
+        const hasDistributors = data.distributors && data.distributors.length > 0;
         // Sets filters based on params from URL (if there are any)
         setFilters({
           areas: data.areas.reduce(
@@ -149,13 +151,13 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
             }),
             {},
           ),
-          distributors: data.distributors.reduce(
+          distributors: hasDistributors ? data.distributors.reduce(
             (acc, curr) => ({
               ...acc,
               [curr.orgNumber]: distributors.includes(curr.orgNumber),
             }),
             {},
-          ),
+          ) : {},
           weekdays: allWeekdays.reduce(
             (acc, curr) => ({
               ...acc,
