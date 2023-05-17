@@ -1,49 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useFilterApi } from 'hooks/useFilterApi';
-import { OrgWithName, WeekdayWithName } from 'api/filter/types';
-import { FilterOptions, CheckboxFilter } from 'types/delivery';
+import {
+  ActiveFilterType, DateTimeFilterSelected, FilterOptionType, FilterType, FilterOptions,
+} from 'types';
 import { useGetFilterValues } from '../useGetFilterValues';
-
-export type DateTimeFilterOption = {
-  label: string;
-  to?: string;
-  from?: string;
-};
-
-export type DateTimeFilterSelected = {
-  to?: string;
-  from?: string;
-};
-
-export type FilterType = {
-  organisations: CheckboxFilter;
-  distributors: CheckboxFilter;
-  names: CheckboxFilter;
-  areas: CheckboxFilter;
-  weekdays: CheckboxFilter;
-  dates?: DateTimeFilterSelected;
-  timeInterval?: DateTimeFilterSelected;
-};
-
-export type FilterOptionType = {
-  organisations: OrgWithName[];
-  distributors: OrgWithName[];
-  names: string[];
-  areas: string[];
-  weekdays: WeekdayWithName[];
-  dates: DateTimeFilterOption[];
-  timeInterval: DateTimeFilterOption[];
-};
-
-export type ActiveFilterType = {
-  organisations: number;
-  distributors: number;
-  names: number;
-  areas: number;
-  weekdays: number;
-  dates: number;
-  timeInterval: number;
-};
 
 type HookProps = {
   fetchEvents: (filter?: string) => void;
@@ -140,28 +100,28 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         // Sets filters based on params from URL (if there are any)
         setFilters({
           areas: data.areas.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: string) => ({
               ...acc,
               [curr]: areas.includes(curr),
             }),
             {},
           ),
           names: data.names.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: string) => ({
               ...acc,
               [curr]: names.includes(curr),
             }),
             {},
           ),
           organisations: data.organisations.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: { orgNumber: string; }) => ({
               ...acc,
               [curr.orgNumber]: organisations.includes(curr.orgNumber),
             }),
             {},
           ),
           distributors: hasDistributors ? data.distributors.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: { orgNumber: string; }) => ({
               ...acc,
               [curr.orgNumber]: distributors.includes(curr.orgNumber),
             }),

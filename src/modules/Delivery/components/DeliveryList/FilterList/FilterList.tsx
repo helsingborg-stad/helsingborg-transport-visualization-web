@@ -1,10 +1,10 @@
 import {
-  Button, FilterButton, FilterButtonDate,
+  Button, FilterButtonDate,
 } from 'components';
 import {
   ActiveFilterType, DateTimeFilterSelected, FilterOptionType, FilterType,
-} from 'modules/Delivery/hooks';
-import { FilterOptions } from 'types';
+  FilterOptions,
+} from 'types';
 import { ButtonSize } from 'components/Button/types';
 import { FC } from 'react';
 import * as Styled from './styled';
@@ -44,13 +44,14 @@ export const FilterList: FC<FilterListProps> = ({
         selected={filters.dates}
         onClick={setDateTimeFilter('dates')}
       />
-      <FilterButton label="Dag" clearFilter={() => resetFilters(FilterOptions.WEEKDAYS)} triggerReload={triggerReload} activeFilters={activeFilters.weekdays}>
-        <WeekdayFilter
-          weekdayFilter={filters.weekdays}
-          checkFilter={checkFilter}
-          filterOptions={filterOptions.weekdays}
-        />
-      </FilterButton>
+      <WeekdayFilter
+        filterOptions={filterOptions.weekdays}
+        weekdayFilter={filters.weekdays}
+        checkFilter={checkFilter}
+        resetFilters={resetFilters}
+        triggerReload={triggerReload}
+        activeFilters={activeFilters.weekdays}
+      />
       <FilterButtonDate
         activeFilters={activeFilters.timeInterval}
         label="Tid"
@@ -58,35 +59,46 @@ export const FilterList: FC<FilterListProps> = ({
         selected={filters.timeInterval}
         onClick={setDateTimeFilter('timeInterval')}
       />
-      <FilterButton label="Plats" clearFilter={() => resetFilters(FilterOptions.NAMES)} triggerReload={triggerReload} activeFilters={activeFilters.names}>
-        <NameFilter nameFilter={filters.names} checkFilter={checkFilter} />
-      </FilterButton>
-      <FilterButton label="Område" clearFilter={() => resetFilters(FilterOptions.AREAS)} triggerReload={triggerReload} activeFilters={activeFilters.areas}>
-        <AreaFilter areaFilter={filters.areas} checkFilter={checkFilter} />
-      </FilterButton>
-
-      <FilterButton
-        noFilterValues={!filterOptions.distributors || !filters.distributors}
-        label="Leverantör"
-        clearFilter={() => resetFilters(FilterOptions.DISTRIBUTORS)}
+      <NameFilter
+        nameFilter={filters.names}
+        checkFilter={checkFilter}
+        resetFilters={resetFilters}
+        triggerReload={triggerReload}
+        activeFilters={activeFilters.names}
+      />
+      <AreaFilter
+        areaFilter={filters.areas}
+        checkFilter={checkFilter}
+        resetFilters={resetFilters}
+        triggerReload={triggerReload}
+        activeFilters={activeFilters.areas}
+      />
+      <DistributorFilter
+        distributorFilter={filters.distributors}
+        filterOptions={filterOptions.distributors}
+        checkFilter={checkFilter}
+        resetFilters={resetFilters}
         triggerReload={triggerReload}
         activeFilters={activeFilters.distributors}
-      >
-        <DistributorFilter
-          filterOptions={filterOptions.distributors}
-          distributorFilter={filters.distributors}
-          checkFilter={checkFilter}
-        />
-      </FilterButton>
-      <FilterButton label="Transportör" clearFilter={() => resetFilters(FilterOptions.ORGANISATIONS)} triggerReload={triggerReload} activeFilters={activeFilters.organisations}>
-        <OrganisationFilter
-          filterOptions={filterOptions.organisations}
-          organisationFilter={filters.organisations}
-          checkFilter={checkFilter}
-        />
-      </FilterButton>
+      />
+      <OrganisationFilter
+        organisationFilter={filters.organisations}
+        filterOptions={filterOptions.organisations}
+        checkFilter={checkFilter}
+        resetFilters={resetFilters}
+        triggerReload={triggerReload}
+        activeFilters={activeFilters.organisations}
+      />
       {
-        hasActiveFilter && <Button type="button" buttonSize={ButtonSize.SMALL} onClick={() => resetFilters()}>Rensa alla</Button>
+        hasActiveFilter && (
+        <Button
+          type="button"
+          buttonSize={ButtonSize.SMALL}
+          onClick={() => resetFilters()}
+        >
+          Rensa alla
+        </Button>
+        )
       }
 
     </Styled.Container>

@@ -1,12 +1,4 @@
-export type OrgWithName = {
-  name: string;
-  orgNumber: string;
-};
-
-export type WeekdayWithName = {
-  day: string;
-  number: string;
-};
+import { OrgWithName } from 'types';
 
 export type EventFilterResponse = {
   organisations: OrgWithName[];

@@ -1,4 +1,4 @@
-import { DateTimeFilterOption, DateTimeFilterSelected } from 'modules/Delivery/hooks';
+import { DateTimeFilterOption, DateTimeFilterSelected } from 'types';
 import { FC } from 'react';
 import { RadioButton } from '../RadioButton';
 import * as Styled from './styled';
