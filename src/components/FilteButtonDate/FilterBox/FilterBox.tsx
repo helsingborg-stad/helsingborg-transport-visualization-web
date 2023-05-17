@@ -1,45 +1,38 @@
-import { useDateConverter } from 'utils/useDateConverter';
-import { DateFilterOption, DateFilterSelected } from 'modules/Delivery/hooks';
+import { DateTimeFilterOption, DateTimeFilterSelected } from 'modules/Delivery/hooks';
 import { FC } from 'react';
 import { RadioButton } from '../RadioButton';
 import * as Styled from './styled';
 
 type FilterBoxProps = {
-  filterOptions: DateFilterOption[];
-  selected?: DateFilterSelected;
-  onClick: (date: DateFilterSelected) => void;
+  filterOptions: DateTimeFilterOption[];
+  selected?: DateTimeFilterSelected;
+  onClick: (data: DateTimeFilterSelected) => void;
   close: () => void;
+  label: string;
 };
 
 export const FilterBox: FC<FilterBoxProps> = ({
-  filterOptions, selected, onClick, close,
+  filterOptions, selected, onClick, close, label,
 }) => {
-  const { getToday } = useDateConverter();
-  const today = getToday();
-  const selectedOption = filterOptions
-    .find(({ to, from }) => selected?.to === to && selected?.from === from);
   const isSelected = (to?: string, from?: string) => selected?.to === to && selected?.from === from;
 
   return (
     <Styled.Container>
       <Styled.Header>
         <Styled.Heading>
-          {
-             selectedOption?.to ? `${selectedOption?.from} - ${selectedOption?.to}` : today
-            }
-
+          {label}
         </Styled.Heading>
       </Styled.Header>
       <Styled.FilterContainer>
         <Styled.OptionList>
           {
-            filterOptions.map(({ label, to, from }) => (
+            filterOptions.map((option) => (
               <RadioButton
-                key={label}
-                label={label}
-                checked={isSelected(to, from)}
+                key={option.label}
+                label={option.label}
+                checked={isSelected(option.to, option.from)}
                 onClick={() => {
-                  onClick({ to, from });
+                  onClick({ to: option.to, from: option.from });
                   close();
                 }}
               />

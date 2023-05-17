@@ -29,7 +29,7 @@ export const Today = styled.h3`
 `;
 
 export const Heading = styled.h2`
-  font-size: var(--font-size-body-xs);
+  font-size: var(--font-size-heading-xxs);
   font-weight: var(--font-weight-700);
   line-height: var(--line-height-xs);
 `;
