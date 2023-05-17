@@ -71,7 +71,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     }
   };
 
-  // useEffect to fetch filter options from backend & sets active filters from url
+  // useEffect to fetch filter options from backend & set active filters from url
   useEffect(() => {
     getFiltersForEvent()
       .then(({ data }) => {
@@ -146,7 +146,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       });
   }, []);
 
-  // useEffect called to update url based on chosend filter(s) and is triggered with reload state
+  // useEffect called to update url based on chosen filter(s) triggered by reload
   useEffect(() => {
     const getFilterList = (key: FilterOptions) => Object.entries(filters?.[key] || {})
       .filter(([, value]) => value)
