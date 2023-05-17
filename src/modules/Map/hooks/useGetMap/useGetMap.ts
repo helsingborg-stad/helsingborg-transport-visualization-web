@@ -152,7 +152,7 @@ export const useGetMap = () => {
                   }
                 });
               }
-              const arrayOfZoneIds = relatedZones.data.features.map((z) => z.properties.id);
+              const arrayOfZoneIds = relatedZones.data.features?.map((z) => z.properties.id) || [];
               markers.forEach((m) => {
                 if (m.id !== zone.properties.id) {
                   removeMarkerFromCluster(m);
