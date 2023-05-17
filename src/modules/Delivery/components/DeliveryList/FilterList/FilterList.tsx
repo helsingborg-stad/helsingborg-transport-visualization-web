@@ -1,7 +1,9 @@
 import {
   Button, FilterButton, FilterButtonDate,
 } from 'components';
-import { useGetEventFilters } from 'modules/Delivery/hooks';
+import {
+  ActiveFilterType, DateTimeFilterSelected, FilterOptionType, FilterType,
+} from 'modules/Delivery/hooks';
 import { FilterOptions } from 'types';
 import { ButtonSize } from 'components/Button/types';
 import { FC } from 'react';
@@ -13,15 +15,20 @@ import { DistributorFilter } from './DistributorFilter';
 import { WeekdayFilter } from './WeekdayFilter';
 
 type FilterListProps = {
-  fetchEvents: (filter?: string) => void;
+  filters?: FilterType;
+  filterOptions?: FilterOptionType;
+  checkFilter: (filterName: FilterOptions, key: string) => void;
+  resetFilters: (filter?: FilterOptions) => void;
+  triggerReload: () => void;
+  activeFilters: ActiveFilterType;
+  setDateTimeFilter: (filterName: string) => (data: DateTimeFilterSelected) => void
 };
 
-export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
-  const {
-    filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters,
-    setDateTimeFilter,
-  } = useGetEventFilters({ fetchEvents });
-
+export const FilterList: FC<FilterListProps> = ({
+  filters, checkFilter, resetFilters, triggerReload,
+  filterOptions,
+  activeFilters, setDateTimeFilter,
+}) => {
   if (!filters || !filterOptions) {
     return null;
   }
@@ -79,4 +86,9 @@ export const FilterList: FC<FilterListProps> = ({ fetchEvents }) => {
       <Button type="button" buttonSize={ButtonSize.SMALL} onClick={() => resetFilters()}>Rensa alla</Button>
     </Styled.Container>
   );
+};
+
+FilterList.defaultProps = {
+  filters: undefined,
+  filterOptions: undefined,
 };

@@ -35,7 +35,7 @@ export type FilterOptionType = {
   timeInterval: DateTimeFilterOption[];
 };
 
-type ActiveFilterType = {
+export type ActiveFilterType = {
   organisations: number;
   distributors: number;
   names: number;

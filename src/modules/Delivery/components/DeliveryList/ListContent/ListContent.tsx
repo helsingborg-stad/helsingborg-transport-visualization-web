@@ -8,12 +8,22 @@ import * as Styled from './styled';
 
 type ListContentProps = {
   events?: Event[];
+  resetFilters: () => void;
 };
 
-export const ListContent: FC<ListContentProps> = ({ events }) => {
+export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
   const { getWeekday, getHourAndMin, getYYYYMMDD } = useDateConverter();
-  if (!events) {
-    return null;
+
+  if (!events || events.length <= 0) {
+    return (
+      <Styled.NoResultText>
+        Inga resultat. Begränsa filtrering och försök igen.
+        {' '}
+        <Styled.RefreshLink onClick={() => resetFilters()}>
+          Rensa alla filter
+        </Styled.RefreshLink>
+      </Styled.NoResultText>
+    );
   }
 
   return (
