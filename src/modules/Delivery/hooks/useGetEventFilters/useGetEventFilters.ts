@@ -33,7 +33,7 @@ export type FilterOptionType = {
   dates: DateFilterOption[];
 };
 
-type ActiveFilterType = {
+export type ActiveFilterType = {
   organisations: number;
   distributors: number;
   names: number;
