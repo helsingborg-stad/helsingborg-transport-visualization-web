@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react';
 import ExpandArrow from 'assets/expand_arrow_icon.svg';
 import { useHandleClickOutside } from 'hooks';
-import { DateTimeFilterOption, DateTimeFilterSelected } from 'modules/Delivery/hooks';
+import { DateTimeFilterOption, DateTimeFilterSelected } from 'types';
 import { FilterBox } from './FilterBox';
 import * as Styled from './styled';
 

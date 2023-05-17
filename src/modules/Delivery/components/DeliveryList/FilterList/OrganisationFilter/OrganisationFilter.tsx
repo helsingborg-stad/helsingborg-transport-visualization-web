@@ -1,35 +1,46 @@
-import { Checkbox } from 'components/Checkbox';
-import { CheckboxFilter, FilterOptions } from 'types';
+import { Checkbox, FilterButton } from 'components';
+import { CheckboxFilter, FilterOptions, OrgWithName } from 'types';
 import { FC } from 'react';
-import { OrgWithName } from 'api/filter/types';
-import * as Styled from './styled';
+import * as Styled from '../filter.styled';
 
 type OrgFilterProps = {
   filterOptions: OrgWithName[];
   organisationFilter: CheckboxFilter;
-  checkFilter: (filterName: FilterOptions.ORGANISATIONS, key: string) => void
+  checkFilter: (filterName: FilterOptions.ORGANISATIONS, key: string) => void;
+  resetFilters: (filter?: FilterOptions) => void;
+  triggerReload: () => void;
+  activeFilters: number;
 };
 
 export const OrganisationFilter: FC<OrgFilterProps> = ({
-  filterOptions, organisationFilter, checkFilter,
+  filterOptions, organisationFilter, checkFilter, resetFilters, triggerReload, activeFilters,
 }) => {
-  if (!organisationFilter || !filterOptions) {
-    return null;
-  }
-
+  const noFilterValues = !filterOptions || filterOptions.length <= 0;
   return (
-    <Styled.Container>
-      {filterOptions.map(({ name, orgNumber }) => (
-        <div key={orgNumber}>
-          <Checkbox
-            id={orgNumber}
-            checked={organisationFilter[orgNumber]}
-            onChange={() => checkFilter(FilterOptions.ORGANISATIONS, orgNumber)}
-          >
-            <Styled.Label>{name}</Styled.Label>
-          </Checkbox>
-        </div>
-      ))}
-    </Styled.Container>
+    <FilterButton
+      label="Transportör"
+      clearFilter={() => resetFilters(FilterOptions.ORGANISATIONS)}
+      triggerReload={triggerReload}
+      activeFilters={activeFilters}
+    >
+      {
+        noFilterValues
+          ? <Styled.NoValue>Finns inga värden att filtrera på för kategorin.</Styled.NoValue> : (
+            <Styled.Container>
+              {filterOptions.map(({ name, orgNumber }) => (
+                <div key={orgNumber}>
+                  <Checkbox
+                    id={orgNumber}
+                    checked={organisationFilter[orgNumber]}
+                    onChange={() => checkFilter(FilterOptions.ORGANISATIONS, orgNumber)}
+                  >
+                    <Styled.Label>{name}</Styled.Label>
+                  </Checkbox>
+                </div>
+              ))}
+            </Styled.Container>
+          )
+      }
+    </FilterButton>
   );
 };
