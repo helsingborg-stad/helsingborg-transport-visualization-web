@@ -1,4 +1,4 @@
-import { useGetEvents } from 'modules/Delivery/hooks';
+import { useGetEventFilters, useGetEvents } from 'modules/Delivery/hooks';
 import { Button, Loading } from 'components';
 import { FilterList } from './FilterList';
 import { ListContent } from './ListContent';
@@ -9,6 +9,9 @@ export const DeliveryList = () => {
   const {
     fetchEvents, events, error, isLoading,
   } = useGetEvents();
+  const {
+    filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters, setDateFilter,
+  } = useGetEventFilters({ fetchEvents });
 
   if (isLoading) {
     return (
@@ -33,9 +36,17 @@ export const DeliveryList = () => {
 
   return (
     <Styled.Container>
-      <FilterList fetchEvents={fetchEvents} />
+      <FilterList
+        activeFilters={activeFilters}
+        filters={filters}
+        checkFilter={checkFilter}
+        resetFilters={resetFilters}
+        triggerReload={triggerReload}
+        filterOptions={filterOptions}
+        setDateFilter={setDateFilter}
+      />
       <ListHeader />
-      <ListContent events={events} />
+      <ListContent events={events} resetFilters={resetFilters} />
     </Styled.Container>
   );
 };
