@@ -44,8 +44,34 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
               : <Styled.SVGContainer src={CollecionSvg} alt="Collection icon" />}
           </Styled.TypeColumn>
           <Styled.TimeOutColumn>{getHourAndMin(event.exitedAt)}</Styled.TimeOutColumn>
-          <Styled.CarrierColumn>{event.distributionOrganisation ? event.distributionOrganisation.name : ''}</Styled.CarrierColumn>
-          <Styled.CarrierColumn>{event.organisation.name}</Styled.CarrierColumn>
+          <Styled.CarrierColumn>
+            {event.distributionOrganisation ? event.distributionOrganisation.name : ''}
+            {event.distributionOrganisation?.name && (
+            <Styled.InfoBox>
+              <Styled.InfoHeader>{event.distributionOrganisation.name}</Styled.InfoHeader>
+              <Styled.InfoText>
+                Kontaktperson:
+                {' '}
+                {event.distributionOrganisation.contactPerson}
+              </Styled.InfoText>
+              <Styled.InfoText>{event.distributionOrganisation.email}</Styled.InfoText>
+              <Styled.InfoText>{event.distributionOrganisation.mobileNumber}</Styled.InfoText>
+            </Styled.InfoBox>
+            )}
+          </Styled.CarrierColumn>
+          <Styled.CarrierColumn>
+            {event.organisation.name}
+            <Styled.InfoBox>
+              <Styled.InfoHeader>{event.organisation.name}</Styled.InfoHeader>
+              <Styled.InfoText>
+                Kontaktperson:
+                {' '}
+                {event.organisation.contactPerson}
+              </Styled.InfoText>
+              <Styled.InfoText>{event.organisation.email}</Styled.InfoText>
+              <Styled.InfoText>{event.organisation.mobileNumber}</Styled.InfoText>
+            </Styled.InfoBox>
+          </Styled.CarrierColumn>
           <Styled.AreaColumn>{event.area}</Styled.AreaColumn>
           <Styled.DateColumn>{getYYYYMMDD(event.enteredAt)}</Styled.DateColumn>
         </Styled.Container>
