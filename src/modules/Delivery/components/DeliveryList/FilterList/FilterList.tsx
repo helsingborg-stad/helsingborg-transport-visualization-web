@@ -1,8 +1,8 @@
 import {
-  Button, FilterButton, FilterButtonDate, FilterButtonTime,
+  Button, FilterButton, FilterButtonDate,
 } from 'components';
 import {
-  ActiveFilterType, DateFilterSelected, FilterOptionType, FilterType,
+  ActiveFilterType, DateTimeFilterSelected, FilterOptionType, FilterType,
 } from 'modules/Delivery/hooks';
 import { FilterOptions } from 'types';
 import { ButtonSize } from 'components/Button/types';
@@ -21,11 +21,13 @@ type FilterListProps = {
   resetFilters: (filter?: FilterOptions) => void;
   triggerReload: () => void;
   activeFilters: ActiveFilterType;
-  setDateFilter: (date: DateFilterSelected) => void;
+  setDateTimeFilter: (filterName: string) => (data: DateTimeFilterSelected) => void
 };
 
 export const FilterList: FC<FilterListProps> = ({
-  filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters, setDateFilter,
+  filters, checkFilter, resetFilters, triggerReload,
+  filterOptions,
+  activeFilters, setDateTimeFilter,
 }) => {
   if (!filters || !filterOptions) {
     return null;
@@ -33,7 +35,13 @@ export const FilterList: FC<FilterListProps> = ({
 
   return (
     <Styled.Container>
-      <FilterButtonDate label="Datum" filterOptions={filterOptions.dates} selected={filters.dates} onClick={setDateFilter} />
+      <FilterButtonDate
+        activeFilters={activeFilters.dates}
+        label="Datum"
+        filterOptions={filterOptions.dates}
+        selected={filters.dates}
+        onClick={setDateTimeFilter('dates')}
+      />
       <FilterButton label="Dag" clearFilter={() => resetFilters(FilterOptions.WEEKDAYS)} triggerReload={triggerReload} activeFilters={activeFilters.weekdays}>
         <WeekdayFilter
           weekdayFilter={filters.weekdays}
@@ -41,7 +49,13 @@ export const FilterList: FC<FilterListProps> = ({
           filterOptions={filterOptions.weekdays}
         />
       </FilterButton>
-      <FilterButtonTime label="Tid" />
+      <FilterButtonDate
+        activeFilters={activeFilters.timeInterval}
+        label="Tid"
+        filterOptions={filterOptions.timeInterval}
+        selected={filters.timeInterval}
+        onClick={setDateTimeFilter('timeInterval')}
+      />
       <FilterButton label="Plats" clearFilter={() => resetFilters(FilterOptions.NAMES)} triggerReload={triggerReload} activeFilters={activeFilters.names}>
         <NameFilter nameFilter={filters.names} checkFilter={checkFilter} />
       </FilterButton>

@@ -10,7 +10,9 @@ export const DeliveryList = () => {
     fetchEvents, events, error, isLoading,
   } = useGetEvents();
   const {
-    filters, checkFilter, resetFilters, triggerReload, filterOptions, activeFilters, setDateFilter,
+    filters, checkFilter, resetFilters, triggerReload, filterOptions,
+    activeFilters,
+    setDateTimeFilter,
   } = useGetEventFilters({ fetchEvents });
 
   if (isLoading) {
@@ -43,7 +45,7 @@ export const DeliveryList = () => {
         resetFilters={resetFilters}
         triggerReload={triggerReload}
         filterOptions={filterOptions}
-        setDateFilter={setDateFilter}
+        setDateTimeFilter={setDateTimeFilter}
       />
       <ListHeader />
       <ListContent events={events} resetFilters={resetFilters} />

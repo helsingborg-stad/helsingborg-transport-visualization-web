@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { useFilterApi } from 'hooks/useFilterApi';
 import { OrgWithName, WeekdayWithName } from 'api/filter/types';
 import { FilterOptions, CheckboxFilter } from 'types/delivery';
-import { useDateConverter } from 'utils';
+import { useGetFilterValues } from '../useGetFilterValues';
 
-export type DateFilterOption = {
+export type DateTimeFilterOption = {
   label: string;
   to?: string;
   from?: string;
 };
 
-export type DateFilterSelected = {
+export type DateTimeFilterSelected = {
   to?: string;
   from?: string;
 };
@@ -21,7 +21,8 @@ export type FilterType = {
   names: CheckboxFilter;
   areas: CheckboxFilter;
   weekdays: CheckboxFilter;
-  dates?: DateFilterSelected;
+  dates?: DateTimeFilterSelected;
+  timeInterval?: DateTimeFilterSelected;
 };
 
 export type FilterOptionType = {
@@ -30,7 +31,8 @@ export type FilterOptionType = {
   names: string[];
   areas: string[];
   weekdays: WeekdayWithName[];
-  dates: DateFilterOption[];
+  dates: DateTimeFilterOption[];
+  timeInterval: DateTimeFilterOption[];
 };
 
 export type ActiveFilterType = {
@@ -39,6 +41,8 @@ export type ActiveFilterType = {
   names: number;
   areas: number;
   weekdays: number;
+  dates: number;
+  timeInterval: number;
 };
 
 type HookProps = {
@@ -46,8 +50,7 @@ type HookProps = {
 };
 
 export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
-  const { getDatesForFilter } = useDateConverter();
-  const { dates } = getDatesForFilter();
+  const { allWeekdays, dates, timeInterval } = useGetFilterValues();
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
   const [filters, setFilters] = useState<FilterType>();
@@ -58,6 +61,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     names: 0,
     areas: 0,
     weekdays: 0,
+    dates: 0,
+    timeInterval: 0,
   });
   const triggerReload = () => setReload(true);
 
@@ -96,11 +101,11 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     }
   };
 
-  const setDateFilter = (date: DateFilterSelected) => {
+  const setDateTimeFilter = (filterName: string) => (data: DateTimeFilterSelected) => {
     if (filters) {
       setFilters({
         ...filters,
-        dates: date,
+        [filterName]: data,
       });
       triggerReload();
     }
@@ -110,41 +115,11 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
   useEffect(() => {
     getFiltersForEvent()
       .then(({ data }) => {
-        const allWeekdays = [
-          {
-            day: 'Måndag',
-            number: '1',
-          },
-          {
-            day: 'Tisdag',
-            number: '2',
-          },
-          {
-            day: 'Onsdag',
-            number: '3',
-          },
-          {
-            day: 'Torsdag',
-            number: '4',
-          },
-          {
-            day: 'Fredag',
-            number: '5',
-          },
-          {
-            day: 'Lördag',
-            number: '6',
-          },
-          {
-            day: 'Söndag',
-            number: '7',
-          },
-        ];
-
         setFilterOptions({
           ...data,
           weekdays: allWeekdays,
           dates,
+          timeInterval,
         });
 
         // Get params from URL
@@ -156,9 +131,12 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         const distributors = params.get(FilterOptions.DISTRIBUTORS)?.split(',') || [];
         const to = params.get('to') || '';
         const from = params.get('from') || '';
+        const currentTimeInterval = params.get('timeInterval') || '';
 
         const hasDate = to !== '' && from !== '';
+        const hasTimeInterval = currentTimeInterval !== '';
         const hasDistributors = data.distributors && data.distributors.length > 0;
+
         // Sets filters based on params from URL (if there are any)
         setFilters({
           areas: data.areas.reduce(
@@ -200,6 +178,10 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
             to,
             from,
           } : undefined,
+          timeInterval: hasTimeInterval ? {
+            from: currentTimeInterval.split('-')[0],
+            to: currentTimeInterval.split('-')[1],
+          } : undefined,
         });
       });
   }, []);
@@ -218,6 +200,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       const organisations = getFilterList(FilterOptions.ORGANISATIONS);
       const distributors = getFilterList(FilterOptions.DISTRIBUTORS);
       const selectedDate = filters?.dates;
+      const selectedTime = filters?.timeInterval;
 
       if (areas.length > 0) {
         params.append(FilterOptions.AREAS, areas.join(','));
@@ -240,6 +223,11 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         params.append('to', selectedDate.to);
       }
 
+      if (typeof selectedTime !== 'undefined' && selectedTime.to && selectedTime.from) {
+        const time = `${selectedTime.from}-${selectedTime.to}`;
+        params.append('timeInterval', time);
+      }
+
       // Sets filter to show active filters on filter button(s)
       setActiveFilters({
         areas: areas.length,
@@ -247,6 +235,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         names: names.length,
         weekdays: weekdays.length,
         distributors: distributors.length,
+        dates: selectedDate?.to !== undefined ? 1 : 0,
+        timeInterval: selectedTime?.to !== undefined ? 1 : 0,
       });
 
       const filter = params.toString();
@@ -265,6 +255,6 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     checkFilter,
     resetFilters,
     triggerReload,
-    setDateFilter,
+    setDateTimeFilter,
   };
 };
