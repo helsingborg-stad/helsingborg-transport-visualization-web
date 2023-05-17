@@ -82,7 +82,6 @@ export const useGetMap = () => {
               fontWeight: '500',
             },
             position,
-            // adjust zIndex to be above other markers
             zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
             icon: ClusterIcon,
           }),
