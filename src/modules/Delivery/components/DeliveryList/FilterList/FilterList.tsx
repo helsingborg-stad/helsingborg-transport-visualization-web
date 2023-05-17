@@ -33,6 +33,8 @@ export const FilterList: FC<FilterListProps> = ({
     return null;
   }
 
+  const hasActiveFilter = Object.values(activeFilters).some((filter) => filter !== 0);
+
   return (
     <Styled.Container>
       <FilterButtonDate
@@ -83,7 +85,10 @@ export const FilterList: FC<FilterListProps> = ({
           checkFilter={checkFilter}
         />
       </FilterButton>
-      <Button type="button" buttonSize={ButtonSize.SMALL} onClick={() => resetFilters()}>Rensa alla</Button>
+      {
+        hasActiveFilter && <Button type="button" buttonSize={ButtonSize.SMALL} onClick={() => resetFilters()}>Rensa alla</Button>
+      }
+
     </Styled.Container>
   );
 };
