@@ -87,9 +87,9 @@ export const useGetMap = () => {
           }),
         };
         const markCluster = new MarkerClusterer({ map, renderer });
-        function removeMarkerFromCluster(marker: google.maps.Marker) {
+        const removeMarkerFromCluster = (marker: google.maps.Marker) => {
           markCluster.removeMarker(marker);
-        }
+        };
 
         const addMarkerToCluster = (marker: google.maps.Marker) => {
           markCluster.addMarker(marker);
