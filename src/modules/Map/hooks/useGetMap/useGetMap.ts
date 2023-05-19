@@ -10,6 +10,7 @@ import DistributionZoneIcon from 'assets/distribution_zone.svg';
 import DistributionZoneIconInverted from 'assets/distribution_zone_inverted.svg';
 import DeliveryZoneIcon from 'assets/delivery_zone.svg';
 import DeliveryZoneIconInverted from 'assets/delivery_zone_inverted.svg';
+import ClusterIcon from 'assets/cluster_icon.svg';
 import { ZoneType } from 'types/index';
 
 const { VITE_GOOGLE_MAPS_API_KEY } = import.meta.env;
@@ -72,11 +73,23 @@ export const useGetMap = () => {
           setIsLoading(false);
           return;
         }
-
-        const markCluster = new MarkerClusterer({ map });
-        function removeMarkerFromCluster(marker: google.maps.Marker) {
+        const renderer = {
+          render: ({ count, position }) => new google.maps.Marker({
+            label: {
+              text: String(count),
+              color: 'black',
+              fontSize: '16px',
+              fontWeight: '500',
+            },
+            position,
+            zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
+            icon: ClusterIcon,
+          }),
+        };
+        const markCluster = new MarkerClusterer({ map, renderer });
+        const removeMarkerFromCluster = (marker: google.maps.Marker) => {
           markCluster.removeMarker(marker);
-        }
+        };
 
         const addMarkerToCluster = (marker: google.maps.Marker) => {
           markCluster.addMarker(marker);
@@ -106,6 +119,10 @@ export const useGetMap = () => {
           const center = centerOfMass(zone.geometry).geometry.coordinates;
           const marker = new google.maps.Marker({
             position: { lng: center[0], lat: center[1] },
+            label: {
+              text: zone.properties.name,
+              className: 'custom-marker-label',
+            },
             map,
             icon: zone.properties.type === ZoneType.DISTRIBUTION
               ? DistributionZoneIcon
@@ -135,7 +152,7 @@ export const useGetMap = () => {
                   }
                 });
               }
-              const arrayOfZoneIds = relatedZones.data.features.map((z) => z.properties.id);
+              const arrayOfZoneIds = relatedZones.data.features?.map((z) => z.properties.id) || [];
               markers.forEach((m) => {
                 if (m.id !== zone.properties.id) {
                   removeMarkerFromCluster(m);
