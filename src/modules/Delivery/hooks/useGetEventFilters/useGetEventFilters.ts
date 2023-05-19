@@ -1,37 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useFilterApi } from 'hooks/useFilterApi';
-import { OrgWithName, WeekdayWithName } from 'api/filter/types';
-import { FilterOptions, CheckboxFilter } from 'types/delivery';
-
-export type FilterType = {
-  organisations: CheckboxFilter;
-  distributors: CheckboxFilter;
-  names: CheckboxFilter;
-  areas: CheckboxFilter;
-  weekdays: CheckboxFilter;
-};
-
-export type FilterOptionType = {
-  organisations: OrgWithName[];
-  distributors: OrgWithName[];
-  names: string[];
-  areas: string[];
-  weekdays: WeekdayWithName[];
-};
-
-type ActiveFilterType = {
-  organisations: number;
-  distributors: number;
-  names: number;
-  areas: number;
-  weekdays: number;
-};
+import {
+  ActiveFilterType, DateTimeFilterSelected, FilterOptionType, FilterType, FilterOptions,
+} from 'types';
+import { useGetFilterValues } from '../useGetFilterValues';
 
 type HookProps = {
   fetchEvents: (filter?: string) => void;
 };
 
 export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
+  const { allWeekdays, dates, timeInterval } = useGetFilterValues();
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
   const [filters, setFilters] = useState<FilterType>();
@@ -42,6 +21,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     names: 0,
     areas: 0,
     weekdays: 0,
+    dates: 0,
+    timeInterval: 0,
   });
   const triggerReload = () => setReload(true);
 
@@ -62,6 +43,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         distributors: filterOptions.distributors
           ? createEmptyFilterObject(filterOptions.distributors.map((d) => d.orgNumber)) : {},
         weekdays: createEmptyFilterObject(filterOptions.weekdays.map((w) => w.number)),
+        dates: undefined,
       });
     }
     triggerReload();
@@ -79,44 +61,25 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     }
   };
 
-  // useEffect to fetch filter options from backend & sets active filters from url
+  const setDateTimeFilter = (filterName: string) => (data: DateTimeFilterSelected) => {
+    if (filters) {
+      setFilters({
+        ...filters,
+        [filterName]: data,
+      });
+      triggerReload();
+    }
+  };
+
+  // useEffect to fetch filter options from backend & set active filters from url
   useEffect(() => {
     getFiltersForEvent()
       .then(({ data }) => {
-        const allWeekdays = [
-          {
-            day: 'Måndag',
-            number: '1',
-          },
-          {
-            day: 'Tisdag',
-            number: '2',
-          },
-          {
-            day: 'Onsdag',
-            number: '3',
-          },
-          {
-            day: 'Torsdag',
-            number: '4',
-          },
-          {
-            day: 'Fredag',
-            number: '5',
-          },
-          {
-            day: 'Lördag',
-            number: '6',
-          },
-          {
-            day: 'Söndag',
-            number: '7',
-          },
-        ];
-
         setFilterOptions({
           ...data,
           weekdays: allWeekdays,
+          dates,
+          timeInterval,
         });
 
         // Get params from URL
@@ -126,33 +89,39 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         const weekdays = params.get(FilterOptions.WEEKDAYS)?.split(',') || [];
         const organisations = params.get(FilterOptions.ORGANISATIONS)?.split(',') || [];
         const distributors = params.get(FilterOptions.DISTRIBUTORS)?.split(',') || [];
+        const to = params.get('to') || '';
+        const from = params.get('from') || '';
+        const currentTimeInterval = params.get('timeInterval') || '';
 
+        const hasDate = to !== '' && from !== '';
+        const hasTimeInterval = currentTimeInterval !== '';
         const hasDistributors = data.distributors && data.distributors.length > 0;
+
         // Sets filters based on params from URL (if there are any)
         setFilters({
           areas: data.areas.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: string) => ({
               ...acc,
               [curr]: areas.includes(curr),
             }),
             {},
           ),
           names: data.names.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: string) => ({
               ...acc,
               [curr]: names.includes(curr),
             }),
             {},
           ),
           organisations: data.organisations.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: { orgNumber: string; }) => ({
               ...acc,
               [curr.orgNumber]: organisations.includes(curr.orgNumber),
             }),
             {},
           ),
           distributors: hasDistributors ? data.distributors.reduce(
-            (acc, curr) => ({
+            (acc: any, curr: { orgNumber: string; }) => ({
               ...acc,
               [curr.orgNumber]: distributors.includes(curr.orgNumber),
             }),
@@ -165,11 +134,19 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
             }),
             {},
           ),
+          dates: hasDate ? {
+            to,
+            from,
+          } : undefined,
+          timeInterval: hasTimeInterval ? {
+            from: currentTimeInterval.split('-')[0],
+            to: currentTimeInterval.split('-')[1],
+          } : undefined,
         });
       });
   }, []);
 
-  // useEffect called to update url based on chosend filter(s) and is triggered with reload state
+  // useEffect called to update url based on chosen filter(s) triggered by reload
   useEffect(() => {
     const getFilterList = (key: FilterOptions) => Object.entries(filters?.[key] || {})
       .filter(([, value]) => value)
@@ -182,6 +159,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       const weekdays = getFilterList(FilterOptions.WEEKDAYS);
       const organisations = getFilterList(FilterOptions.ORGANISATIONS);
       const distributors = getFilterList(FilterOptions.DISTRIBUTORS);
+      const selectedDate = filters?.dates;
+      const selectedTime = filters?.timeInterval;
 
       if (areas.length > 0) {
         params.append(FilterOptions.AREAS, areas.join(','));
@@ -199,6 +178,16 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         params.append(FilterOptions.WEEKDAYS, weekdays.join(','));
       }
 
+      if (typeof selectedDate !== 'undefined' && selectedDate.to && selectedDate.from) {
+        params.append('from', selectedDate.from);
+        params.append('to', selectedDate.to);
+      }
+
+      if (typeof selectedTime !== 'undefined' && selectedTime.to && selectedTime.from) {
+        const time = `${selectedTime.from}-${selectedTime.to}`;
+        params.append('timeInterval', time);
+      }
+
       // Sets filter to show active filters on filter button(s)
       setActiveFilters({
         areas: areas.length,
@@ -206,6 +195,8 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
         names: names.length,
         weekdays: weekdays.length,
         distributors: distributors.length,
+        dates: selectedDate?.to !== undefined ? 1 : 0,
+        timeInterval: selectedTime?.to !== undefined ? 1 : 0,
       });
 
       const filter = params.toString();
@@ -224,5 +215,6 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     checkFilter,
     resetFilters,
     triggerReload,
+    setDateTimeFilter,
   };
 };

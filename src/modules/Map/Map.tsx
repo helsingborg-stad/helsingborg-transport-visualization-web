@@ -6,6 +6,7 @@ import { Button } from 'components/Button';
 import ListIcon from 'assets/list_icon.svg';
 import { Map as MapComponent } from './components';
 import * as Styled from './styled';
+import './styles.css';
 
 export const Map = () => {
   const { hasToken } = useAuth();
