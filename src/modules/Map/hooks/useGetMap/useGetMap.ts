@@ -130,7 +130,6 @@ export const useGetMap = () => {
           });
 
           marker.id = zone.properties.id;
-
           marker.addListener('click', async (event: google.maps.Data.MouseEvent) => {
             if (event.latLng) {
               const { name, organisation } = zone.properties;
@@ -179,7 +178,9 @@ export const useGetMap = () => {
           });
           return marker;
         });
-
+        google.maps.event.addListener(map, 'zoom_changed', () => {
+          infoWindow.close();
+        });
         markCluster.addMarkers(markers);
       })
       .catch(() => setError(true))
