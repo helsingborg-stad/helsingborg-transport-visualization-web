@@ -21,18 +21,21 @@ const Column = styled.div`
 `;
 
 export const DayColumn = styled(Column)``;
+export const TimeInColumn = styled(Column)``;
+export const TimeOutColumn = styled(Column)``;
+export const AreaColumn = styled(Column)``;
+export const DateColumn = styled(Column)``;
+
 export const PlaceColumn = styled(Column)`
   flex-direction: column;
 `;
-export const TypeColumn = styled(Column)``;
-export const TimeInColumn = styled(Column)``;
-export const TimeOutColumn = styled(Column)``;
+export const TypeColumn = styled(Column)`
+  cursor: pointer;
+  position: relative;`;
 export const CarrierColumn = styled(Column)`
   cursor: pointer;
   position: relative;
 `;
-export const AreaColumn = styled(Column)``;
-export const DateColumn = styled(Column)``;
 
 export const SVGContainer = styled.img`
   width: 16px;
@@ -97,4 +100,27 @@ export const InfoText = styled.p`
   font-size: 9px;
   line-height: 12px;
   font-weight: var(--font-weight-300);
+`;
+
+export const IconInfo = styled.div`
+  background-color: var(--color-white);
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 16px;
+  border-radius: 25px 25px 25px 0px;
+  box-shadow: 0px 1px 11px rgba(0, 0, 0, 0.17);
+  z-index: 9;
+  width: fit-content;
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  opacity: 0;
+  display: none;
+  animation: ${fadeIn} 0.3s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+  
+  ${TypeColumn}:hover & {
+    display: flex;
+  }
 `;

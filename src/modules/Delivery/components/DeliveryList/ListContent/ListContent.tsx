@@ -42,6 +42,14 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
             {event.zoneType === ZoneType.DISTRIBUTION
               ? <Styled.SVGContainer src={DistributionSvg} alt="Distribution icon" />
               : <Styled.SVGContainer src={CollecionSvg} alt="Collection icon" />}
+            <Styled.IconInfo>
+              <Styled.InfoText>
+                {
+                  event.zoneType === ZoneType.DISTRIBUTION
+                    ? 'Lager' : 'Leveransplats'
+                }
+              </Styled.InfoText>
+            </Styled.IconInfo>
           </Styled.TypeColumn>
           <Styled.TimeOutColumn>{getHourAndMin(event.exitedAt)}</Styled.TimeOutColumn>
           <Styled.CarrierColumn>
