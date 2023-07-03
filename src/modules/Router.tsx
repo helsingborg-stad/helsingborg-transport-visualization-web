@@ -5,6 +5,7 @@ import {
 import { MainLayout } from 'layouts';
 
 const Auth = lazy(() => import('./Auth'));
+const Account = lazy(() => import('./Account'));
 const Delivery = lazy(() => import('./Delivery'));
 const Map = lazy(() => import('./Map'));
 
@@ -15,6 +16,7 @@ export const Router = () => (
         <Routes>
           <Route index element={<Delivery />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/account/*" element={<Account />} />
           <Route path="/auth/*" element={<Auth />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
