@@ -1,18 +1,15 @@
 import { Button, Input } from 'components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from 'hooks/useAuth';
 import * as Styled from './styled';
 import { useResetPasswordForm } from './hooks';
 
 export const ResetPassword = () => {
   const navigate = useNavigate();
   const { token } = useParams();
-  const { clearForgotPasswordIdentifier } = useAuth();
   const {
     passwords, setFieldValue, submit, errors, isLoading,
   } = useResetPasswordForm({ resetToken: token });
   const returnToLogin = () => {
-    clearForgotPasswordIdentifier();
     navigate('/auth');
   };
 
