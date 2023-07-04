@@ -40,11 +40,9 @@ export const Menu = () => {
           </Styled.BoldText>
           <Styled.BoldText onClick={() => navigate('/map')}>Karta</Styled.BoldText>
         </Styled.SectionOne>
-        {/* <Styled.SectionTwo>
-          <Styled.Text>Konto</Styled.Text>
-          <Styled.Text>Lägg till plats</Styled.Text>
-          <Styled.Text>Om</Styled.Text>
-        </Styled.SectionTwo> */}
+        <Styled.SectionTwo>
+          <Styled.Text onClick={() => navigate('/account')}>Konto</Styled.Text>
+        </Styled.SectionTwo>
         <Styled.SectionThree>
           <Styled.Text onClick={() => logOutAndRedirect()}>Logga ut</Styled.Text>
         </Styled.SectionThree>
