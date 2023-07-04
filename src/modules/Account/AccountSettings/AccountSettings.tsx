@@ -1,6 +1,7 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
-import { EditAccountForm, SideBar } from './components';
+import { SideBar } from 'components';
+import { EditAccountForm } from './components';
 import * as Styled from './styled';
 
 export const AccountSettings = () => {
