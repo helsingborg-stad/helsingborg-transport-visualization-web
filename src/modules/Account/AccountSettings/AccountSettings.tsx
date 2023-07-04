@@ -1,6 +1,6 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
-import { EditAccountForm } from './components';
+import { EditAccountForm, SideBar } from './components';
 import * as Styled from './styled';
 
 export const AccountSettings = () => {
@@ -19,8 +19,9 @@ export const AccountSettings = () => {
 
   return (
     <Styled.ContentContainer>
-      <Styled.Heading>Kontoinställningar</Styled.Heading>
+      <SideBar />
       <Styled.FormContainer>
+        <Styled.Header>Konto</Styled.Header>
         <EditAccountForm />
       </Styled.FormContainer>
     </Styled.ContentContainer>

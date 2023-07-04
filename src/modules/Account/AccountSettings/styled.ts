@@ -33,3 +33,11 @@ export const ButtonContainer = styled.div`
   right: 22px;
   z-index: 9;
 `;
+
+export const Header = styled.h1`
+  font-size: var(--font-size-heading-xs);
+  font-weight: var(--font-weight-800);
+  line-height: var(--line-height-xxxl);
+  margin-bottom: var(--spacing-xxs);
+  font-family: var(--font-family);
+`;
