@@ -1,1 +1,1 @@
-export { EditAccountForm } from './EditAccountForm';
+export * from './EditAccountForm';
