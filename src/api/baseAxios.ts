@@ -7,19 +7,18 @@ export const client = axios.create({
   baseURL: VITE_API_URL,
 });
 
-// TODO SET TOKEN ACCORDING TO NEEDS.
-client.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+client.interceptors.request.use((req) => {
+  const token = window.sessionStorage.getItem('token');
   if (token) {
     return {
-      ...config,
+      ...req,
       headers: {
-        ...config.headers,
+        ...req.headers,
         Authorization: `Bearer ${token}`,
       },
     } as InternalAxiosRequestConfig;
   }
-  return config;
+  return req;
 });
 
 // TODO HANDLE ERRORS & TOKEN REFRESH ACCORDING TO NEEDS.
