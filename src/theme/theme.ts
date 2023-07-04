@@ -17,9 +17,6 @@ export default css`
   --color-gray-8: #EBEBEB;
   --color-gray-9: #F0F0F0;
   --color-gray-10: #939393;
-  --color-gray-11: #5C5C5C;
-  --color-gray-12: #ECECEC;
-
 
   --color-red-1: #CC0000;
 

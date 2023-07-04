@@ -14,19 +14,7 @@ export type OrganisationDTO = {
   orgNumber: string;
   name: string;
   email: string;
-  contactPerson?: string;
-  mobileNumber?: string;
   token?: string;
   createdAt: Date;
   updatedAt?: Date;
 };
-
-export enum OrganisationFields {
-  id = 'id',
-  orgNumber = 'orgNumber',
-  name = 'name',
-  email = 'email',
-  contactPerson = 'contactPerson',
-  mobileNumber = 'mobileNumber',
-  createdAt = 'createdAt',
-}
