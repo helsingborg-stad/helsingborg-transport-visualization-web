@@ -9,3 +9,4 @@ export const postSignUp = (body: SignUpRequest) => client.post<SignUpResponse>('
 export const postForgotPassword = (body: ForgotPasswordRequest) => client.post('auth/forgot-password', body);
 export const postResetPassword = (body: ResetPasswordRequest) => client.post('auth/reset-password', body);
 export const patchAccount = (id: string, body: PatchRequest) => client.patch(`/organisations/${id}`, body);
+export const deleteOrganisation = (id: string) => client.delete(`/organisations/${id}`);
