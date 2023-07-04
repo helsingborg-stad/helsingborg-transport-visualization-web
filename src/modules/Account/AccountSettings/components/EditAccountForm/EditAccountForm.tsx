@@ -1,4 +1,4 @@
-import { Button, Input, Checkbox } from 'components';
+import { Button, Input } from 'components';
 import { useAuth } from 'hooks/useAuth';
 import * as Styled from './styled';
 import { TogglabelContent } from '../TogglableContent';
@@ -15,8 +15,6 @@ export const EditAccountForm = () => {
     errors,
     isLoading,
     submitForm,
-    setDeleteAccountValue,
-    submitDeleteAccountForm,
   } = useEditAccountForm();
 
   return (
@@ -135,31 +133,6 @@ export const EditAccountForm = () => {
             </Styled.ButtonContainer>
           </Styled.Form>
           )}
-      />
-      <TogglabelContent
-        label="Kontostatus"
-        value="Aktiv"
-        showComponent={inEdit.deleteAccountConfirmation}
-        onClick={toggleEditFieldValue(EditableFields.deleteAccountConfirmation)}
-        component={(
-          <Styled.Form onSubmit={submitDeleteAccountForm}>
-            <Styled.ChecboxContainer>
-              <Checkbox
-                id="Consent"
-                checked={formFields.deleteAccountConfirmation}
-                onChange={setDeleteAccountValue}
-                error={errors.deleteAccountConfirmation}
-              >
-                <Styled.Label>
-                  Genom att kryssa i rutan bekräftar du att du vill radera ditt konto.
-                </Styled.Label>
-              </Checkbox>
-            </Styled.ChecboxContainer>
-            <Styled.ButtonContainer>
-              <Button type="submit" disabled={isLoading || !formFields.deleteAccountConfirmation} onClick={() => submitDeleteAccountForm}>Radera konto</Button>
-            </Styled.ButtonContainer>
-          </Styled.Form>
-        )}
       />
     </Styled.ContentContainer>
   );
