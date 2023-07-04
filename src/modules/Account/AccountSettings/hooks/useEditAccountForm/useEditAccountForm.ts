@@ -11,6 +11,7 @@ type ErrorMessage = {
   pinCode?: string;
   contactPerson?: string;
   mobileNumber?: string;
+  deleteAccountConfirmation?: string;
 };
 
 type InEditType = {
@@ -19,6 +20,7 @@ type InEditType = {
   pinCode: boolean;
   contactPerson: boolean;
   mobileNumber: boolean;
+  deleteAccountConfirmation: boolean;
 };
 
 enum EditableFields {
@@ -27,12 +29,13 @@ enum EditableFields {
   pinCode = 'pinCode',
   contactPerson = 'contactPerson',
   mobileNumber = 'mobileNumber',
+  deleteAccountConfirmation = 'deleteAccountConfirmation',
 }
 
 export const useEditAccountForm = () => {
-  const { organisation, setOrganisation } = useAuth();
+  const { organisation, setOrganisation, logOut } = useAuth();
   const navigate = useNavigate();
-  const { updateAccount } = useAuthApi();
+  const { updateAccount, deleteAccount } = useAuthApi();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [formFields, setFormFields] = useState<UpdateAccountType>({
@@ -41,6 +44,7 @@ export const useEditAccountForm = () => {
     pinCode: '',
     contactPerson: organisation?.contactPerson || '',
     mobileNumber: organisation?.mobileNumber || '',
+    deleteAccountConfirmation: false,
   });
   const [inEdit, setInEdit] = useState<InEditType>({
     email: false,
@@ -48,6 +52,7 @@ export const useEditAccountForm = () => {
     pinCode: false,
     contactPerson: false,
     mobileNumber: false,
+    deleteAccountConfirmation: false,
   });
 
   const setFieldValue = (name: string) => ({
@@ -59,12 +64,24 @@ export const useEditAccountForm = () => {
     });
   };
 
+  const setDeleteAccountValue = (checked: boolean) => {
+    setFormFields({
+      ...formFields,
+      deleteAccountConfirmation: checked,
+    });
+  };
+
   const toggleEditFieldValue = (name: EditableFields) => () => {
     if (inEdit[name]) {
       if (name === 'password' || name === 'pinCode') {
         setFormFields({
           ...formFields,
           [name]: '',
+        });
+      } else if (name === 'deleteAccountConfirmation') {
+        setFormFields({
+          ...formFields,
+          [name]: false,
         });
       } else {
         setFormFields({
@@ -84,10 +101,6 @@ export const useEditAccountForm = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrors({});
-    if (!organisation) {
-      navigate('/');
-      return;
-    }
     try {
       UpdateAccountValidation.shape[name].parse(formFields[name]);
     } catch (err: any) {
@@ -105,17 +118,28 @@ export const useEditAccountForm = () => {
       }
       return;
     }
+    // @ts-ignore
     updateAccount(organisation?.id, reqObj).then(({ data }) => {
       setOrganisation(data);
     }).catch(() => setErrors({ email: 'Email är upptagen' })).finally(() => {
       setIsLoading(false);
       setInEdit({
-        email: false,
-        password: false,
-        pinCode: false,
-        contactPerson: false,
-        mobileNumber: false,
+        ...inEdit,
+        [name]: false,
       });
+    });
+  };
+
+  const submitDeleteAccountForm = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrors({});
+    // @ts-ignore
+    deleteAccount(organisation?.id).then(() => {
+      logOut();
+      navigate('/auth');
+    }).catch(() => setErrors({ deleteAccountConfirmation: 'Gick inte att radera kontot, försök igen senare' })).finally(() => {
+      setIsLoading(false);
     });
   };
 
@@ -128,5 +152,7 @@ export const useEditAccountForm = () => {
     inEdit,
     EditableFields,
     submitForm,
+    setDeleteAccountValue,
+    submitDeleteAccountForm,
   };
 };

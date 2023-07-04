@@ -1,6 +1,6 @@
 import {
   postForgotPassword,
-  postLogin, postResetPassword, postSignUp, patchAccount,
+  postLogin, postResetPassword, postSignUp, patchAccount, deleteOrganisation,
 } from 'api/auth';
 import {
   LoginRequest, SignUpRequest, ForgotPasswordRequest, ResetPasswordRequest, PatchRequest,
@@ -12,6 +12,7 @@ export const useAuthApi = () => {
   const updateAccount = (id: string, body: PatchRequest) => patchAccount(id, body);
   const forgotPassword = (body: ForgotPasswordRequest) => postForgotPassword(body);
   const resetPassword = (body: ResetPasswordRequest) => postResetPassword(body);
+  const deleteAccount = (id: string) => deleteOrganisation(id);
 
   return {
     login,
@@ -19,5 +20,6 @@ export const useAuthApi = () => {
     updateAccount,
     forgotPassword,
     resetPassword,
+    deleteAccount,
   };
 };
