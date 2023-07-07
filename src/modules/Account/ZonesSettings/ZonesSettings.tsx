@@ -1,10 +1,10 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SideBar } from 'components';
-import { EditAccountForm } from './components';
+import { ZonesForm } from './components';
 import * as Styled from './styled';
 
-export const AccountSettings = () => {
+export const ZonesSettings = () => {
   const { hasToken } = useAuth();
   const isAuthenticated = hasToken();
 
@@ -22,8 +22,8 @@ export const AccountSettings = () => {
     <Styled.ContentContainer>
       <SideBar />
       <Styled.FormContainer>
-        <Styled.Header>Konto</Styled.Header>
-        <EditAccountForm />
+        <Styled.Header>Hantera zoner</Styled.Header>
+        <ZonesForm />
       </Styled.FormContainer>
     </Styled.ContentContainer>
   );

@@ -7,3 +7,4 @@ export * from './InputTime';
 export * from './Link';
 export * from './Loading';
 export * from './Menu';
+export * from './SideBar';
