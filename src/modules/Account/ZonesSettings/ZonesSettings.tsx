@@ -1,6 +1,7 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SideBar } from 'components';
+import { ZonesForm } from './components';
 import * as Styled from './styled';
 
 export const ZonesSettings = () => {
@@ -22,6 +23,7 @@ export const ZonesSettings = () => {
       <SideBar />
       <Styled.FormContainer>
         <Styled.Header>Hantera zoner</Styled.Header>
+        <ZonesForm />
       </Styled.FormContainer>
     </Styled.ContentContainer>
   );

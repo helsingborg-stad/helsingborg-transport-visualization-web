@@ -30,9 +30,6 @@ export const Container = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  margin-top: var(--spacing-s);
   align-items: flex-end;
+  margin-bottom: var(--spacing-xxs);
 `;

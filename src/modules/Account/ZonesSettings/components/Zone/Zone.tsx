@@ -6,10 +6,11 @@ type InputProps = {
   name: string;
   address: string;
   onClick: () => void;
+  isLoading: boolean;
 };
 
 export const Zone: FC<InputProps> = ({
-  name, address, onClick,
+  name, address, onClick, isLoading,
 }) => (
   <Styled.Container>
     <Styled.SplitContainer>
@@ -19,6 +20,7 @@ export const Zone: FC<InputProps> = ({
           type="button"
           onClick={onClick}
           tertiary
+          disabled={isLoading}
         >
           Radera
         </Button>
