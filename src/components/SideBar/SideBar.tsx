@@ -28,6 +28,15 @@ export const SideBar = () => {
       >
         Hantera zoner
       </Button>
+      <Button
+        onClick={handleNavigate('/account/zones/create-zones')}
+        buttonSize={ButtonSize.SMALL}
+        secondary={activePath === '/account/zones/create-zones'}
+        tertiary={activePath !== '/account/zones/create-zones'}
+        type="button"
+      >
+        Lägg till zoner
+      </Button>
     </Styled.SideBarContainer>
   );
 };

@@ -8,3 +8,4 @@ export * from './Link';
 export * from './Loading';
 export * from './Menu';
 export * from './SideBar';
+export * from './Select';
