@@ -30,7 +30,9 @@ export const useCreateZonesForm = () => {
         properties: {
           ...feature.properties,
           id: index,
-          type: feature.properties.type ? feature.properties.type : 'delivery',
+          type: ['delivery', 'distribution'].includes(feature.properties.type) ? feature.properties.type : 'delivery',
+          name: feature.properties.name ? feature.properties.name : '',
+          area: feature.properties.area ? feature.properties.area : '',
         },
       }));
       setFeatureCollection(data);
@@ -79,6 +81,7 @@ export const useCreateZonesForm = () => {
         setErrors(zodErrors);
         setIsLoading(false);
       }
+      return;
     }
 
     createZones(featureCollection as FeatureCollection).then(() => {
