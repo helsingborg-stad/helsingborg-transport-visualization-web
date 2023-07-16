@@ -1,6 +1,7 @@
 import { useAuth } from 'hooks/useAuth';
 import { useEffect } from 'react';
 import { SideBar } from 'components';
+import { CreateZonesForm } from './components';
 import * as Styled from './styled';
 
 export const CreateZones = () => {
@@ -22,6 +23,7 @@ export const CreateZones = () => {
       <SideBar />
       <Styled.FormContainer>
         <Styled.Header>Lägg till zoner</Styled.Header>
+        <CreateZonesForm />
       </Styled.FormContainer>
     </Styled.ContentContainer>
   );

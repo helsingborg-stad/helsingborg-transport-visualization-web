@@ -6,8 +6,11 @@ export const ContentContainer = styled.div`
 `;
 
 export const FormContainer = styled.div`
-  width: 450px;
+  width: 600px;
   margin: 24px auto 32px;
+  @media (max-width: 768px) {
+    width: 450px;
+  }
 `;
 
 export const Header = styled.h1`
