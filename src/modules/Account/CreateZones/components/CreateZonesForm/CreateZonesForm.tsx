@@ -7,7 +7,7 @@ import * as Styled from './styled';
 
 export const CreateZonesForm = () => {
   const {
-    onDrop, featureCollection, setFieldValue, reset, submitForm, errors,
+    onDrop, featureCollection, setFieldValue, reset, submitForm, errors, apiErrorText,
   } = useCreateZonesForm();
   const {
     getRootProps,
@@ -67,6 +67,7 @@ export const CreateZonesForm = () => {
                   </Styled.MapContainer>
                 </Styled.SplitContainer>
               ))}
+            {apiErrorText && <Styled.ErrorText>{apiErrorText}</Styled.ErrorText>}
             <Styled.ButtonContainer>
               <Button type="submit" onClick={() => submitForm} primary>Spara</Button>
               <Button type="submit" onClick={reset} secondary>Rensa</Button>
