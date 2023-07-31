@@ -6,3 +6,4 @@ export const getZonesByOrganisation = (id: string) => client.get<FeatureCollecti
 export const getDistributionZones = (id: string) => client.get<FeatureCollection>(`/zones/${id}/distribution`);
 export const getDeliveryZones = (id: string) => client.get<FeatureCollection>(`/zones/${id}/delivery`);
 export const deleteZone = (id: string) => client.delete(`/zones/${id}`);
+export const postZones = (zones: FeatureCollection) => client.post('/zones/', zones);
