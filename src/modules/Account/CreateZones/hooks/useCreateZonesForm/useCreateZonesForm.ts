@@ -16,6 +16,7 @@ export const useCreateZonesForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection | null>(null);
   const [errors, setErrors] = useState<ErrorMessage>({});
+  const [apiErrorText, setApiErrorText] = useState<string>('');
   const { createZones } = useZoneApi();
   const { logOut } = useAuth();
   const navigate = useNavigate();
@@ -55,12 +56,14 @@ export const useCreateZonesForm = () => {
   const reset = () => {
     setErrors({});
     setFeatureCollection(null);
+    setApiErrorText('');
   };
 
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrors({});
+    setApiErrorText('');
     try {
       featureCollectionValidation.parse(featureCollection);
     } catch (err: any) {
@@ -91,6 +94,8 @@ export const useCreateZonesForm = () => {
       if (err.response.status === 401) {
         logOut();
         navigate('/login');
+      } else if (err.response.status === 400) {
+        setApiErrorText('En eller flera av zonerna finns redan registrerade.');
       }
     });
   };
@@ -103,5 +108,6 @@ export const useCreateZonesForm = () => {
     reset,
     submitForm,
     errors,
+    apiErrorText,
   };
 };

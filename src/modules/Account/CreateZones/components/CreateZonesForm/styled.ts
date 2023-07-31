@@ -66,3 +66,11 @@ export const ButtonContainer = styled.div`
     margin-top: var(--spacing-xs);
     gap: var(--spacing-xs);
 `;
+
+export const ErrorText = styled.p`
+  font-size: var(--font-size-body-xs);
+  color: var(--color-red-1);
+  line-height: var(--line-height-xxs);
+  font-weight: var(--font-weight-500);
+  margin-top: 10px;
+`;
