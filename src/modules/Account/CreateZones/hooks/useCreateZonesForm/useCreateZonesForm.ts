@@ -160,7 +160,7 @@ export const useCreateZonesForm = () => {
       newFeatureCollection.features[index].properties = {
         ...newFeatureCollection.features[index].properties,
         address: description,
-        area,
+        area: area || '',
         lat,
         lng,
       };
