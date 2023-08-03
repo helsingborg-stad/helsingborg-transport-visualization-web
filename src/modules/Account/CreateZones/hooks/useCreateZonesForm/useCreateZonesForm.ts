@@ -1,6 +1,10 @@
 import { useState, useCallback } from 'react';
 import { ZodError } from 'zod';
 import { useNavigate } from 'react-router-dom';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete';
 import { useZoneApi } from 'hooks/useZoneApi';
 import { useAuth } from 'hooks/useAuth';
 import { FeatureCollection, Feature } from 'types/zone';
@@ -13,6 +17,21 @@ type ErrorMessage = {
 };
 
 export const useCreateZonesForm = () => {
+  const {
+    ready,
+    suggestions: { status: addressStatus, data: addressData },
+    setValue: setAddressValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      types: ['address'],
+      componentRestrictions: {
+        country: 'se',
+      },
+    },
+    debounce: 300,
+  });
+  const [activeAddress, setActiveAddress] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection | null>(null);
   const [errors, setErrors] = useState<ErrorMessage>({});
@@ -32,8 +51,11 @@ export const useCreateZonesForm = () => {
           ...feature.properties,
           id: index,
           type: ['delivery', 'distribution'].includes(feature.properties.type) ? feature.properties.type : 'delivery',
+          address: feature.properties.address ? feature.properties.address : '',
           name: feature.properties.name ? feature.properties.name : '',
           area: feature.properties.area ? feature.properties.area : '',
+          lat: null,
+          lng: null,
         },
       }));
       setFeatureCollection(data);
@@ -50,6 +72,15 @@ export const useCreateZonesForm = () => {
       ...newFeatureCollection.features[index].properties,
       [name]: value,
     };
+    if (name === 'address') {
+      setActiveAddress(newFeatureCollection.features[index].properties.id);
+      newFeatureCollection.features[index].properties = {
+        ...newFeatureCollection.features[index].properties,
+        lat: null,
+        lng: null,
+      };
+      setAddressValue(value);
+    }
     setFeatureCollection(newFeatureCollection);
   };
 
@@ -100,6 +131,25 @@ export const useCreateZonesForm = () => {
     });
   };
 
+  const handleSelectAddress = (index: number, { description }: any) => () => {
+    if (!featureCollection) return;
+    setAddressValue(description, false);
+    setActiveAddress('');
+    clearSuggestions();
+
+    getGeocode({ address: description }).then((results) => {
+      const { lat, lng } = getLatLng(results[0]);
+      const newFeatureCollection = { ...featureCollection };
+      newFeatureCollection.features[index].properties = {
+        ...newFeatureCollection.features[index].properties,
+        address: description,
+        lat,
+        lng,
+      };
+      setFeatureCollection(newFeatureCollection);
+    });
+  };
+
   return {
     isLoading,
     onDrop,
@@ -109,5 +159,11 @@ export const useCreateZonesForm = () => {
     submitForm,
     errors,
     apiErrorText,
+    ready,
+    addressStatus,
+    clearSuggestions,
+    addressData,
+    handleSelectAddress,
+    activeAddress,
   };
 };

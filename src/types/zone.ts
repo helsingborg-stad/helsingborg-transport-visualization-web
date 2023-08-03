@@ -11,6 +11,8 @@ export type Feature = {
     area: string;
     type: ZoneType;
     organisation: Organisation
+    lat: number | null;
+    lng: number | null;
   };
 };
 
