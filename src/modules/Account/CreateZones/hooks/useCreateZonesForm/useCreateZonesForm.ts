@@ -1,6 +1,10 @@
+// @ts-nocheck -- no types for packages
 import { useState, useCallback } from 'react';
 import { ZodError } from 'zod';
 import { useNavigate } from 'react-router-dom';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import turfPolygon from 'turf-polygon';
+import turfPoint from 'turf-point';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -139,6 +143,17 @@ export const useCreateZonesForm = () => {
 
     getGeocode({ address: description }).then((results) => {
       const { lat, lng } = getLatLng(results[0]);
+      const pt = turfPoint([lng, lat]);
+      const poly = turfPolygon(featureCollection.features[index].geometry.coordinates);
+      const isInside = booleanPointInPolygon(pt, poly);
+      if (!isInside) {
+        setErrors({
+          [index]: {
+            address: 'Adressen ligger utanför zonen',
+          },
+        });
+        return;
+      }
       const newFeatureCollection = { ...featureCollection };
       newFeatureCollection.features[index].properties = {
         ...newFeatureCollection.features[index].properties,
