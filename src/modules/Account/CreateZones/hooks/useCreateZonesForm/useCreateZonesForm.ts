@@ -144,7 +144,6 @@ export const useCreateZonesForm = () => {
 
     getGeocode({ address: description }).then((results) => {
       const { lat, lng } = getLatLng(results[0]);
-      const area = results[0].address_components.find((a) => a.types.includes('sublocality')).long_name;
       const pt = turfPoint([lng, lat]);
       const poly = turfPolygon(featureCollection.features[index].geometry.coordinates);
       const isInside = booleanPointInPolygon(pt, poly);
@@ -160,7 +159,6 @@ export const useCreateZonesForm = () => {
       newFeatureCollection.features[index].properties = {
         ...newFeatureCollection.features[index].properties,
         address: description,
-        area: area || '',
         lat,
         lng,
       };
