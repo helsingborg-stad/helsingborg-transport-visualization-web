@@ -74,3 +74,31 @@ export const ErrorText = styled.p`
   font-weight: var(--font-weight-500);
   margin-top: 10px;
 `;
+
+export const List = styled.ul`
+  list-style: none;
+  margin-bottom: var(--spacing-xxs);
+  width: 321px;
+  @media (max-width: 768px) {
+    width: 238px;
+  }
+  position: absolute;
+  background-color: var(--color-white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: var(--spacing-xxs);
+  padding-bottom: 0;
+  border-radius: var(--border-radius-sm);
+`;
+
+export const ListItem = styled.li`
+  border-bottom: 1px solid var(--color-gray-12);
+  cursor: pointer;
+  margin-bottom: var(--spacing-xxs);
+  &:hover {
+    color: var(--color-gray-2);
+    transition: color 0.2s ease-in-out;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+  `;

@@ -116,7 +116,8 @@ export const useGetMap = () => {
         });
 
         const markers = zones.features.map((zone) => {
-          const center = centerOfMass(zone.geometry).geometry.coordinates;
+          const { lng, lat } = zone.properties;
+          const center = lat && lng ? [lng, lat] : centerOfMass(zone.geometry).geometry.coordinates;
           const marker = new google.maps.Marker({
             position: { lng: center[0], lat: center[1] },
             label: {
