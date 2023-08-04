@@ -1,14 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useDropzone } from 'react-dropzone';
 import { Input, Button, Select } from 'components';
+import { ClickOutsideCloser } from '../ClickOutsideCloser';
 import { useCreateZonesForm } from '../../hooks/useCreateZonesForm';
 import { MapSnippet } from '../MapSnippet';
 import * as Styled from './styled';
 
 export const CreateZonesForm = () => {
   const {
-    onDrop, featureCollection, setFieldValue, reset, submitForm, errors, apiErrorText,
+    onDrop,
+    featureCollection,
+    setFieldValue,
+    reset,
+    submitForm,
+    errors,
+    apiErrorText,
+    addressStatus,
+    clearSuggestions,
+    ready,
+    addressData,
+    handleSelectAddress,
+    activeAddress,
   } = useCreateZonesForm();
+
   const {
     getRootProps,
     getInputProps,
@@ -22,6 +36,25 @@ export const CreateZonesForm = () => {
       'application/json': ['.geojson'],
     },
     maxFiles: 1,
+  });
+
+  const renderSuggestions = (index: number) => addressData.map((suggestion) => {
+    const {
+      place_id: placeId,
+      structured_formatting: { main_text: mainText, secondary_text: secondaryText },
+    } = suggestion;
+
+    return (
+      <Styled.ListItem
+        key={placeId}
+        onClick={handleSelectAddress(index, suggestion)}
+        title={mainText}
+      >
+        <strong>{mainText}</strong>
+        {' '}
+        <small>{secondaryText}</small>
+      </Styled.ListItem>
+    );
   });
 
   return (
@@ -41,14 +74,25 @@ export const CreateZonesForm = () => {
                       placeholder="Namn på zon"
                       error={errors[index]?.name}
                     />
-                    <Input
-                      label="Adress"
-                      type="text"
-                      value={zone.properties.address}
-                      onChange={setFieldValue(index, 'address')}
-                      placeholder="Adress till zon"
-                      error={errors[index]?.address}
-                    />
+                    <ClickOutsideCloser
+                      onClick={() => {
+                        if (activeAddress === zone.properties.id) { clearSuggestions(); }
+                      }}
+                      key={zone.properties.id}
+                    >
+                      <>
+                        <Input
+                          label="Adress"
+                          type="text"
+                          value={zone.properties.address}
+                          onChange={setFieldValue(index, 'address')}
+                          placeholder="Adress till zon"
+                          error={errors[index]?.address}
+                          disabled={!ready}
+                        />
+                        {addressStatus === 'OK' && activeAddress === zone.properties.id && <Styled.List>{renderSuggestions(index)}</Styled.List>}
+                      </>
+                    </ClickOutsideCloser>
                     <Input
                       label="Område"
                       type="text"
