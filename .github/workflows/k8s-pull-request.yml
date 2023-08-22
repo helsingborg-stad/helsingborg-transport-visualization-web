@@ -27,6 +27,7 @@ jobs:
 
         docker-username: ${{ github.repository_owner }}
         docker-password:  ${{ secrets.GITHUB_TOKEN }}
+        git-checkout-branch: staging
         extra-build-args: |
           VITE_GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}
           VITE_API_URL=${{ secrets.VITE_API_URL }}
