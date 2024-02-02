@@ -71,6 +71,7 @@ export const CreateZonesForm = () => {
                       type="text"
                       value={zone.properties.name}
                       onChange={setFieldValue(index, 'name')}
+                      name="name"
                       placeholder="Namn på zon"
                       error={errors[index]?.name}
                     />
@@ -87,6 +88,7 @@ export const CreateZonesForm = () => {
                           value={zone.properties.address}
                           onChange={setFieldValue(index, 'address')}
                           placeholder="Adress till zon"
+                          name="address"
                           error={errors[index]?.address}
                           disabled={!ready}
                         />
@@ -98,10 +100,11 @@ export const CreateZonesForm = () => {
                       type="text"
                       value={zone.properties.area}
                       onChange={setFieldValue(index, 'area')}
+                      name="area"
                       placeholder="Område"
                       error={errors[index]?.area}
                     />
-                    <Select label="Typ" value={zone.properties.type} onChange={setFieldValue(index, 'type')}>
+                    <Select label="Typ" value={zone.properties.type} name="type" onChange={setFieldValue(index, 'type')}>
                       <option value="delivery">Leverans zon</option>
                       <option value="distribution">Distributions zon</option>
                     </Select>
