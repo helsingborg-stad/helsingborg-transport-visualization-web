@@ -9,7 +9,7 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{10,}$/;
 export const CreateAccountValidation = z.object({
   orgNumber: z
     .string()
-    .regex(/\d{10}/, { message: 'Fel format på organisationsnummer - ett organisationsnummer består av 10 siffror.' }),
+    .regex(/^[0-9]{10}$/, { message: 'Fel format på organisationsnummer - ett organisationsnummer består av 10 siffror.' }),
   name: z.string().min(1, { message: 'Ange företagsnamn som hör till organisationsnumret' }),
   email: z
     .string()
