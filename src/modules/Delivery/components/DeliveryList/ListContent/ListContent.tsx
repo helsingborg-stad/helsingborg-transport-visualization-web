@@ -31,9 +31,9 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
       {
       events.map((event) => (
         <Styled.Container key={event.id}>
-          <Styled.DayColumn>
+          <Styled.Column>
             {getWeekday(event.enteredAt)}
-          </Styled.DayColumn>
+          </Styled.Column>
           <Styled.PlaceColumn>
             {event.name}
             <Styled.SmallLabel>{event.address}</Styled.SmallLabel>
@@ -51,7 +51,8 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
               </Styled.InfoText>
             </Styled.IconInfo>
           </Styled.TypeColumn>
-          <Styled.TimeOutColumn>{getHourAndMin(event.exitedAt)}</Styled.TimeOutColumn>
+          <Styled.Column>{getHourAndMin(event.enteredAt)}</Styled.Column>
+          <Styled.Column>{getHourAndMin(event.exitedAt)}</Styled.Column>
           <Styled.CarrierColumn>
             {event.distributionOrganisation ? event.distributionOrganisation.name : ''}
             {event.distributionOrganisation?.name && (
@@ -80,8 +81,10 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
               <Styled.InfoText>{event.organisation.mobileNumber}</Styled.InfoText>
             </Styled.InfoBox>
           </Styled.CarrierColumn>
-          <Styled.AreaColumn>{event.area}</Styled.AreaColumn>
-          <Styled.DateColumn>{getYYYYMMDD(event.enteredAt)}</Styled.DateColumn>
+          <Styled.Column>{event.area}</Styled.Column>
+          <Styled.Column>{getYYYYMMDD(event.enteredAt)}</Styled.Column>
+          <Styled.Column>{event.sessionId}</Styled.Column>
+          <Styled.Column>{event.os}</Styled.Column>
         </Styled.Container>
       ))
       }
