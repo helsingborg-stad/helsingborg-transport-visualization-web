@@ -31,13 +31,11 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
       {
       events.map((event) => (
         <Styled.Container key={event.id}>
+          <Styled.Column>{getYYYYMMDD(event.enteredAt)}</Styled.Column>
           <Styled.Column>
             {getWeekday(event.enteredAt)}
           </Styled.Column>
-          <Styled.PlaceColumn>
-            {event.name}
-            <Styled.SmallLabel>{event.address}</Styled.SmallLabel>
-          </Styled.PlaceColumn>
+          <Styled.Column>{getHourAndMin(event.exitedAt)}</Styled.Column>
           <Styled.TypeColumn>
             {event.zoneType === ZoneType.DISTRIBUTION
               ? <Styled.SVGContainer src={DistributionSvg} alt="Distribution icon" />
@@ -51,8 +49,24 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
               </Styled.InfoText>
             </Styled.IconInfo>
           </Styled.TypeColumn>
-          <Styled.Column>{getHourAndMin(event.enteredAt)}</Styled.Column>
-          <Styled.Column>{getHourAndMin(event.exitedAt)}</Styled.Column>
+          <Styled.PlaceColumn>
+            {event.name}
+            <Styled.SmallLabel>{event.address}</Styled.SmallLabel>
+          </Styled.PlaceColumn>
+          <Styled.Column>{event.area}</Styled.Column>
+          <Styled.CarrierColumn>
+            {event.organisation.name}
+            <Styled.InfoBox>
+              <Styled.InfoHeader>{event.organisation.name}</Styled.InfoHeader>
+              <Styled.InfoText>
+                Kontaktperson:
+                {' '}
+                {event.organisation.contactPerson}
+              </Styled.InfoText>
+              <Styled.InfoText>{event.organisation.email}</Styled.InfoText>
+              <Styled.InfoText>{event.organisation.mobileNumber}</Styled.InfoText>
+            </Styled.InfoBox>
+          </Styled.CarrierColumn>
           <Styled.CarrierColumn>
             {event.distributionOrganisation ? event.distributionOrganisation.name : ''}
             {event.distributionOrganisation?.name && (
@@ -68,22 +82,9 @@ export const ListContent: FC<ListContentProps> = ({ events, resetFilters }) => {
             </Styled.InfoBox>
             )}
           </Styled.CarrierColumn>
-          <Styled.CarrierColumn>
-            {event.organisation.name}
-            <Styled.InfoBox>
-              <Styled.InfoHeader>{event.organisation.name}</Styled.InfoHeader>
-              <Styled.InfoText>
-                Kontaktperson:
-                {' '}
-                {event.organisation.contactPerson}
-              </Styled.InfoText>
-              <Styled.InfoText>{event.organisation.email}</Styled.InfoText>
-              <Styled.InfoText>{event.organisation.mobileNumber}</Styled.InfoText>
-            </Styled.InfoBox>
-          </Styled.CarrierColumn>
-          <Styled.Column>{event.area}</Styled.Column>
-          <Styled.Column>{getYYYYMMDD(event.enteredAt)}</Styled.Column>
+
           <Styled.Column>{event.sessionId}</Styled.Column>
+          <Styled.Column>{getHourAndMin(event.enteredAt)}</Styled.Column>
           <Styled.Column>{event.os}</Styled.Column>
         </Styled.Container>
       ))
