@@ -21,13 +21,15 @@ type FilterListProps = {
   resetFilters: (filter?: FilterOptions) => void;
   triggerReload: () => void;
   activeFilters: ActiveFilterType;
-  setDateTimeFilter: (filterName: string) => (data: DateTimeFilterSelected) => void
+  setDateTimeFilter: (filterName: string) => (data: DateTimeFilterSelected) => void;
+  exportEventsToExcel: (filter?: string) => void;
 };
 
 export const FilterList: FC<FilterListProps> = ({
   filters, checkFilter, resetFilters, triggerReload,
   filterOptions,
   activeFilters, setDateTimeFilter,
+  exportEventsToExcel,
 }) => {
   if (!filters || !filterOptions) {
     return null;
@@ -37,59 +39,60 @@ export const FilterList: FC<FilterListProps> = ({
 
   return (
     <Styled.Container>
-      <FilterButtonDate
-        activeFilters={activeFilters.dates}
-        label="Datum"
-        filterOptions={filterOptions.dates}
-        selected={filters.dates}
-        onClick={setDateTimeFilter('dates')}
-      />
-      <WeekdayFilter
-        filterOptions={filterOptions.weekdays}
-        weekdayFilter={filters.weekdays}
-        checkFilter={checkFilter}
-        resetFilters={resetFilters}
-        triggerReload={triggerReload}
-        activeFilters={activeFilters.weekdays}
-      />
-      <FilterButtonDate
-        activeFilters={activeFilters.timeInterval}
-        label="Tid"
-        filterOptions={filterOptions.timeInterval}
-        selected={filters.timeInterval}
-        onClick={setDateTimeFilter('timeInterval')}
-      />
-      <NameFilter
-        nameFilter={filters.names}
-        checkFilter={checkFilter}
-        resetFilters={resetFilters}
-        triggerReload={triggerReload}
-        activeFilters={activeFilters.names}
-      />
-      <AreaFilter
-        areaFilter={filters.areas}
-        checkFilter={checkFilter}
-        resetFilters={resetFilters}
-        triggerReload={triggerReload}
-        activeFilters={activeFilters.areas}
-      />
-      <DistributorFilter
-        distributorFilter={filters.distributors}
-        filterOptions={filterOptions.distributors}
-        checkFilter={checkFilter}
-        resetFilters={resetFilters}
-        triggerReload={triggerReload}
-        activeFilters={activeFilters.distributors}
-      />
-      <OrganisationFilter
-        organisationFilter={filters.organisations}
-        filterOptions={filterOptions.organisations}
-        checkFilter={checkFilter}
-        resetFilters={resetFilters}
-        triggerReload={triggerReload}
-        activeFilters={activeFilters.organisations}
-      />
-      {
+      <Styled.FilterContainer>
+        <FilterButtonDate
+          activeFilters={activeFilters.dates}
+          label="Datum"
+          filterOptions={filterOptions.dates}
+          selected={filters.dates}
+          onClick={setDateTimeFilter('dates')}
+        />
+        <WeekdayFilter
+          filterOptions={filterOptions.weekdays}
+          weekdayFilter={filters.weekdays}
+          checkFilter={checkFilter}
+          resetFilters={resetFilters}
+          triggerReload={triggerReload}
+          activeFilters={activeFilters.weekdays}
+        />
+        <FilterButtonDate
+          activeFilters={activeFilters.timeInterval}
+          label="Tid"
+          filterOptions={filterOptions.timeInterval}
+          selected={filters.timeInterval}
+          onClick={setDateTimeFilter('timeInterval')}
+        />
+        <NameFilter
+          nameFilter={filters.names}
+          checkFilter={checkFilter}
+          resetFilters={resetFilters}
+          triggerReload={triggerReload}
+          activeFilters={activeFilters.names}
+        />
+        <AreaFilter
+          areaFilter={filters.areas}
+          checkFilter={checkFilter}
+          resetFilters={resetFilters}
+          triggerReload={triggerReload}
+          activeFilters={activeFilters.areas}
+        />
+        <DistributorFilter
+          distributorFilter={filters.distributors}
+          filterOptions={filterOptions.distributors}
+          checkFilter={checkFilter}
+          resetFilters={resetFilters}
+          triggerReload={triggerReload}
+          activeFilters={activeFilters.distributors}
+        />
+        <OrganisationFilter
+          organisationFilter={filters.organisations}
+          filterOptions={filterOptions.organisations}
+          checkFilter={checkFilter}
+          resetFilters={resetFilters}
+          triggerReload={triggerReload}
+          activeFilters={activeFilters.organisations}
+        />
+        {
         hasActiveFilter && (
         <Button
           type="button"
@@ -101,6 +104,14 @@ export const FilterList: FC<FilterListProps> = ({
         )
       }
 
+      </Styled.FilterContainer>
+      <Button
+        onClick={() => exportEventsToExcel()}
+        type="button"
+        buttonSize={ButtonSize.SMALL}
+      >
+        Exportera till excel
+      </Button>
     </Styled.Container>
   );
 };

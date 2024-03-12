@@ -7,13 +7,13 @@ import * as Styled from './styled';
 
 export const DeliveryList = () => {
   const {
-    fetchEvents, events, error, isLoading,
+    fetchEvents, exportEvents, events, error, isLoading,
   } = useGetEvents();
   const {
     filters, checkFilter, resetFilters, triggerReload, filterOptions,
-    activeFilters,
+    activeFilters, exportEventsToExcel,
     setDateTimeFilter,
-  } = useGetEventFilters({ fetchEvents });
+  } = useGetEventFilters({ fetchEvents, exportEvents });
 
   if (isLoading) {
     return (
@@ -46,6 +46,7 @@ export const DeliveryList = () => {
         triggerReload={triggerReload}
         filterOptions={filterOptions}
         setDateTimeFilter={setDateTimeFilter}
+        exportEventsToExcel={exportEventsToExcel}
       />
       <ListHeader />
       <ListContent events={events} resetFilters={resetFilters} />
