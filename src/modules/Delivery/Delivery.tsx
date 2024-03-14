@@ -1,5 +1,5 @@
 import { useAuth } from 'hooks/useAuth';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { DeliveryLayout } from 'layouts/DeliveryLayout';
 import { useNavigate } from 'react-router-dom';
 import MapIcon from 'assets/map_icon.svg';
@@ -7,7 +7,11 @@ import { Button } from 'components/Button';
 import * as Styled from './styled';
 import { DeliveryList } from './components';
 
-export const Delivery = () => {
+type Props = {
+  grouped?: boolean;
+};
+
+export const Delivery: FC<Props> = ({ grouped }) => {
   const { hasToken } = useAuth();
   const isAuthenticated = hasToken();
   const navigate = useNavigate();
@@ -28,8 +32,8 @@ export const Delivery = () => {
   return (
     <DeliveryLayout>
       <Styled.Container>
-        <Styled.Heading>Leveranser</Styled.Heading>
-        <DeliveryList />
+        <Styled.Heading>{grouped ? 'Turer' : 'Leveranser'}</Styled.Heading>
+        <DeliveryList grouped={grouped} />
       </Styled.Container>
       <Styled.ButtonContainer>
         <Button type="button" primary onClick={navigateToMap}>
@@ -41,4 +45,8 @@ export const Delivery = () => {
       </Styled.ButtonContainer>
     </DeliveryLayout>
   );
+};
+
+Delivery.defaultProps = {
+  grouped: false,
 };

@@ -23,13 +23,12 @@ type FilterListProps = {
   activeFilters: ActiveFilterType;
   setDateTimeFilter: (filterName: string) => (data: DateTimeFilterSelected) => void;
   exportEventsToExcel: (filter?: string) => void;
+  showExportButton: boolean;
 };
 
 export const FilterList: FC<FilterListProps> = ({
-  filters, checkFilter, resetFilters, triggerReload,
-  filterOptions,
-  activeFilters, setDateTimeFilter,
-  exportEventsToExcel,
+  filters, checkFilter, resetFilters, triggerReload, showExportButton,
+  filterOptions, activeFilters, setDateTimeFilter, exportEventsToExcel,
 }) => {
   if (!filters || !filterOptions) {
     return null;
@@ -105,6 +104,7 @@ export const FilterList: FC<FilterListProps> = ({
       }
 
       </Styled.FilterContainer>
+      {showExportButton && (
       <Button
         onClick={() => exportEventsToExcel()}
         type="button"
@@ -112,6 +112,8 @@ export const FilterList: FC<FilterListProps> = ({
       >
         Exportera till excel
       </Button>
+      )}
+
     </Styled.Container>
   );
 };
