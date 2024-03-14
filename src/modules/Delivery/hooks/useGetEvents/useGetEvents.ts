@@ -4,21 +4,38 @@ import { useEventApi } from 'hooks/useEventApi';
 import { downloadBlobAsFile } from 'utils/downloadFile';
 
 export const useGetEvents = () => {
-  const { getAllEvents, exportAllEvents } = useEventApi();
+  const { getAllEvents, exportAllEvents, getAllGroupedEvents } = useEventApi();
   const [events, setEvents] = useState<Event[]>();
+  const [groupedEvents, setGroupedEvents] = useState<Event[][]>();
   const [error, setError] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const fetchEvents = (filter?: string) => {
-    setError(false);
-    setIsLoading(true);
-    getAllEvents(filter)
-      .then(({ data }) => {
-        setEvents(data);
-      })
-      .catch(() => setError(true));
+  const fetchEvents = async (filter?: string) => {
+    try {
+      setError(false);
+      setIsLoading(true);
+      setGroupedEvents(undefined);
+      const { data } = await getAllEvents(filter);
+      setEvents(data);
+    } catch (e) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    setIsLoading(false);
+  const fetchGroupedEvents = async (filter?: string) => {
+    try {
+      setError(false);
+      setIsLoading(true);
+      setEvents(undefined);
+      const { data } = await getAllGroupedEvents(filter);
+      setGroupedEvents(data);
+    } catch (e) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const exportEvents = async (filter?: string) => {
@@ -37,8 +54,10 @@ export const useGetEvents = () => {
 
   return {
     events,
+    groupedEvents,
     fetchEvents,
     exportEvents,
+    fetchGroupedEvents,
     error,
     isLoading,
   };

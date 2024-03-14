@@ -36,21 +36,6 @@ export const SVGContainer = styled.img`
   height: 16px;
 `;
 
-export const NoResultText = styled.p`
-  font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-600);
-  line-height: var(--line-height-xxxs);
-  padding-top: 18px;
-`;
-
-export const RefreshLink = styled.span`
-  font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-600);
-  line-height: var(--line-height-xxxs);
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
 const fadeIn = keyframes`
   0% {
     opacity: 0;

@@ -8,9 +8,10 @@ import { useGetFilterValues } from '../useGetFilterValues';
 type HookProps = {
   fetchEvents: (filter?: string) => void;
   exportEvents: (filter?: string) => void;
+  grouped: boolean;
 };
 
-export const useGetEventFilters = ({ fetchEvents, exportEvents }: HookProps) => {
+export const useGetEventFilters = ({ fetchEvents, exportEvents, grouped }: HookProps) => {
   const { allWeekdays, dates, timeInterval } = useGetFilterValues();
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
@@ -212,6 +213,10 @@ export const useGetEventFilters = ({ fetchEvents, exportEvents }: HookProps) => 
   }, [filters, reload]);
 
   const exportEventsToExcel = () => exportEvents(filterState);
+
+  useEffect(() => {
+    triggerReload();
+  }, [grouped]);
 
   return {
     filterOptions,
