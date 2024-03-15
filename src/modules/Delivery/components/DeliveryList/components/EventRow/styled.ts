@@ -12,19 +12,13 @@ export const SmallLabel = styled.p`
   font-weight: var(--font-weight-400);
 `;
 
-const Column = styled.div`
+export const Column = styled.div`
   display: flex;
   font-size: var(--font-size-body-xs);
   font-weight: var(--font-weight-400);
   line-height: var(--line-height-xxxs);
   margin: auto 0;
 `;
-
-export const DayColumn = styled(Column)``;
-export const TimeInColumn = styled(Column)``;
-export const TimeOutColumn = styled(Column)``;
-export const AreaColumn = styled(Column)``;
-export const DateColumn = styled(Column)``;
 
 export const PlaceColumn = styled(Column)`
   flex-direction: column;
@@ -40,21 +34,6 @@ export const CarrierColumn = styled(Column)`
 export const SVGContainer = styled.img`
   width: 16px;
   height: 16px;
-`;
-
-export const NoResultText = styled.p`
-  font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-600);
-  line-height: var(--line-height-xxxs);
-  padding-top: 18px;
-`;
-
-export const RefreshLink = styled.span`
-  font-size: var(--font-size-body-xs);
-  font-weight: var(--font-weight-600);
-  line-height: var(--line-height-xxxs);
-  text-decoration: underline;
-  cursor: pointer;
 `;
 
 const fadeIn = keyframes`

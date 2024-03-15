@@ -7,13 +7,16 @@ import { useGetFilterValues } from '../useGetFilterValues';
 
 type HookProps = {
   fetchEvents: (filter?: string) => void;
+  exportEvents: (filter?: string) => void;
+  grouped: boolean;
 };
 
-export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
+export const useGetEventFilters = ({ fetchEvents, exportEvents, grouped }: HookProps) => {
   const { allWeekdays, dates, timeInterval } = useGetFilterValues();
   const { getFiltersForEvent } = useFilterApi();
   const [filterOptions, setFilterOptions] = useState<FilterOptionType>();
   const [filters, setFilters] = useState<FilterType>();
+  const [filterState, setFilterState] = useState<string>();
   const [reload, setReload] = useState(true);
   const [activeFilters, setActiveFilters] = useState<ActiveFilterType>({
     organisations: 0,
@@ -200,6 +203,7 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       });
 
       const filter = params.toString();
+      setFilterState(filter);
 
       // Sets URL to current filter(s) & fetches filtered data
       window.history.replaceState({}, '', `${window.location.pathname}${filter !== '' ? `?${filter}` : ''}`);
@@ -207,6 +211,12 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
       setReload(false);
     }
   }, [filters, reload]);
+
+  const exportEventsToExcel = () => exportEvents(filterState);
+
+  useEffect(() => {
+    triggerReload();
+  }, [grouped]);
 
   return {
     filterOptions,
@@ -216,5 +226,6 @@ export const useGetEventFilters = ({ fetchEvents }: HookProps) => {
     resetFilters,
     triggerReload,
     setDateTimeFilter,
+    exportEventsToExcel,
   };
 };

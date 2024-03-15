@@ -32,12 +32,13 @@ export const Menu = () => {
       <Styled.MenuList>
         <Styled.SectionOne>
           <Styled.BoldText onClick={() => {
-            navigate('/');
+            navigate('/events');
             setIsOpen(false);
           }}
           >
-            Lista
+            Leveranser
           </Styled.BoldText>
+          <Styled.BoldText onClick={() => navigate('/events/grouped')}>Turer</Styled.BoldText>
           <Styled.BoldText onClick={() => navigate('/map')}>Karta</Styled.BoldText>
         </Styled.SectionOne>
         <Styled.SectionTwo>

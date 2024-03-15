@@ -14,11 +14,12 @@ export const Router = () => (
     <MainLayout>
       <Suspense>
         <Routes>
-          <Route index element={<Delivery />} />
+          <Route index path="/events" element={<Delivery />} />
+          <Route path="/events/grouped" element={<Delivery grouped />} />
           <Route path="/map" element={<Map />} />
           <Route path="/account/*" element={<Account />} />
           <Route path="/auth/*" element={<Auth />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/events" replace />} />
         </Routes>
       </Suspense>
     </MainLayout>

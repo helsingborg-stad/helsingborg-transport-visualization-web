@@ -1,19 +1,27 @@
 import { useGetEventFilters, useGetEvents } from 'modules/Delivery/hooks';
 import { Button, Loading } from 'components';
-import { FilterList } from './FilterList';
-import { ListContent } from './ListContent';
-import { ListHeader } from './ListHeader';
+import { FC } from 'react';
+import { FilterList, ListContent, ListHeader } from './components';
 import * as Styled from './styled';
 
-export const DeliveryList = () => {
+type Props = {
+  grouped?: boolean;
+};
+
+export const DeliveryList: FC<Props> = ({ grouped }) => {
   const {
-    fetchEvents, events, error, isLoading,
+    fetchEvents, exportEvents, fetchGroupedEvents,
+    events, error, isLoading, groupedEvents,
   } = useGetEvents();
   const {
     filters, checkFilter, resetFilters, triggerReload, filterOptions,
-    activeFilters,
+    activeFilters, exportEventsToExcel,
     setDateTimeFilter,
-  } = useGetEventFilters({ fetchEvents });
+  } = useGetEventFilters({
+    fetchEvents: grouped ? fetchGroupedEvents : fetchEvents,
+    exportEvents,
+    grouped: !!grouped,
+  });
 
   if (isLoading) {
     return (
@@ -46,9 +54,15 @@ export const DeliveryList = () => {
         triggerReload={triggerReload}
         filterOptions={filterOptions}
         setDateTimeFilter={setDateTimeFilter}
+        exportEventsToExcel={exportEventsToExcel}
+        showExportButton={!grouped}
       />
       <ListHeader />
-      <ListContent events={events} resetFilters={resetFilters} />
+      <ListContent events={events} groupedEvents={groupedEvents} resetFilters={resetFilters} />
     </Styled.Container>
   );
+};
+
+DeliveryList.defaultProps = {
+  grouped: false,
 };
