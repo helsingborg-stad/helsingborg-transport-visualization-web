@@ -75,14 +75,6 @@ export const FilterList: FC<FilterListProps> = ({
           triggerReload={triggerReload}
           activeFilters={activeFilters.areas}
         />
-        <DistributorFilter
-          distributorFilter={filters.distributors}
-          filterOptions={filterOptions.distributors}
-          checkFilter={checkFilter}
-          resetFilters={resetFilters}
-          triggerReload={triggerReload}
-          activeFilters={activeFilters.distributors}
-        />
         <OrganisationFilter
           organisationFilter={filters.organisations}
           filterOptions={filterOptions.organisations}
@@ -90,6 +82,14 @@ export const FilterList: FC<FilterListProps> = ({
           resetFilters={resetFilters}
           triggerReload={triggerReload}
           activeFilters={activeFilters.organisations}
+        />
+        <DistributorFilter
+          distributorFilter={filters.distributors}
+          filterOptions={filterOptions.distributors}
+          checkFilter={checkFilter}
+          resetFilters={resetFilters}
+          triggerReload={triggerReload}
+          activeFilters={activeFilters.distributors}
         />
         {
         hasActiveFilter && (
