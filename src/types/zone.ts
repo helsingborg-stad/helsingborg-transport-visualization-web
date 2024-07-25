@@ -6,6 +6,7 @@ export type Feature = {
   geometry: Polygon;
   properties: {
     id: string;
+    gln: string;
     name: string;
     address: string;
     area: string;

@@ -7,3 +7,4 @@ export const getDistributionZones = (id: string) => client.get<FeatureCollection
 export const getDeliveryZones = (id: string) => client.get<FeatureCollection>(`/zones/${id}/delivery`);
 export const deleteZone = (id: string) => client.delete(`/zones/${id}`);
 export const postZones = (zones: FeatureCollection) => client.post('/zones/', zones);
+export const patchZone = (id: string, zone: FeatureCollection) => client.patch(`/zones/${id}`, zone);
