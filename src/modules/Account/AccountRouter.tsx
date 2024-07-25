@@ -9,7 +9,8 @@ const CreateZones = lazy(() => import('./CreateZones'));
 export const AccountRouter = () => (
   <DeliveryLayout>
     <Routes>
-      <Route path="/zones/create-zones" element={<CreateZones />} />
+      <Route path="/zones/create" element={<CreateZones />} />
+      <Route path="/zones/:id/edit" element={<CreateZones />} />
       <Route path="/zones" element={<ZonesSettings />} />
       <Route path="/" element={<AccountSettings />} />
     </Routes>

@@ -5,12 +5,12 @@ import * as Styled from './styled';
 type InputProps = {
   name: string;
   address: string;
-  onClick: () => void;
+  deleteZone: () => void;
   isLoading: boolean;
 };
 
 export const Zone: FC<InputProps> = ({
-  name, address, onClick, isLoading,
+  name, address, deleteZone, isLoading,
 }) => (
   <Styled.Container>
     <Styled.SplitContainer>
@@ -18,11 +18,19 @@ export const Zone: FC<InputProps> = ({
       <Styled.ButtonContainer>
         <Button
           type="button"
-          onClick={onClick}
+          onClick={deleteZone}
           tertiary
           disabled={isLoading}
         >
           Radera
+        </Button>
+        <Button
+          type="button"
+          onClick={() => {}}
+          tertiary
+          disabled={isLoading}
+        >
+          Redigera
         </Button>
       </Styled.ButtonContainer>
     </Styled.SplitContainer>

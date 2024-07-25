@@ -12,7 +12,7 @@ export const ZonesForm = () => {
         <Zone
           name={zone.properties.name}
           address={zone.properties.address}
-          onClick={deleteZone(zone.properties.id)}
+          deleteZone={deleteZone(zone.properties.id)}
           isLoading={isLoading === zone.properties.id}
           key={zone.properties.id}
         />

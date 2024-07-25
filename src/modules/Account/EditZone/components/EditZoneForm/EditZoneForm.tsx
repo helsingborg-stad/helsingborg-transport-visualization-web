@@ -3,11 +3,11 @@ import { useDropzone } from 'react-dropzone';
 import {
   Input, Button, Select, ClickOutsideCloser,
 } from 'components';
-import { useCreateZonesForm } from './hooks/useCreateZonesForm';
+import { useEditZoneForm } from './hooks/useEditZoneForm';
 import { MapSnippet } from '../../../../../components/MapSnippet';
 import * as Styled from './styled';
 
-export const CreateZonesForm = () => {
+export const EditZoneForm = () => {
   const {
     onDrop,
     featureCollection,
@@ -22,7 +22,7 @@ export const CreateZonesForm = () => {
     addressData,
     handleSelectAddress,
     activeAddress,
-  } = useCreateZonesForm();
+  } = useEditZoneForm();
 
   const {
     getRootProps,
@@ -75,15 +75,6 @@ export const CreateZonesForm = () => {
                       name="name"
                       placeholder="Namn på zon"
                       error={errors[index]?.name}
-                    />
-                    <Input
-                      label="GLN"
-                      type="text"
-                      value={zone.properties.gln}
-                      onChange={setFieldValue(index, 'gln')}
-                      name="gln"
-                      placeholder="GLN (Lokaliseringsnummer)"
-                      error={errors[index]?.gln}
                     />
                     <ClickOutsideCloser
                       onClick={() => {

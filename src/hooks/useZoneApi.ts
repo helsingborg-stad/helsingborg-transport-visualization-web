@@ -1,5 +1,6 @@
 import {
   getZones, getDistributionZones, getDeliveryZones, getZonesByOrganisation, deleteZone, postZones,
+  patchZone,
 } from 'api/zone';
 import { FeatureCollection } from 'types/zone';
 
@@ -10,6 +11,7 @@ export const useZoneApi = () => {
   const getRelatedDeliveryZones = (id: string) => getDeliveryZones(id);
   const deleteZoneById = (id: string) => deleteZone(id);
   const createZones = (zones: FeatureCollection) => postZones(zones);
+  const editZone = (id: string, zone: FeatureCollection) => patchZone(id, zone);
 
   return {
     getAllZones,
@@ -18,5 +20,6 @@ export const useZoneApi = () => {
     getRelatedDeliveryZones,
     deleteZoneById,
     createZones,
+    editZone,
   };
 };
