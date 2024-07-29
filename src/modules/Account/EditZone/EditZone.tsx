@@ -30,7 +30,7 @@ export const EditZone = () => {
     <Styled.ContentContainer>
       <SideBar />
       <Styled.FormContainer>
-        <Styled.Header>Lägg till zoner</Styled.Header>
+        <Styled.Header>Redigera zon</Styled.Header>
         {isLoaded && <EditZoneForm />}
       </Styled.FormContainer>
     </Styled.ContentContainer>
