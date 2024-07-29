@@ -9,3 +9,4 @@ export * from './Loading';
 export * from './Menu';
 export * from './SideBar';
 export * from './Select';
+export * from './ClickOutsideCloser';

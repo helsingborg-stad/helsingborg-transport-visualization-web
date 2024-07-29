@@ -5,5 +5,7 @@ export const getZones = () => client.get<FeatureCollection>('/zones/');
 export const getZonesByOrganisation = (id: string) => client.get<FeatureCollection>(`/organisations/${id}/zones`);
 export const getDistributionZones = (id: string) => client.get<FeatureCollection>(`/zones/${id}/distribution`);
 export const getDeliveryZones = (id: string) => client.get<FeatureCollection>(`/zones/${id}/delivery`);
+export const getZoneById = (id: string) => client.get<FeatureCollection>(`/zones/${id}`);
 export const deleteZone = (id: string) => client.delete(`/zones/${id}`);
 export const postZones = (zones: FeatureCollection) => client.post('/zones/', zones);
+export const patchZone = (id: string, zone: FeatureCollection) => client.patch(`/zones/${id}`, zone);
