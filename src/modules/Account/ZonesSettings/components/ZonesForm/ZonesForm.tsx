@@ -10,8 +10,7 @@ export const ZonesForm = () => {
     <Styled.ContentContainer>
       {zones.features.map((zone: Feature) => (
         <Zone
-          name={zone.properties.name}
-          address={zone.properties.address}
+          zone={zone.properties}
           deleteZone={deleteZone(zone.properties.id)}
           isLoading={isLoading === zone.properties.id}
           key={zone.properties.id}

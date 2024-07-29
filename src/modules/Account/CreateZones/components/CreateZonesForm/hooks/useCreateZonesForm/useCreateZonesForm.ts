@@ -131,6 +131,8 @@ export const useCreateZonesForm = () => {
         navigate('/login');
       } else if (err.response.status === 400) {
         setApiErrorText('En eller flera av zonerna finns redan registrerade.');
+      } else if (err.response.status === 409) {
+        setApiErrorText('En eller flera zoner har samma GLN.');
       }
     });
   };

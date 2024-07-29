@@ -1,7 +1,7 @@
 // @ts-nocheck -- no types for packages
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ZodError } from 'zod';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import turfPolygon from 'turf-polygon';
 import turfPoint from 'turf-point';
@@ -37,12 +37,23 @@ export const useEditZoneForm = () => {
   });
   const [activeAddress, setActiveAddress] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [featureCollection, setFeatureCollection] = useState<FeatureCollection | null>(null);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [featureCollection, setFeatureCollection] = useState<FeatureCollection>(null);
   const [errors, setErrors] = useState<ErrorMessage>({});
   const [apiErrorText, setApiErrorText] = useState<string>('');
-  const { editZone } = useZoneApi();
+  const { editZone, getZone } = useZoneApi();
   const { logOut } = useAuth();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      const zone = await getZone(id);
+      setFeatureCollection(zone.data);
+      setIsLoadingData(false);
+    }
+    fetchData();
+  }, []);
 
   const onDrop = useCallback((acceptedFiles: any) => {
     const file = acceptedFiles[0];
@@ -88,12 +99,6 @@ export const useEditZoneForm = () => {
     setFeatureCollection(newFeatureCollection);
   };
 
-  const reset = () => {
-    setErrors({});
-    setFeatureCollection(null);
-    setApiErrorText('');
-  };
-
   const submitForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -122,15 +127,17 @@ export const useEditZoneForm = () => {
       return;
     }
 
-    editZone(featureCollection as FeatureCollection).then(() => {
+    editZone(id, featureCollection as FeatureCollection).then(() => {
       setIsLoading(false);
-      reset();
+      navigate('/account/zones');
     }).catch((err) => {
       if (err.response.status === 401) {
         logOut();
         navigate('/login');
       } else if (err.response.status === 400) {
         setApiErrorText('En eller flera av zonerna finns redan registrerade.');
+      } else if (err.response.status === 409) {
+        setApiErrorText('En eller flera zoner har samma GLN.');
       }
     });
   };
@@ -171,7 +178,6 @@ export const useEditZoneForm = () => {
     onDrop,
     featureCollection,
     setFieldValue,
-    reset,
     submitForm,
     errors,
     apiErrorText,
@@ -181,5 +187,6 @@ export const useEditZoneForm = () => {
     addressData,
     handleSelectAddress,
     activeAddress,
+    isLoadingData,
   };
 };
