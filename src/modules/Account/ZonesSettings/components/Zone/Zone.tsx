@@ -17,7 +17,10 @@ export const Zone: FC<InputProps> = ({
   return (
     <Styled.Container>
       <Styled.SplitContainer>
-        <Styled.Label>{zone.name}</Styled.Label>
+        <span>
+          <Styled.Label>{zone.name}</Styled.Label>
+          <Styled.Label>{zone.gln}</Styled.Label>
+        </span>
         <Styled.ButtonContainer>
           <Button
             type="button"

@@ -37,6 +37,15 @@ export const SideBar = () => {
       >
         Lägg till zoner
       </Button>
+      <Button
+        onClick={handleNavigate('/account/events/import')}
+        buttonSize={ButtonSize.SMALL}
+        secondary={activePath === '/account/events/import'}
+        tertiary={activePath !== '/account/events/import'}
+        type="button"
+      >
+        Importera data
+      </Button>
     </Styled.SideBarContainer>
   );
 };

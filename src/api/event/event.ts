@@ -9,3 +9,10 @@ export const exportEvents = (filter?: string) => client.get<Blob>(
     responseType: 'blob',
   },
 );
+export const importEvents = (file: File, password: string) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('password', password);
+  return client.post('/zones/events/import', formData);
+};
+export const postImportEventsPassword = (password: string) => client.post('/zones/events/import/password', { password });

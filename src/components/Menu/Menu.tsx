@@ -45,6 +45,7 @@ export const Menu = () => {
           <Styled.Text onClick={() => navigate('/account')}>Konto</Styled.Text>
           <Styled.Text onClick={() => navigate('/account/zones')}>Hantera zoner</Styled.Text>
           <Styled.Text onClick={() => navigate('/account/zones/create')}>Lägg till zoner</Styled.Text>
+          <Styled.Text onClick={() => navigate('/account/events/import')}>Importera data</Styled.Text>
         </Styled.SectionTwo>
         <Styled.SectionThree>
           <Styled.Text onClick={() => logOutAndRedirect()}>Logga ut</Styled.Text>
