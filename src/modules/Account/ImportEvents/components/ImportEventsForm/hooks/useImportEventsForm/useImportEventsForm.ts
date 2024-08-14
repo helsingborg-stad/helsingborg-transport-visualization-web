@@ -24,7 +24,7 @@ export const useImportEventsForm = () => {
       setApiErrorText('');
     } catch (error: AxiosError | any) {
       if (error) {
-        setApiErrorText(error.response.statusText);
+        setApiErrorText(error.response.data.message);
       }
     }
     setIsLoading(false);
@@ -43,7 +43,7 @@ export const useImportEventsForm = () => {
             'Felaktigt lösenord',
           );
         } else {
-          setApiErrorText(error.response.statusText);
+          setApiErrorText(error.response.data.message);
         }
       }
     }
