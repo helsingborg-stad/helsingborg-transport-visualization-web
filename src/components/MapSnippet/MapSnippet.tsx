@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Feature } from 'types/zone';
-import { useRenderMap } from '../../hooks/useRenderMap';
+import { useRenderMap } from './useRenderMap';
 
 type MapSnippetProps = {
   zone: Feature;

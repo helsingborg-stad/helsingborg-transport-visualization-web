@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useDropzone } from 'react-dropzone';
-import { Input, Button, Select } from 'components';
-import { ClickOutsideCloser } from '../ClickOutsideCloser';
-import { useCreateZonesForm } from '../../hooks/useCreateZonesForm';
-import { MapSnippet } from '../MapSnippet';
+import {
+  Input, Button, Select, ClickOutsideCloser,
+} from 'components';
+import { useCreateZonesForm } from './hooks/useCreateZonesForm';
+import { MapSnippet } from '../../../../../components/MapSnippet';
 import * as Styled from './styled';
 
 export const CreateZonesForm = () => {
@@ -74,6 +75,15 @@ export const CreateZonesForm = () => {
                       name="name"
                       placeholder="Namn på zon"
                       error={errors[index]?.name}
+                    />
+                    <Input
+                      label="GLN"
+                      type="text"
+                      value={zone.properties.gln}
+                      onChange={setFieldValue(index, 'gln')}
+                      name="gln"
+                      placeholder="GLN (Lokaliseringsnummer)"
+                      error={errors[index]?.gln}
                     />
                     <ClickOutsideCloser
                       onClick={() => {

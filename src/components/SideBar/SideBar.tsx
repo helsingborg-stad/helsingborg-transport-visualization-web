@@ -29,13 +29,22 @@ export const SideBar = () => {
         Hantera zoner
       </Button>
       <Button
-        onClick={handleNavigate('/account/zones/create-zones')}
+        onClick={handleNavigate('/account/zones/create')}
         buttonSize={ButtonSize.SMALL}
-        secondary={activePath === '/account/zones/create-zones'}
-        tertiary={activePath !== '/account/zones/create-zones'}
+        secondary={activePath === '/account/zones/create'}
+        tertiary={activePath !== '/account/zones/create'}
         type="button"
       >
         Lägg till zoner
+      </Button>
+      <Button
+        onClick={handleNavigate('/account/events/import')}
+        buttonSize={ButtonSize.SMALL}
+        secondary={activePath === '/account/events/import'}
+        tertiary={activePath !== '/account/events/import'}
+        type="button"
+      >
+        Importera data
       </Button>
     </Styled.SideBarContainer>
   );

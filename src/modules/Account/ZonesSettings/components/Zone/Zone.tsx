@@ -1,31 +1,46 @@
 import { FC } from 'react';
 import { Button } from 'components';
+import { useNavigate } from 'react-router-dom';
+import { Feature } from 'types/zone';
 import * as Styled from './styled';
 
 type InputProps = {
-  name: string;
-  address: string;
-  onClick: () => void;
+  zone: Feature['properties'];
+  deleteZone: () => void;
   isLoading: boolean;
 };
 
 export const Zone: FC<InputProps> = ({
-  name, address, onClick, isLoading,
-}) => (
-  <Styled.Container>
-    <Styled.SplitContainer>
-      <Styled.Label>{name}</Styled.Label>
-      <Styled.ButtonContainer>
-        <Button
-          type="button"
-          onClick={onClick}
-          tertiary
-          disabled={isLoading}
-        >
-          Radera
-        </Button>
-      </Styled.ButtonContainer>
-    </Styled.SplitContainer>
-    <Styled.AddressText>{address}</Styled.AddressText>
-  </Styled.Container>
-);
+  deleteZone, isLoading, zone,
+}) => {
+  const navigate = useNavigate();
+  return (
+    <Styled.Container>
+      <Styled.SplitContainer>
+        <span>
+          <Styled.Label>{zone.name}</Styled.Label>
+          <Styled.Label>{zone.gln}</Styled.Label>
+        </span>
+        <Styled.ButtonContainer>
+          <Button
+            type="button"
+            onClick={deleteZone}
+            tertiary
+            disabled={isLoading}
+          >
+            Radera
+          </Button>
+          <Button
+            type="button"
+            onClick={() => navigate(`/account/zones/${zone.id}/edit`)}
+            tertiary
+            disabled={isLoading}
+          >
+            Redigera
+          </Button>
+        </Styled.ButtonContainer>
+      </Styled.SplitContainer>
+      <Styled.AddressText>{zone.address}</Styled.AddressText>
+    </Styled.Container>
+  );
+};
