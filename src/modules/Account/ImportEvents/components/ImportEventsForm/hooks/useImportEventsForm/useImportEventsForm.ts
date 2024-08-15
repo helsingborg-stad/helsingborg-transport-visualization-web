@@ -2,6 +2,7 @@
 import { AxiosError } from 'axios';
 import { useState, useCallback } from 'react';
 import { useEventApi } from 'hooks/useEventApi';
+import { useNavigate } from 'react-router-dom';
 
 export const useImportEventsForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,7 @@ export const useImportEventsForm = () => {
   const [password, setPassword] = useState<string>('');
   const [apiErrorText, setApiErrorText] = useState<string>('');
   const [passwordIsCorrect, setPasswordIsCorrect] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const { importEventsPassword, importEventsByExcel } = useEventApi();
 
@@ -22,6 +24,7 @@ export const useImportEventsForm = () => {
     try {
       await importEventsByExcel(importFile as File, password);
       setApiErrorText('');
+      navigate('/events/grouped');
     } catch (error: AxiosError | any) {
       if (error) {
         setApiErrorText(error.response.data.message);
@@ -59,5 +62,6 @@ export const useImportEventsForm = () => {
     setPassword,
     passwordIsCorrect,
     password,
+    importFile,
   };
 };

@@ -17,6 +17,7 @@ export const ImportEventsForm = () => {
     submitPasswordForm,
     apiErrorText,
     isLoading,
+    importFile,
   } = useImportEventsForm();
 
   const {
@@ -46,9 +47,9 @@ export const ImportEventsForm = () => {
           : <p>Dra zoner eller klicka för att ladda upp</p>
       }
           </Styled.DropArea>
-          <Link href="/src/assets/Template.xlsx" download="mall.xlsx" label="Ladda ner mall" />
+          <Link href="/Template.xlsx" download="mall.xlsx" label="Ladda ner mall" />
           <Styled.ButtonContainer>
-            <Button onClick={submitFileForm} type="button" disabled={isLoading}>Importera</Button>
+            <Button onClick={submitFileForm} type="button" disabled={isLoading || !importFile}>Importera</Button>
           </Styled.ButtonContainer>
         </form>
       ) : (
