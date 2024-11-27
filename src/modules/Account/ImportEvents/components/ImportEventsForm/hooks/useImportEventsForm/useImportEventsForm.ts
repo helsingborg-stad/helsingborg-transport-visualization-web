@@ -9,6 +9,7 @@ export const useImportEventsForm = () => {
   const [importFile, setImportFile] = useState<File | null>(null);
   const [password, setPassword] = useState<string>('');
   const [apiErrorText, setApiErrorText] = useState<string>('');
+  const [importErrorText, setImportErrorText] = useState<string>('');
   const [passwordIsCorrect, setPasswordIsCorrect] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -24,10 +25,11 @@ export const useImportEventsForm = () => {
     try {
       await importEventsByExcel(importFile as File, password);
       setApiErrorText('');
+      setImportErrorText('');
       navigate('/events/grouped');
     } catch (error: AxiosError | any) {
       if (error) {
-        setApiErrorText(error.response.data.message);
+        setImportErrorText(error.response.data.message);
       }
     }
     setIsLoading(false);
@@ -63,5 +65,6 @@ export const useImportEventsForm = () => {
     passwordIsCorrect,
     password,
     importFile,
+    importErrorText,
   };
 };
