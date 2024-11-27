@@ -61,8 +61,7 @@ export const InputContainer = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: flex-end;
+    width: 55%;
     margin-top: var(--spacing-xs);
     gap: var(--spacing-xs);
 `;
@@ -102,3 +101,21 @@ export const ListItem = styled.li`
     border-bottom: none;
   }
   `;
+
+export const Paragraph = styled.p`
+  line-height: var(--line-height-md);
+  `;
+
+export const DownloadContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-xl);
+  a {
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: var(--font-size-body-md);
+  }
+`;

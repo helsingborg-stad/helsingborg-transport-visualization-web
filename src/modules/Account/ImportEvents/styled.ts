@@ -14,9 +14,9 @@ export const FormContainer = styled.div`
 `;
 
 export const Header = styled.h1`
-  font-size: var(--font-size-heading-xs);
+  font-size: var(--font-size-heading-lg);
   font-weight: var(--font-weight-800);
   line-height: var(--line-height-xxxl);
-  margin-bottom: var(--spacing-xxs);
+  margin-bottom: var(--spacing-md);
   font-family: var(--font-family);
 `;
