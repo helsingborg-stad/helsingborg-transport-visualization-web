@@ -4,7 +4,7 @@ import {
   Input, Button,
   Link,
 } from 'components';
-import { Download } from '@mui/icons-material';
+import { Download, InsertDriveFileOutlined } from '@mui/icons-material';
 import * as Styled from './styled';
 import { useImportEventsForm } from './hooks';
 
@@ -20,6 +20,7 @@ export const ImportEventsForm = () => {
     isLoading,
     importFile,
     importErrorText,
+    setImportFile,
   } = useImportEventsForm();
 
   const errors = importErrorText ? importErrorText.split('|') : [];
@@ -38,6 +39,7 @@ export const ImportEventsForm = () => {
     },
     maxFiles: 1,
   });
+  console.log(importFile);
 
   return (
     <Styled.ContentContainer>
@@ -51,6 +53,15 @@ export const ImportEventsForm = () => {
           : <p>Dra zoner eller klicka för att ladda upp</p>
       }
           </Styled.DropArea>
+          {importFile && (
+            <Styled.FileContainer>
+              <Styled.File>
+                <InsertDriveFileOutlined />
+                <p><b>{importFile?.name}</b></p>
+              </Styled.File>
+              <Styled.TextButton onClick={() => setImportFile(null)}>Ta bort</Styled.TextButton>
+            </Styled.FileContainer>
+          )}
           {apiErrorText && (
           <>
             <Styled.ErrorText>
@@ -65,9 +76,11 @@ export const ImportEventsForm = () => {
             ))}
           </>
           )}
-          <Styled.ButtonContainer>
-            <Button onClick={submitFileForm} type="button" disabled={isLoading || !importFile}>Importera</Button>
-          </Styled.ButtonContainer>
+          {importFile && (
+            <Styled.ButtonContainer>
+              <Button onClick={submitFileForm} type="button" disabled={!importFile}>Importera</Button>
+            </Styled.ButtonContainer>
+          )}
         </form>
       ) : (
         <form onSubmit={submitPasswordForm}>

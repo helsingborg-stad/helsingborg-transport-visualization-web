@@ -66,5 +66,6 @@ export const useImportEventsForm = () => {
     password,
     importFile,
     importErrorText,
+    setImportFile,
   };
 };

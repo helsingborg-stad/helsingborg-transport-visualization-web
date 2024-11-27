@@ -119,3 +119,26 @@ export const DownloadContainer = styled.div`
     font-size: var(--font-size-body-md);
   }
 `;
+
+export const File = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  margin-top: var(--spacing-xs);
+`;
+
+export const FileContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const TextButton = styled.button`
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: var(--font-size-body-md);
+  &:hover {
+    text-decoration: none;
+  }
+`;
