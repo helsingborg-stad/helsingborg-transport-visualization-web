@@ -29,10 +29,8 @@ export const useImportEventsForm = () => {
       setImportErrorText('');
       setUploadStatus('success');
     } catch (error: AxiosError | any) {
-      if (error) {
-        setUploadStatus('error');
-        setImportErrorText(error.response.data.message);
-      }
+      setUploadStatus('error');
+      setImportErrorText(error.response.data.message);
     }
     setIsLoading(false);
   };
