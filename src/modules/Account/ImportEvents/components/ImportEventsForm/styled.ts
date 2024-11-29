@@ -142,3 +142,8 @@ export const TextButton = styled.button`
     text-decoration: none;
   }
 `;
+
+export const FileActions = styled.div`
+  display: flex;
+  align-items: end;
+`;

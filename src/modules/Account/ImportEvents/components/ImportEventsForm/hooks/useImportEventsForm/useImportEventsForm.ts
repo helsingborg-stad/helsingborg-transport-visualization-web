@@ -2,7 +2,6 @@
 import { AxiosError } from 'axios';
 import { useState, useCallback } from 'react';
 import { useEventApi } from 'hooks/useEventApi';
-import { useNavigate } from 'react-router-dom';
 
 export const useImportEventsForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,12 +10,13 @@ export const useImportEventsForm = () => {
   const [apiErrorText, setApiErrorText] = useState<string>('');
   const [importErrorText, setImportErrorText] = useState<string>('');
   const [passwordIsCorrect, setPasswordIsCorrect] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const { importEventsPassword, importEventsByExcel } = useEventApi();
 
   const onDrop = useCallback((acceptedFiles: any) => {
     const file = acceptedFiles[0];
+    setUploadStatus('idle');
     setImportFile(file);
   }, []);
 
@@ -26,9 +26,10 @@ export const useImportEventsForm = () => {
       await importEventsByExcel(importFile as File, password);
       setApiErrorText('');
       setImportErrorText('');
-      navigate('/events/grouped');
+      setUploadStatus('success');
     } catch (error: AxiosError | any) {
       if (error) {
+        setUploadStatus('error');
         setImportErrorText(error.response.data.message);
       }
     }
@@ -67,5 +68,6 @@ export const useImportEventsForm = () => {
     importFile,
     importErrorText,
     setImportFile,
+    uploadStatus,
   };
 };

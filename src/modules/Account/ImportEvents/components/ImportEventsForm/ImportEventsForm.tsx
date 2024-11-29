@@ -4,7 +4,9 @@ import {
   Input, Button,
   Link,
 } from 'components';
-import { Download, InsertDriveFileOutlined } from '@mui/icons-material';
+import {
+  Check, Download, Error, InsertDriveFileOutlined,
+} from '@mui/icons-material';
 import * as Styled from './styled';
 import { useImportEventsForm } from './hooks';
 
@@ -21,6 +23,7 @@ export const ImportEventsForm = () => {
     importFile,
     importErrorText,
     setImportFile,
+    uploadStatus,
   } = useImportEventsForm();
 
   const errors = importErrorText ? importErrorText.split('|') : [];
@@ -39,7 +42,6 @@ export const ImportEventsForm = () => {
     },
     maxFiles: 1,
   });
-  console.log(importFile);
 
   return (
     <Styled.ContentContainer>
@@ -59,10 +61,14 @@ export const ImportEventsForm = () => {
                 <InsertDriveFileOutlined />
                 <p><b>{importFile?.name}</b></p>
               </Styled.File>
-              <Styled.TextButton onClick={() => setImportFile(null)}>Ta bort</Styled.TextButton>
+              <Styled.FileActions>
+                {uploadStatus === 'success' && <Check color="success" />}
+                {uploadStatus === 'error' && <Error color="error" />}
+                {uploadStatus === 'idle' && <Styled.TextButton onClick={() => setImportFile(null)}>Ta bort</Styled.TextButton>}
+              </Styled.FileActions>
             </Styled.FileContainer>
           )}
-          {apiErrorText && (
+          {errors && (
           <>
             <Styled.ErrorText>
               <b>
