@@ -68,7 +68,7 @@ export const ImportEventsForm = () => {
               </Styled.FileActions>
             </Styled.FileContainer>
           )}
-          {errors && (
+          {errors && errors.length > 0 && (
           <>
             <Styled.ErrorText>
               <b>

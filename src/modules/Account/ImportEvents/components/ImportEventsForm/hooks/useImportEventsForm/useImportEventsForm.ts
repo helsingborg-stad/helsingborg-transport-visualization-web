@@ -17,6 +17,7 @@ export const useImportEventsForm = () => {
   const onDrop = useCallback((acceptedFiles: any) => {
     const file = acceptedFiles[0];
     setUploadStatus('idle');
+    setImportErrorText('');
     setImportFile(file);
   }, []);
 
