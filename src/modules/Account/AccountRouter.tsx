@@ -7,6 +7,7 @@ const ZonesSettings = lazy(() => import('./ZonesSettings'));
 const CreateZones = lazy(() => import('./CreateZones'));
 const EditZone = lazy(() => import('./EditZone'));
 const ImportEvents = lazy(() => import('./ImportEvents'));
+const About = lazy(() => import('./About'));
 
 export const AccountRouter = () => (
   <DeliveryLayout>
@@ -15,6 +16,7 @@ export const AccountRouter = () => (
       <Route path="/zones/:id/edit" element={<EditZone />} />
       <Route path="/zones" element={<ZonesSettings />} />
       <Route path="/events/import" element={<ImportEvents />} />
+      <Route path="/about" element={<About />} />
       <Route path="/" element={<AccountSettings />} />
     </Routes>
   </DeliveryLayout>
