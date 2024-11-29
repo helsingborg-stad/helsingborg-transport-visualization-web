@@ -46,6 +46,15 @@ export const SideBar = () => {
       >
         Importera data
       </Button>
+      <Button
+        onClick={handleNavigate('/account/about')}
+        buttonSize={ButtonSize.SMALL}
+        secondary={activePath === '/account/about'}
+        tertiary={activePath !== '/account/about'}
+        type="button"
+      >
+        Om Sam
+      </Button>
     </Styled.SideBarContainer>
   );
 };

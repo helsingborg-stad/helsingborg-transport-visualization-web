@@ -5,7 +5,7 @@ export const ContentContainer = styled.div`
   padding-bottom: 64px;
 `;
 
-export const FormContainer = styled.div`
+export const InfoContainer = styled.div`
   width: 600px;
   margin: 24px auto 32px;
   @media (max-width: 768px) {

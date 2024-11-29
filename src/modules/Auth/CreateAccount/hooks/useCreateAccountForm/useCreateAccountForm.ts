@@ -31,7 +31,6 @@ export const useCreateAccountForm = () => {
     pinCode: '',
     contactPerson: '',
     mobileNumber: '',
-    consent: false,
   });
 
   const setFieldValue = (name: string) => ({
@@ -40,13 +39,6 @@ export const useCreateAccountForm = () => {
     setFormFields({
       ...formFields,
       [name]: value,
-    });
-  };
-
-  const setConsentValue = (checked: boolean) => {
-    setFormFields({
-      ...formFields,
-      consent: checked,
     });
   };
 
@@ -98,6 +90,5 @@ export const useCreateAccountForm = () => {
     formFields,
     errors,
     isLoading,
-    setConsentValue,
   };
 };
