@@ -19,17 +19,8 @@ export const CreateAccountValidation = z.object({
     .string()
     .regex(passwordRegex, { message: 'Fel format för lösenord - välj ett lösenord som följer reglerna.' }),
   pinCode: z.string().regex(pinCodeRegex, { message: 'Fel format för pinkod - välj en pinkod som följer reglerna.' }),
-  contactPerson: z.string().min(1, { message: 'Ange ett kontakt-namn' }),
-  mobileNumber: z.string().min(1, { message: 'Ange ett mobilnummer för kontakt' }),
-  consent: z
-    .boolean()
-    .optional()
-    .transform((value) => {
-      if (value !== true) {
-        throw new Error('Du måste godkänna villkoren för att skapa ett konto');
-      }
-      return true;
-    }),
+  contactPerson: z.string(),
+  mobileNumber: z.string(),
 });
 
 export type CreateAccountType = z.infer<typeof CreateAccountValidation>;

@@ -1,10 +1,10 @@
-import { Input, Checkbox, Button } from 'components';
+import { Input, Button } from 'components';
 import * as Styled from './styled';
 import { useCreateAccountForm } from '../../hooks';
 
 export const CreateAccountForm = () => {
   const {
-    setFieldValue, formFields, errors, setConsentValue, submitForm, isLoading,
+    setFieldValue, formFields, errors, submitForm, isLoading,
   } = useCreateAccountForm();
 
   return (
@@ -82,21 +82,6 @@ export const CreateAccountForm = () => {
           error={errors.pinCode}
           info="För att logga in i appen används en pinkod. Bestäm vilken pinkod din verksamhet ska använda. Koden ska bestå av 6 siffror med minst 3 unika siffror och där högst 2 siffror i följd är lika."
         />
-        <Styled.ChecboxContainer>
-
-          <Checkbox
-            id="Consent"
-            checked={formFields.consent}
-            onChange={setConsentValue}
-            error={errors.consent}
-          >
-            <Styled.Label>
-              Genom att skapa konto säger du ja till
-              {' '}
-              <Styled.Link target="_blank" href="https://helsingborg.se/">xxx</Styled.Link>
-            </Styled.Label>
-          </Checkbox>
-        </Styled.ChecboxContainer>
         <Styled.ButtonContainer>
           <Button type="submit" disabled={isLoading} onClick={() => submitForm}>Skapa konto</Button>
         </Styled.ButtonContainer>
