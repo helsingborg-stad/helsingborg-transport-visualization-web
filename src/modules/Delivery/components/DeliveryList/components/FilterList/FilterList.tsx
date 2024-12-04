@@ -7,6 +7,8 @@ import {
 } from 'types';
 import { ButtonSize } from 'components/Button/types';
 import { FC } from 'react';
+import { Lock } from '@mui/icons-material';
+import { useAuth } from 'hooks/useAuth';
 import * as Styled from './styled';
 import { AreaFilter } from './AreaFilter';
 import { NameFilter } from './NameFilter';
@@ -30,6 +32,7 @@ export const FilterList: FC<FilterListProps> = ({
   filters, checkFilter, resetFilters, triggerReload, showExportButton,
   filterOptions, activeFilters, setDateTimeFilter, exportEventsToExcel,
 }) => {
+  const { organisation } = useAuth();
   if (!filters || !filterOptions) {
     return null;
   }
@@ -75,14 +78,16 @@ export const FilterList: FC<FilterListProps> = ({
           triggerReload={triggerReload}
           activeFilters={activeFilters.areas}
         />
-        <OrganisationFilter
-          organisationFilter={filters.organisations}
-          filterOptions={filterOptions.organisations}
-          checkFilter={checkFilter}
-          resetFilters={resetFilters}
-          triggerReload={triggerReload}
-          activeFilters={activeFilters.organisations}
-        />
+        {organisation?.isPublic && (
+          <OrganisationFilter
+            organisationFilter={filters.organisations}
+            filterOptions={filterOptions.organisations}
+            checkFilter={checkFilter}
+            resetFilters={resetFilters}
+            triggerReload={triggerReload}
+            activeFilters={activeFilters.organisations}
+          />
+        )}
         <DistributorFilter
           distributorFilter={filters.distributors}
           filterOptions={filterOptions.distributors}
@@ -104,15 +109,24 @@ export const FilterList: FC<FilterListProps> = ({
       }
 
       </Styled.FilterContainer>
-      {showExportButton && (
-      <Button
-        onClick={() => exportEventsToExcel()}
-        type="button"
-        buttonSize={ButtonSize.SMALL}
-      >
-        Exportera till excel
-      </Button>
-      )}
+      <div style={{ display: 'flex', alignContent: 'end', gap: '10px' }}>
+        {!organisation?.isPublic && (
+        <div style={{ display: 'flex', alignContent: 'end', gap: '10px' }}>
+          <Lock />
+          {' '}
+          <p style={{ alignContent: 'center' }}>Konto är privat, ingen data delas</p>
+        </div>
+        )}
+        {showExportButton && (
+        <Button
+          onClick={() => exportEventsToExcel()}
+          type="button"
+          buttonSize={ButtonSize.SMALL}
+        >
+          Exportera till excel
+        </Button>
+        )}
+      </div>
 
     </Styled.Container>
   );

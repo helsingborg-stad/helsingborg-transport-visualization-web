@@ -19,6 +19,7 @@ export type OrganisationDTO = {
   token?: string;
   createdAt: Date;
   updatedAt?: Date;
+  isPublic: boolean;
 };
 
 export enum OrganisationFields {
