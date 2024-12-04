@@ -13,6 +13,7 @@ export type LoginResponse = {
   mobileNumber: string;
   createdAt: Date;
   updatedAt?: Date;
+  isPublic: boolean;
 };
 
 export type SignUpRequest = {

@@ -5,6 +5,7 @@ export type Organisation = {
   mobileNumber: string;
   name: string;
   email: string;
+  isPublic: boolean;
   createdAt: string;
   updatedAt?: string;
 };
