@@ -13,6 +13,7 @@ export type LoginResponse = {
   mobileNumber: string;
   createdAt: Date;
   updatedAt?: Date;
+  isPublic: boolean;
 };
 
 export type SignUpRequest = {
@@ -21,6 +22,7 @@ export type SignUpRequest = {
   email: string;
   password: string;
   pinCode: string;
+  isPublic: boolean;
 };
 
 export type SignUpResponse = {
@@ -33,6 +35,7 @@ export type SignUpResponse = {
   mobileNumber: string;
   createdAt: Date;
   updatedAt?: Date;
+  isPublic: boolean;
 };
 
 export type ForgotPasswordRequest = {
