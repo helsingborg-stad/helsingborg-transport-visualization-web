@@ -14,4 +14,5 @@ export const TopRightContainer = styled.div`
   display: flex;
   align-content: end;
   gap: 10px;
+  align-items: center;
 `;

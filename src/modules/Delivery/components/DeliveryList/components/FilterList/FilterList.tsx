@@ -114,7 +114,7 @@ export const FilterList: FC<FilterListProps> = ({
         <Styled.TopRightContainer>
           <Lock />
           {' '}
-          <p style={{ alignContent: 'center' }}>Konto är privat, ingen data delas</p>
+          <p>Konto är privat, ingen data delas</p>
         </Styled.TopRightContainer>
         )}
         {showExportButton && (
