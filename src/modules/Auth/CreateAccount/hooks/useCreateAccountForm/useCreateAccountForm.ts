@@ -31,11 +31,19 @@ export const useCreateAccountForm = () => {
     pinCode: '',
     contactPerson: '',
     mobileNumber: '',
+    isPublic: true,
   });
 
   const setFieldValue = (name: string) => ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormFields({
+      ...formFields,
+      [name]: value,
+    });
+  };
+
+  const setRadioButtonValue = (name: string, value: boolean) => {
     setFormFields({
       ...formFields,
       [name]: value,
@@ -90,5 +98,6 @@ export const useCreateAccountForm = () => {
     formFields,
     errors,
     isLoading,
+    setRadioButtonValue,
   };
 };

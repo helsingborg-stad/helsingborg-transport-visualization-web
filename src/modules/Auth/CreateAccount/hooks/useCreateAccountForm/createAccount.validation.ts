@@ -21,6 +21,7 @@ export const CreateAccountValidation = z.object({
   pinCode: z.string().regex(pinCodeRegex, { message: 'Fel format för pinkod - välj en pinkod som följer reglerna.' }),
   contactPerson: z.string(),
   mobileNumber: z.string(),
+  isPublic: z.boolean(),
 });
 
 export type CreateAccountType = z.infer<typeof CreateAccountValidation>;

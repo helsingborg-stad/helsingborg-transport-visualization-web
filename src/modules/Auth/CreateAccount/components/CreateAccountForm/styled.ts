@@ -38,3 +38,10 @@ export const Link = styled.a`
   font-weight: var(--font-weight-400);
   text-decoration: underline;
 `;
+
+export const Info = styled.p`
+  font-size: var(--font-size-body-xs);
+  color: var(--color-gray-4);
+  line-height: var(--line-height-xxs);
+  font-weight: var(--font-weight-500);
+`;
