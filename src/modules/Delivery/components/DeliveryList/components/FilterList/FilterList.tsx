@@ -109,13 +109,13 @@ export const FilterList: FC<FilterListProps> = ({
       }
 
       </Styled.FilterContainer>
-      <div style={{ display: 'flex', alignContent: 'end', gap: '10px' }}>
+      <Styled.TopRightContainer>
         {!organisation?.isPublic && (
-        <div style={{ display: 'flex', alignContent: 'end', gap: '10px' }}>
+        <Styled.TopRightContainer>
           <Lock />
           {' '}
           <p style={{ alignContent: 'center' }}>Konto är privat, ingen data delas</p>
-        </div>
+        </Styled.TopRightContainer>
         )}
         {showExportButton && (
         <Button
@@ -126,7 +126,7 @@ export const FilterList: FC<FilterListProps> = ({
           Exportera till excel
         </Button>
         )}
-      </div>
+      </Styled.TopRightContainer>
 
     </Styled.Container>
   );
