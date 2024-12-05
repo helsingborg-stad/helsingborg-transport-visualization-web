@@ -17,3 +17,14 @@ export type Event = {
   enteredAt: string;
   exitedAt: string;
 };
+
+export type EventGroup = {
+  events: Event[];
+  statistics: {
+    numberOfStops: number;
+    totalDuration: number;
+    numberOfDistinctZones: number;
+    averageStopDuration: number;
+    activeDrivingTime: number;
+  }
+};
