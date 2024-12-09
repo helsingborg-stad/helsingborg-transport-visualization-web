@@ -20,3 +20,10 @@ export const Header = styled.h1`
   margin-bottom: var(--spacing-md);
   font-family: var(--font-family);
 `;
+
+export const Text = styled.p`
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.25%;
+  font-weight: 500;
+`;
