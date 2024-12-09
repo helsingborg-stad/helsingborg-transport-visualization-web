@@ -26,5 +26,6 @@ export type EventGroup = {
     numberOfDistinctZones: number;
     averageStopDuration: number;
     activeDrivingTime: number;
+    distance: number;
   }
 };
