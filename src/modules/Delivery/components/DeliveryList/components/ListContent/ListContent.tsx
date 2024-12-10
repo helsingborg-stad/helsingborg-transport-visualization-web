@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Event } from 'types/event';
+import { Event, EventGroup } from 'types/event';
 import * as Styled from './styled';
 import { EventRow } from '../EventRow';
 import { GroupOfEvents } from '../GroupOfEvents';
 
 type ListContentProps = {
   events?: Event[];
-  groupedEvents?: Event[][];
+  groupedEvents?: EventGroup[];
   resetFilters: () => void;
 };
 
@@ -28,8 +28,8 @@ export const ListContent: FC<ListContentProps> = ({ events, groupedEvents, reset
       {events ? events.map((event) => (
         <EventRow event={event} key={event.id} />
       )) : groupedEvents?.map((eventList) => (
-        <Styled.GroupedEventsContainer key={`group-of-events-${eventList[0].id}`}>
-          <GroupOfEvents events={eventList} />
+        <Styled.GroupedEventsContainer key={`group-of-events-${eventList.events[0].id}`}>
+          <GroupOfEvents events={eventList.events} statistics={eventList.statistics} />
         </Styled.GroupedEventsContainer>
       ))}
     </div>
