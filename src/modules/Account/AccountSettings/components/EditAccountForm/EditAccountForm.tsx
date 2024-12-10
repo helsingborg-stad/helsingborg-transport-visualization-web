@@ -1,4 +1,6 @@
-import { Button, Input, Checkbox } from 'components';
+import {
+  Button, Input, Checkbox, RadioButton,
+} from 'components';
 import { useAuth } from 'hooks/useAuth';
 import * as Styled from './styled';
 import { TogglabelContent } from '../TogglableContent';
@@ -17,6 +19,7 @@ export const EditAccountForm = () => {
     submitForm,
     setDeleteAccountValue,
     submitDeleteAccountForm,
+    setRadioButtonValue,
   } = useEditAccountForm();
 
   return (
@@ -135,6 +138,30 @@ export const EditAccountForm = () => {
             </Styled.ButtonContainer>
           </Styled.Form>
           )}
+      />
+      <TogglabelContent
+        label="Synlighet"
+        value={organisation?.isPublic ? 'Publik' : 'Privat'}
+        showComponent={inEdit.isPublic}
+        onClick={toggleEditFieldValue(EditableFields.isPublic)}
+        component={(
+          <Styled.Form onSubmit={submitForm(EditableFields.isPublic)}>
+            <RadioButton label="Publikt konto - data delas med andra" onClick={() => setRadioButtonValue('isPublic', true)} checked={formFields.isPublic} />
+            <RadioButton label="Privat konto - datan delas inte med andra" onClick={() => setRadioButtonValue('isPublic', false)} checked={!formFields.isPublic} />
+            <Styled.Info>
+              Med publikt konto delar ni er data med andra som har skapat
+              publikt konto i Sam och skapar
+              därmed förutsättningar
+              för att hitta samlastningoch bidrar till smartare beställningsbeteende.
+              Med privata konto kan ni bara se er egen
+              insamlade data och ni delar inte den med andra.
+              Ni ser heller inte datan från publika konton.
+            </Styled.Info>
+            <Styled.ButtonContainer>
+              <Button type="submit" disabled={isLoading} onClick={() => submitForm}>Ändra synlighet</Button>
+            </Styled.ButtonContainer>
+          </Styled.Form>
+        )}
       />
       <TogglabelContent
         label="Kontostatus"

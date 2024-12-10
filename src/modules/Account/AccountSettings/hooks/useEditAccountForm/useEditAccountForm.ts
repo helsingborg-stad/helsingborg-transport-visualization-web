@@ -12,6 +12,7 @@ type ErrorMessage = {
   contactPerson?: string;
   mobileNumber?: string;
   deleteAccountConfirmation?: string;
+  isPublic?: string;
 };
 
 type InEditType = {
@@ -21,6 +22,7 @@ type InEditType = {
   contactPerson: boolean;
   mobileNumber: boolean;
   deleteAccountConfirmation: boolean;
+  isPublic: boolean;
 };
 
 enum EditableFields {
@@ -30,6 +32,7 @@ enum EditableFields {
   contactPerson = 'contactPerson',
   mobileNumber = 'mobileNumber',
   deleteAccountConfirmation = 'deleteAccountConfirmation',
+  isPublic = 'isPublic',
 }
 
 export const useEditAccountForm = () => {
@@ -45,6 +48,7 @@ export const useEditAccountForm = () => {
     contactPerson: organisation?.contactPerson || '',
     mobileNumber: organisation?.mobileNumber || '',
     deleteAccountConfirmation: false,
+    isPublic: organisation?.isPublic || true,
   });
   const [inEdit, setInEdit] = useState<InEditType>({
     email: false,
@@ -53,11 +57,19 @@ export const useEditAccountForm = () => {
     contactPerson: false,
     mobileNumber: false,
     deleteAccountConfirmation: false,
+    isPublic: false,
   });
 
   const setFieldValue = (name: string) => ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormFields({
+      ...formFields,
+      [name]: value,
+    });
+  };
+
+  const setRadioButtonValue = (name: string, value: boolean) => {
     setFormFields({
       ...formFields,
       [name]: value,
@@ -82,6 +94,11 @@ export const useEditAccountForm = () => {
         setFormFields({
           ...formFields,
           [name]: false,
+        });
+      } else if (name === 'isPublic') {
+        setFormFields({
+          ...formFields,
+          [name]: organisation?.isPublic || false,
         });
       } else {
         setFormFields({
@@ -154,5 +171,6 @@ export const useEditAccountForm = () => {
     submitForm,
     setDeleteAccountValue,
     submitDeleteAccountForm,
+    setRadioButtonValue,
   };
 };

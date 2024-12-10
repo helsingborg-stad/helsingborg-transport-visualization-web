@@ -20,6 +20,7 @@ export const UpdateAccountValidation = z.object({
   deleteAccountConfirmation: z.boolean().refine((val) => val === true, {
     message: 'Du måste bekräfta att du vill radera ditt konto',
   }),
+  isPublic: z.boolean(),
 });
 
 export type UpdateAccountType = z.infer<typeof UpdateAccountValidation>;
