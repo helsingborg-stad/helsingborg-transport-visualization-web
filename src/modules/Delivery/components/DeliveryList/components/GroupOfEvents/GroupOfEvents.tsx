@@ -57,7 +57,7 @@ export const GroupOfEvents: FC<Props> = ({
               <b>{getDistance(statistics.distance)}</b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
-              Uppskattad CO2-utsläpp, HV0100:
+              Uppskattad CO2-utsläpp, HVO100:
               {' '}
               <b>{getDistance(statistics.distance)}</b>
             </Styled.StatisticsText>
