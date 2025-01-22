@@ -95,7 +95,13 @@ export const GroupOfEvents: FC<Props> = ({
               <sub>2</sub>
               -utsläpp, biogas:
               {' '}
-              <b>{((statistics.distance * 0.072) / 1000).toFixed(2)}</b>
+              <b>
+                {((statistics.distance * 0.072) / 1000).toFixed(2)}
+                {' '}
+                CO
+                <sub>2</sub>
+                e
+              </b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
               Uppskattad CO
