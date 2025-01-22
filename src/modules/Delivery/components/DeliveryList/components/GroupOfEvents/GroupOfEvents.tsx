@@ -52,14 +52,28 @@ export const GroupOfEvents: FC<Props> = ({
               <b>{getHoursAndMins(statistics.totalDuration)}</b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
-              Uppskattad CO2-utsläpp, el:
+              Uppskattad CO
+              <sub>2</sub>
+              -utsläpp, el:
               {' '}
-              <b>{getDistance(statistics.distance)}</b>
+              <b>
+                {((statistics.distance * 0.011) / 1000).toFixed(2)}
+                {' '}
+                CO
+                <sub>2</sub>
+                e
+              </b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
               Uppskattad CO2-utsläpp, HVO100:
               {' '}
-              <b>{getDistance(statistics.distance)}</b>
+              <b>
+                {((statistics.distance * 0.072) / 1000).toFixed(2)}
+                {' '}
+                CO
+                <sub>2</sub>
+                e
+              </b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
               Uppskattad aktiv körtid:
@@ -77,14 +91,24 @@ export const GroupOfEvents: FC<Props> = ({
               <b>{getHoursAndMins(statistics.averageStopDuration)}</b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
-              Uppskattad CO2-utsläpp, biogas:
+              Uppskattad CO
+              <sub>2</sub>
+              -utsläpp, biogas:
               {' '}
-              <b>{getDistance(statistics.distance)}</b>
+              <b>{((statistics.distance * 0.072) / 1000).toFixed(2)}</b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
-              Uppskattad CO2-utsläpp, diesel:
+              Uppskattad CO
+              <sub>2</sub>
+              -utsläpp, diesel:
               {' '}
-              <b>{getDistance(statistics.distance)}</b>
+              <b>
+                {((statistics.distance * 0.147) / 1000).toFixed(2)}
+                {' '}
+                CO
+                <sub>2</sub>
+                e
+              </b>
             </Styled.StatisticsText>
             <Styled.StatisticsText>
               Uppskattad distans:
@@ -95,9 +119,17 @@ export const GroupOfEvents: FC<Props> = ({
             <div />
             <div />
             <Styled.StatisticsText>
-              Uppskattad CO2-utsläpp, bensin:
+              Uppskattad CO
+              <sub>2</sub>
+              -utsläpp, bensin:
               {' '}
-              <b>{getDistance(statistics.distance)}</b>
+              <b>
+                {((statistics.distance * 0.176) / 1000).toFixed(2)}
+                {' '}
+                CO
+                <sub>2</sub>
+                e
+              </b>
             </Styled.StatisticsText>
           </Styled.Grid>
         </Styled.StatisticsContainer>
