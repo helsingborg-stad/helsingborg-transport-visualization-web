@@ -1,10 +1,10 @@
-import { Input, Checkbox, Button } from 'components';
+import { Input, Button, RadioButton } from 'components';
 import * as Styled from './styled';
 import { useCreateAccountForm } from '../../hooks';
 
 export const CreateAccountForm = () => {
   const {
-    setFieldValue, formFields, errors, setConsentValue, submitForm, isLoading,
+    setFieldValue, formFields, errors, submitForm, isLoading, setRadioButtonValue,
   } = useCreateAccountForm();
 
   return (
@@ -82,21 +82,15 @@ export const CreateAccountForm = () => {
           error={errors.pinCode}
           info="För att logga in i appen används en pinkod. Bestäm vilken pinkod din verksamhet ska använda. Koden ska bestå av 6 siffror med minst 3 unika siffror och där högst 2 siffror i följd är lika."
         />
-        <Styled.ChecboxContainer>
-
-          <Checkbox
-            id="Consent"
-            checked={formFields.consent}
-            onChange={setConsentValue}
-            error={errors.consent}
-          >
-            <Styled.Label>
-              Genom att skapa konto säger du ja till
-              {' '}
-              <Styled.Link target="_blank" href="https://helsingborg.se/">xxx</Styled.Link>
-            </Styled.Label>
-          </Checkbox>
-        </Styled.ChecboxContainer>
+        <RadioButton label="Publikt konto - data delas med andra" onClick={() => setRadioButtonValue('isPublic', true)} checked={formFields.isPublic} />
+        <RadioButton label="Privat konto - datan delas inte med andra" onClick={() => setRadioButtonValue('isPublic', false)} checked={!formFields.isPublic} />
+        <Styled.Info>
+          Med publikt konto delar ni er data med andra som har skapat publikt konto i Sam och skapar
+          därmed förutsättningar
+          för att hitta samlastningoch bidrar till smartare beställningsbeteende.
+          Med privata konto kan ni bara se er egen insamlade data och ni delar inte den med andra.
+          Ni ser heller inte datan från publika konton.
+        </Styled.Info>
         <Styled.ButtonContainer>
           <Button type="submit" disabled={isLoading} onClick={() => submitForm}>Skapa konto</Button>
         </Styled.ButtonContainer>

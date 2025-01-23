@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
 import { useAuth } from 'hooks/useAuth';
-import { SideBar } from 'components';
+import { Link, SideBar } from 'components';
 import { CreateZonesForm } from './components';
 import * as Styled from './styled';
 
@@ -30,6 +30,48 @@ export const CreateZones = () => {
       <SideBar />
       <Styled.FormContainer>
         <Styled.Header>Lägg till zoner</Styled.Header>
+        <Styled.Text>
+          För att en leverans eller lastning ska bli registrerad behöver den geografiska
+          platsen läggas till som en geofencad zon. Gör så här för att skapa en zon:
+        </Styled.Text>
+        <ol style={{ paddingLeft: '20px', margin: '10px 0' }}>
+          <li>
+            <Styled.Text>
+              Gå till sidan
+              {' '}
+              <Link label="geojson.io" href="https://geojson.io/#map=2/0/20" />
+            </Styled.Text>
+          </li>
+          <li>
+            <Styled.Text>
+              Skriv in adressen för den geografiska platsen i sökfältet.
+            </Styled.Text>
+          </li>
+          <li>
+            <Styled.Text>
+              Aktivera Draw polygon.
+            </Styled.Text>
+          </li>
+          <li>
+            <Styled.Text>
+              Markera området med polygonverktyget och se till att
+              last/leveransdelen för platsen inkluderas.
+            </Styled.Text>
+          </li>
+          <li>
+            <Styled.Text>
+              När du lagt till en eller flera geofencade zoner trycker du
+              {' '}
+              <b>Save - GeoJSON</b>
+              . Filen laddas ner till din dator.
+            </Styled.Text>
+          </li>
+          <li>
+            <Styled.Text>
+              Dra in filen i fältet nedan och följ instruktioner.
+            </Styled.Text>
+          </li>
+        </ol>
         {isLoaded && <CreateZonesForm />}
       </Styled.FormContainer>
     </Styled.ContentContainer>

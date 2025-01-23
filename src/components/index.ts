@@ -1,6 +1,6 @@
 export * from './Button';
 export * from './Checkbox';
-export * from './FilteButtonDate';
+export * from './FilterButtonDate';
 export * from './FilterButton';
 export * from './Input';
 export * from './InputTime';
@@ -10,3 +10,4 @@ export * from './Menu';
 export * from './SideBar';
 export * from './Select';
 export * from './ClickOutsideCloser';
+export * from './RadioButton';

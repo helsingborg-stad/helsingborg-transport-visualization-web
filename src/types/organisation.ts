@@ -5,6 +5,7 @@ export type Organisation = {
   mobileNumber: string;
   name: string;
   email: string;
+  isPublic: boolean;
   createdAt: string;
   updatedAt?: string;
 };
@@ -19,6 +20,7 @@ export type OrganisationDTO = {
   token?: string;
   createdAt: Date;
   updatedAt?: Date;
+  isPublic: boolean;
 };
 
 export enum OrganisationFields {

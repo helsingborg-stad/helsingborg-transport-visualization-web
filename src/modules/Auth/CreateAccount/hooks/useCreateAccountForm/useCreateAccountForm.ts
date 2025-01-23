@@ -31,7 +31,7 @@ export const useCreateAccountForm = () => {
     pinCode: '',
     contactPerson: '',
     mobileNumber: '',
-    consent: false,
+    isPublic: true,
   });
 
   const setFieldValue = (name: string) => ({
@@ -43,10 +43,10 @@ export const useCreateAccountForm = () => {
     });
   };
 
-  const setConsentValue = (checked: boolean) => {
+  const setRadioButtonValue = (name: string, value: boolean) => {
     setFormFields({
       ...formFields,
-      consent: checked,
+      [name]: value,
     });
   };
 
@@ -98,6 +98,6 @@ export const useCreateAccountForm = () => {
     formFields,
     errors,
     isLoading,
-    setConsentValue,
+    setRadioButtonValue,
   };
 };

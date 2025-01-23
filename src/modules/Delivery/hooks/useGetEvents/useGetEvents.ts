@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Event } from 'types/event';
+import { Event, EventGroup } from 'types/event';
 import { useEventApi } from 'hooks/useEventApi';
 import { downloadBlobAsFile } from 'utils/downloadFile';
 
 export const useGetEvents = () => {
   const { getAllEvents, exportAllEvents, getAllGroupedEvents } = useEventApi();
   const [events, setEvents] = useState<Event[]>();
-  const [groupedEvents, setGroupedEvents] = useState<Event[][]>();
+  const [groupedEvents, setGroupedEvents] = useState<EventGroup[]>();
   const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 

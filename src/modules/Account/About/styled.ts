@@ -5,7 +5,7 @@ export const ContentContainer = styled.div`
   padding-bottom: 64px;
 `;
 
-export const FormContainer = styled.div`
+export const InfoContainer = styled.div`
   width: 600px;
   margin: 24px auto 32px;
   @media (max-width: 768px) {
@@ -19,4 +19,11 @@ export const Header = styled.h1`
   line-height: var(--line-height-xxxl);
   margin-bottom: var(--spacing-md);
   font-family: var(--font-family);
+`;
+
+export const Text = styled.p`
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.25%;
+  font-weight: 500;
 `;

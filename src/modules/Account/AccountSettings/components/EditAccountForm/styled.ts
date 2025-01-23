@@ -30,3 +30,10 @@ export const Label = styled.span`
   line-height: var(--line-height-xs);
   font-weight: var(--font-weight-400);
 `;
+
+export const Info = styled.p`
+  font-size: var(--font-size-body-xs);
+  color: var(--color-gray-4);
+  line-height: var(--line-height-xxs);
+  font-weight: var(--font-weight-500);
+`;
