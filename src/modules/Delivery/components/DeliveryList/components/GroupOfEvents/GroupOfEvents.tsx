@@ -58,7 +58,7 @@ export const GroupOfEvents: FC<Props> = ({
               {' '}
               <b>
                 {((statistics.distance * 0.011) / 1000).toFixed(2)}
-                {' '}
+                {' kg '}
                 CO
                 <sub>2</sub>
                 e
@@ -69,7 +69,7 @@ export const GroupOfEvents: FC<Props> = ({
               {' '}
               <b>
                 {((statistics.distance * 0.072) / 1000).toFixed(2)}
-                {' '}
+                {' kg '}
                 CO
                 <sub>2</sub>
                 e
@@ -97,7 +97,7 @@ export const GroupOfEvents: FC<Props> = ({
               {' '}
               <b>
                 {((statistics.distance * 0.072) / 1000).toFixed(2)}
-                {' '}
+                {' kg '}
                 CO
                 <sub>2</sub>
                 e
@@ -110,7 +110,7 @@ export const GroupOfEvents: FC<Props> = ({
               {' '}
               <b>
                 {((statistics.distance * 0.147) / 1000).toFixed(2)}
-                {' '}
+                {' kg '}
                 CO
                 <sub>2</sub>
                 e
@@ -131,7 +131,7 @@ export const GroupOfEvents: FC<Props> = ({
               {' '}
               <b>
                 {((statistics.distance * 0.176) / 1000).toFixed(2)}
-                {' '}
+                {' kg '}
                 CO
                 <sub>2</sub>
                 e
