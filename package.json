@@ -55,7 +55,7 @@
     "turf-point": "^2.0.1",
     "turf-polygon": "^1.0.3",
     "use-places-autocomplete": "^4.0.0",
-    "zod": "^3.21.4"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.6",
